@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (pkgs.lib.getName pkg) [
       "obsidian"
       "arc-browser"
+      "spotify"
     ];
 
   home.username = "surma";
@@ -17,6 +19,9 @@
     pkgs.obsidian
     pkgs.gitui
     pkgs.arc-browser
+    pkgs.nil
+    pkgs.nixfmt-rfc-style
+    pkgs.telegram-desktop
   ];
 
   home.file = {
@@ -80,7 +85,6 @@
     enable = true;
     icons = true;
     git = true;
-    
   };
 
   programs.wezterm = {
@@ -95,6 +99,7 @@
       config.font = wezterm.font 'Fira Code'
       config.font_size = 16.0
       config.hide_tab_bar_if_only_one_tab = true
+      return config
     '';
   };
 
@@ -112,9 +117,11 @@
   };
   programs.zellij = {
     enable = true;
-    enableZshIntegration = true;
-    
   };
-  programs.ssh = { };
+  programs.ssh = {
+    enable = true;
+    forwardAgent = true;
+    addKeysToAgent = "yes";
+  };
   programs.gpg = { };
 }
