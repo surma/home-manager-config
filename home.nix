@@ -118,10 +118,10 @@
   programs.zellij = {
     enable = true;
   };
-  programs.ssh = {
-    enable = true;
-    forwardAgent = true;
-    addKeysToAgent = "yes";
-  };
+  # programs.ssh = {
+  #   enable = true;
+  #   forwardAgent = true;
+  #   addKeysToAgent = "yes";
+  # };
   programs.gpg = { };
 }
