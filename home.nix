@@ -10,6 +10,8 @@ rec {
       "raycast"
     ];
 
+  imports = [ ./surmtest.nix ];
+
   home.username = "surma";
   home.homeDirectory = "/Users/surma";
 
@@ -59,6 +61,7 @@ rec {
   };
 
   programs.home-manager.enable = true;
+  # programs.surmtest.enable = true;
 
   programs.git = {
     enable = true;
