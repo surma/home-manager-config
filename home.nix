@@ -1,12 +1,13 @@
 { config, pkgs, ... }:
 
-{
+rec {
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (pkgs.lib.getName pkg) [
       "obsidian"
       "arc-browser"
       "spotify"
+      "raycast"
     ];
 
   home.username = "surma";
@@ -22,6 +23,10 @@
     pkgs.nil
     pkgs.nixfmt-rfc-style
     pkgs.telegram-desktop
+    pkgs.raycast
+    pkgs.dprint
+    pkgs.age
+    # pkgs.davinci-resolve
   ];
 
   home.file = {
@@ -114,14 +119,35 @@
   programs.yt-dlp.enable = true;
   programs.zsh = {
     enable = true;
+    shellAliases = {
+      ".." = "cd ..";
+      ga = "git add";
+      gc = "git commit -v";
+      gca = "git commit -av";
+      gd = "git diff -- . ':(exclude)*-lock.json' ':(exclude)*.lock'";
+      gdc = "git diff --cached -- . ':(exclude)package-lock.json'";
+      gs = "git status";
+      gidiot = "git commit --amend --no-edit";
+    };
+    initExtra = ''
+      # This is needed for gpg+pinentry to work
+      export GPG_TTY=$(tty)
+    '';
   };
   programs.zellij = {
     enable = true;
   };
-  # programs.ssh = {
-  #   enable = true;
-  #   forwardAgent = true;
-  #   addKeysToAgent = "yes";
-  # };
-  programs.gpg = { };
+  programs.ssh = {
+    enable = true;
+    forwardAgent = true;
+    addKeysToAgent = "yes";
+    matchBlocks = {
+      "*" = {
+        identityFile = "${home.homeDirectory}/.sshkeys/id_rsa";
+        extraOptions = {
+          "IdentityAgent" = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+        };
+      };
+    };
+  };
 }
