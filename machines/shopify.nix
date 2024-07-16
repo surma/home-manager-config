@@ -8,4 +8,8 @@
     fsmonitor = true;
     fsmonitorhookversion = 2;
   };
+
+  programs.zsh.shellAliases = {
+    hms = "home-manager switch -A shopify";
+  };
 }

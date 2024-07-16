@@ -8,4 +8,8 @@
     pkgs.telegram-desktop
     # pkgs.davinci-resolve
   ];
+
+  programs.zsh.shellAliases = {
+    hms = "home-manager switch -A surmbook";
+  };
 }

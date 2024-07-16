@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
 rec {
+  home.username = "surma";
+  home.homeDirectory = "/Users/surma";
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
@@ -9,26 +12,41 @@ rec {
       "raycast"
     ];
 
-  imports = [ ./surmtest.nix ];
+  nixpkgs.overlays = [
+    (import "${fetchTarball "https://github.com/nix-community/fenix/archive/main.tar.gz"}/overlay.nix")
+  ];
 
-  home.username = "surma";
-  home.homeDirectory = "/Users/surma";
+  imports = [ ./surmtest.nix ];
 
   home.stateVersion = "24.05";
 
-  home.packages = [
-    pkgs.jq
-    pkgs.fira-code
-    pkgs.obsidian
-    pkgs.gitui
-    pkgs.nil
-    pkgs.nixfmt-rfc-style
-    pkgs.raycast
-    pkgs.dprint
-    pkgs.age
-    pkgs.devenv
-    pkgs.nodejs.pkgs.typescript-language-server
-  ];
+  home.packages =
+    with pkgs;
+    [
+      jq
+      fira-code
+      obsidian
+      gitui
+      nil
+      nixfmt-rfc-style
+      raycast
+      dprint
+      age
+      devenv
+      nodejs.pkgs.typescript-language-server
+    ]
+    ++ [
+      (fenix.stable.withComponents [
+        "cargo"
+        "clippy"
+        "rust-src"
+        "rustc"
+        "rustfmt"
+      ])
+      fenix.targets.wasm32-unknown-unknown.stable.rust-std
+      fenix.targets.wasm32-wasi.stable.rust-std
+      rust-analyzer
+    ];
 
   home.file = {
     # ".screenrc".source = dotfiles/screenrc;
