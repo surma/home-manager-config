@@ -1,24 +1,18 @@
+let
+  baseConfigFactory = import ./base.nix;
+  createOverlay =
+    path:
+    args@{ pkgs, lib, ... }:
+    let
+      baseConfig = baseConfigFactory args;
+      overlay = import path { inherit pkgs baseConfig; };
+    in
+    lib.recursiveUpdate baseConfig overlay;
+in
 rec {
-  baseConfig = import ./base-config.nix;
-  default =
-    args@{ pkgs, lib, ... }:
-    let
-      config = baseConfig args;
-    in
-    lib.recursiveUpdate config {
-      home.packages = config.home.packages ++ [
-        pkgs.arc-browser
-        pkgs.telegram-desktop
-        # pkgs.davinci-resolve
-      ];
-    };
-
-  shopify =
-    args@{ pkgs, lib, ... }:
-    let
-      config = baseConfig args;
-    in
-    config;
+  default = surmbook;
+  surmbook = createOverlay ./machines/surmbook.nix;
+  shopify = createOverlay ./machines/shopify.nix;
 
   # This is what makes `home-manager switch` enable the `default` config
   # when no explicit `-A <profile name>` is present.

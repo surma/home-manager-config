@@ -27,6 +27,7 @@ rec {
     pkgs.dprint
     pkgs.age
     pkgs.devenv
+    pkgs.nodejs.pkgs.typescript-language-server
   ];
 
   home.file = {
