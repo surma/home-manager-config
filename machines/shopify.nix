@@ -10,7 +10,14 @@ lib.recursiveUpdate prev {
     fsmonitorhookversion = 2;
   };
 
-  programs.zsh.shellAliases = {
-    hms = "home-manager switch -A shopify";
+  programs.zsh = {
+    initExtra =
+      prev.programs.zsh.initExtra
+      + ''
+        [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+      '';
+    shellAliases = {
+      hms = "home-manager switch -A shopify";
+    };
   };
 }

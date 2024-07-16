@@ -4,7 +4,7 @@ lib.recursiveUpdate prev {
   home.username = "surma";
   home.homeDirectory = "/Users/surma";
 
-  home.packages = final.baseConfig.home.packages ++ [
+  home.packages = prev.home.packages ++ [
     pkgs.arc-browser
     pkgs.telegram-desktop
     # pkgs.davinci-resolve

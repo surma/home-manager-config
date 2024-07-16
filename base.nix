@@ -1,8 +1,5 @@
 { pkgs, lib, ... }:
 final: {
-
-  home.username = "surma";
-  home.homeDirectory = "/Users/surma";
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
@@ -23,6 +20,7 @@ final: {
   home.packages =
     with pkgs;
     [
+      audacity
       jq
       fira-code
       obsidian
@@ -33,6 +31,7 @@ final: {
       dprint
       age
       devenv
+      openssh
       nodejs.pkgs.typescript-language-server
     ]
     ++ [
