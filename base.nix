@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
-rec {
+final: {
+
   home.username = "surma";
   home.homeDirectory = "/Users/surma";
-
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
@@ -163,7 +163,7 @@ rec {
     addKeysToAgent = "yes";
     matchBlocks = {
       "*" = {
-        identityFile = "${home.homeDirectory}/.sshkeys/id_rsa";
+        identityFile = "${final.home.homeDirectory}/.sshkeys/id_rsa";
         extraOptions = {
           "IdentityAgent" = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
         };

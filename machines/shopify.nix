@@ -1,5 +1,6 @@
-{ pkgs, baseConfig, ... }:
-{
+{ pkgs, lib, ... }:
+final: prev:
+lib.recursiveUpdate prev {
   home.username = "surma";
   home.homeDirectory = "/Users/surma";
 
