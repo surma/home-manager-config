@@ -4,9 +4,8 @@ final: {
     pkg:
     builtins.elem (lib.getName pkg) [
       "obsidian"
-      "arc-browser"
-      "spotify"
       "raycast"
+      "vscode"
     ];
 
   nixpkgs.overlays = [
@@ -20,18 +19,30 @@ final: {
   home.packages =
     with pkgs;
     [
+      age
       audacity
-      jq
+      # barrier
+      binaryen
+      devenv
+      dprint
+      ffmpeg
       fira-code
-      obsidian
+      git
       gitui
+      htop
+      jq
       nil
       nixfmt-rfc-style
-      raycast
-      dprint
-      age
-      devenv
+      obsidian
       openssh
+      raycast
+      rsync
+      tig
+      tree
+      vscode
+      vlc-bin
+      wabt
+      wasmtime
       nodejs.pkgs.typescript-language-server
     ]
     ++ [

@@ -4,11 +4,24 @@ lib.recursiveUpdate prev {
   home.username = "surma";
   home.homeDirectory = "/Users/surma";
 
-  home.packages = prev.home.packages ++ [
-    pkgs.arc-browser
-    pkgs.telegram-desktop
-    # pkgs.davinci-resolve
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    (prev.nixpkgs.config.allowUnfreePredicate pkg)
+    || builtins.elem (lib.getName pkg) [
+      "arc-browser"
+      "vcv-rack"
+    ];
+
+  home.packages =
+    prev.home.packages
+    ++ (with pkgs; [
+      arc-browser
+      telegram-desktop
+      # mgba
+      # vcv-rack
+
+      # pkgs.davinci-resolve
+    ]);
 
   programs.zsh.shellAliases = {
     hms = "home-manager switch -A surmbook";
