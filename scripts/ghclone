@@ -1,0 +1,8 @@
+#!/bin/bash
+
+OWNER=$1
+REPO=$2
+shift 2
+mkdir -p $HOME/src/github.com/$OWNER
+cd $HOME/src/github.com/$OWNER
+git clone $@ ssh://git@github.com/$OWNER/$REPO

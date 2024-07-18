@@ -1,0 +1,6 @@
+init-author-name = "Surma"
+init-author-email = "surma@surma.dev"
+init-license = "MIT"
+init-version = "0.0.1"
+init-type = "module"
+
