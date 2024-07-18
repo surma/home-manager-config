@@ -122,7 +122,7 @@ final: {
     '';
   };
 
-  programs.helix = import ./helix.nix;
+  programs.helix = import ./configs/helix.nix;
 
   programs.jq.enable = true;
   # programs.obs-studio.enable = true;
@@ -131,23 +131,7 @@ final: {
     enable = true;
   };
   programs.yt-dlp.enable = true;
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      ".." = "cd ..";
-      ga = "git add";
-      gc = "git commit -v";
-      gca = "git commit -av";
-      gd = "git diff -- . ':(exclude)*-lock.json' ':(exclude)*.lock'";
-      gdc = "git diff --cached -- . ':(exclude)package-lock.json'";
-      gs = "git status";
-      gidiot = "git commit --amend --no-edit";
-    };
-    initExtra = ''
-      # This is needed for gpg+pinentry to work
-      export GPG_TTY=$(tty)
-    '';
-  };
+  programs.zsh = import ./configs/zsh.nix;
   programs.zellij = {
     enable = true;
   };
