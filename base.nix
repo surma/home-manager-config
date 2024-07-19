@@ -1,5 +1,9 @@
 { pkgs, lib, ... }:
-final: {
+final:
+let
+  pkgs-unstable = import ./nixpkgs-unstable.nix { inherit pkgs; } { };
+in
+{
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
@@ -36,7 +40,6 @@ final: {
       nixfmt-rfc-style
       nodejs_22
       obsidian
-      ollama
       openssh
       raycast
       rsync
@@ -60,7 +63,8 @@ final: {
       fenix.targets.wasm32-wasi.stable.rust-std
       rust-analyzer
     ]
-    ++ [ (import ./scripts { inherit pkgs; }) ];
+    ++ [ (import ./scripts { inherit pkgs; }) ]
+    ++ [ pkgs-unstable.ollama ];
 
   home.file = {
     ".npmrc".source = ./configs/npmrc;
