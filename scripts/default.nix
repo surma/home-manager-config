@@ -12,5 +12,6 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -r $src/* $out/bin
+    chmod +x $out/bin/*
   '';
 }

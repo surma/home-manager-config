@@ -2,6 +2,7 @@
 final:
 let
   pkgs-unstable = import ./nixpkgs-unstable.nix { inherit pkgs; } { };
+  fenix-repo = import ./fenix.nix { inherit pkgs; };
 in
 {
   nixpkgs.config.allowUnfreePredicate =
@@ -12,9 +13,7 @@ in
       "vscode"
     ];
 
-  nixpkgs.overlays = [
-    (import "${fetchTarball "https://github.com/nix-community/fenix/archive/main.tar.gz"}/overlay.nix")
-  ];
+  nixpkgs.overlays = [ (import "${fenix-repo}/overlay.nix") ];
 
   imports = [ ./surmtest.nix ];
 
