@@ -46,5 +46,6 @@ stdenv.mkDerivation rec {
     # maintainers = [ ];
     platforms = lib.platforms.darwin;
     mainProgram = "hyperkey";
+    unfree = true;
   };
 }

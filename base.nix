@@ -65,11 +65,13 @@ in
     ++ [
       (import ./scripts { inherit pkgs; })
       (callPackage (import ./extra-pkgs/hyperkey.nix) { })
+      (callPackage (import ./extra-pkgs/aerospace-bin.nix) { })
     ]
     ++ [ pkgs-unstable.ollama ];
 
   home.file = {
     ".npmrc".source = ./configs/npmrc;
+    ".config/aerospace/aerospace.toml".source = ./configs/aerospace.toml;
     # ".gradle/gradle.properties".text = "bla";
   };
 
