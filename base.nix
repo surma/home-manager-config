@@ -62,7 +62,10 @@ in
       fenix.targets.wasm32-wasi.stable.rust-std
       rust-analyzer
     ]
-    ++ [ (import ./scripts { inherit pkgs; }) ]
+    ++ [
+      (import ./scripts { inherit pkgs; })
+      (callPackage (import ./extra-pkgs/hyperkey.nix) { })
+    ]
     ++ [ pkgs-unstable.ollama ];
 
   home.file = {

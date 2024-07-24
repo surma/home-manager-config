@@ -6,16 +6,11 @@ lib.recursiveUpdate prev {
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
-    (prev.nixpkgs.config.allowUnfreePredicate pkg)
-    || builtins.elem (lib.getName pkg) [
-      "arc-browser"
-      "vcv-rack"
-    ];
+    (prev.nixpkgs.config.allowUnfreePredicate pkg) || builtins.elem (lib.getName pkg) [ "vcv-rack" ];
 
   home.packages =
     prev.home.packages
     ++ (with pkgs; [
-      arc-browser
       telegram-desktop
       # mgba
       # vcv-rack
