@@ -37,6 +37,7 @@ in
       jq
       nil
       nixfmt-rfc-style
+      nix-index
       nodejs_22
       obsidian
       openssh
@@ -66,6 +67,7 @@ in
       (import ./scripts { inherit pkgs; })
       (callPackage (import ./extra-pkgs/hyperkey.nix) { })
       (callPackage (import ./extra-pkgs/aerospace-bin.nix) { })
+      (callPackage (import ./extra-pkgs/vfkit.nix) { })
     ]
     ++ [ pkgs-unstable.ollama ];
 
