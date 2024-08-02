@@ -1,21 +1,18 @@
 { pkgs, lib, ... }:
-final:
+final: prev:
 let
-  pkgs-unstable = import ./nixpkgs-unstable.nix { inherit pkgs; } { };
-  fenix-repo = import ./fenix.nix { inherit pkgs; };
+  pkgs-unstable = import ../nixpkgs-unstable.nix { inherit pkgs; } { };
+  fenix-repo = import ../fenix.nix { inherit pkgs; };
 in
 {
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
       "obsidian"
-      "raycast"
       "vscode"
     ];
 
   nixpkgs.overlays = [ (import "${fenix-repo}/overlay.nix") ];
-
-  imports = [ ./surmtest.nix ];
 
   home.stateVersion = "24.05";
 
@@ -23,13 +20,11 @@ in
     with pkgs;
     [
       age
-      audacity
       # barrier
       binaryen
       devenv
       dprint
       ffmpeg
-      fira-code
       git
       gitui
       git-lfs
@@ -42,14 +37,10 @@ in
       nodejs_22
       podman
       podman-compose
-      obsidian
       openssh
-      raycast
       rsync
       tig
       tree
-      vscode
-      vlc-bin
       wabt
       wasmtime
       nodejs.pkgs.typescript-language-server
@@ -67,18 +58,14 @@ in
       rust-analyzer
     ]
     ++ [
-      (import ./scripts { inherit pkgs; })
-      (callPackage (import ./secrets) { })
-      (callPackage (import ./extra-pkgs/hyperkey.nix) { })
-      (callPackage (import ./extra-pkgs/aerospace-bin.nix) { })
-      (callPackage (import ./extra-pkgs/vfkit.nix) { })
+      (import ../scripts { inherit pkgs; })
+      (callPackage (import ../secrets) { })
+      (callPackage (import ../extra-pkgs/vfkit.nix) { })
     ]
     ++ [ pkgs-unstable.ollama ];
 
   home.file = {
-    ".npmrc".source = ./configs/npmrc;
-    ".config/aerospace/aerospace.toml".source = ./configs/aerospace.toml;
-    # ".gradle/gradle.properties".text = "bla";
+    ".npmrc".source = ../configs/npmrc;
   };
 
   home.sessionVariables = {
@@ -86,7 +73,6 @@ in
   };
 
   programs.home-manager.enable = true;
-  # programs.surmtest.enable = true;
 
   programs.git = {
     enable = true;
@@ -120,23 +106,7 @@ in
     git = true;
   };
 
-  programs.wezterm = {
-    enable = true;
-    extraConfig = ''
-      local config = wezterm.config_builder()
-      config.send_composed_key_when_left_alt_is_pressed = true
-      -- config.color_scheme = 'Everforest Dark (Gogh)'
-      -- config.color_scheme = 'Everforest Light (Gogh)'
-      config.color_scheme = 'Gruvbox Dark (Gogh)'
-      -- config.color_scheme = 'Everforest Light (Gogh)'
-      config.font = wezterm.font 'Fira Code'
-      config.font_size = 16.0
-      config.hide_tab_bar_if_only_one_tab = true
-      return config
-    '';
-  };
-
-  programs.helix = import ./configs/helix.nix;
+  programs.helix = import ../configs/helix.nix;
 
   programs.jq.enable = true;
   # programs.obs-studio.enable = true;
@@ -145,7 +115,7 @@ in
     enable = true;
   };
   programs.yt-dlp.enable = true;
-  programs.zsh = import ./configs/zsh.nix;
+  programs.zsh = import ../configs/zsh.nix;
   programs.zellij = {
     enable = true;
   };
