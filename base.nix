@@ -35,6 +35,7 @@ in
       git-lfs
       htop
       jq
+      just
       nil
       nixfmt-rfc-style
       nix-index
@@ -67,6 +68,7 @@ in
     ]
     ++ [
       (import ./scripts { inherit pkgs; })
+      (callPackage (import ./secrets) { })
       (callPackage (import ./extra-pkgs/hyperkey.nix) { })
       (callPackage (import ./extra-pkgs/aerospace-bin.nix) { })
       (callPackage (import ./extra-pkgs/vfkit.nix) { })
@@ -153,7 +155,7 @@ in
     addKeysToAgent = "yes";
     matchBlocks = {
       "*" = {
-        identityFile = "${final.home.homeDirectory}/.sshkeys/id_rsa";
+        identityFile = "${final.home.homeDirectory}/.secrets/id_rsa";
         extraOptions = {
           "IdentityAgent" = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
         };
