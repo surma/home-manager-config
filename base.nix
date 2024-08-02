@@ -39,6 +39,8 @@ in
       nixfmt-rfc-style
       nix-index
       nodejs_22
+      podman
+      podman-compose
       obsidian
       openssh
       raycast
