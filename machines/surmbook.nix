@@ -13,6 +13,7 @@ let
       home.packages =
         prev.home.packages
         ++ (with pkgs; [
+          qbittorrent
           # mgba
           # vcv-rack
           # davinci-resolve
