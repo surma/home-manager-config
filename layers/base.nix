@@ -22,6 +22,7 @@ in
       age
       # barrier
       binaryen
+      clang-tools
       devenv
       dprint
       ffmpeg
@@ -66,6 +67,9 @@ in
 
   home.file = {
     ".npmrc".source = ../configs/npmrc;
+  };
+  xdg.configFile = {
+    "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
   };
 
   home.sessionVariables = {
