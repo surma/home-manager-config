@@ -27,5 +27,6 @@ let
 in
 helpers.applyOverlays [
   ../layers/base.nix
+  ../layers/linux.nix
   overlay
 ] args
