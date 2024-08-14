@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 final: prev:
 let
-  pkgs-unstable = import ../nixpkgs-unstable.nix { inherit pkgs; } { };
   fenix-repo = import ../fenix.nix { inherit pkgs; };
 in
 {
@@ -21,41 +20,22 @@ in
     [
       age
       # barrier
-      binaryen
-      clang-tools
-      devenv
       dprint
       git
       gitui
       git-lfs
       htop
       jq
-      nil
-      nixfmt-rfc-style
       nix-index
-      nodejs_22
       openssh
       rsync
       tig
       tree
     ]
     ++ [
-      (fenix.stable.withComponents [
-        "cargo"
-        "clippy"
-        "rust-src"
-        "rustc"
-        "rustfmt"
-      ])
-      fenix.targets.wasm32-unknown-unknown.stable.rust-std
-      fenix.targets.wasm32-wasi.stable.rust-std
-      rust-analyzer
-    ]
-    ++ [
       (import ../scripts { inherit pkgs; })
       (callPackage (import ../secrets) { })
-    ]
-    ++ [ pkgs-unstable.ollama ];
+    ];
 
   home.file = {
     ".npmrc".source = ../configs/npmrc;
