@@ -54,7 +54,6 @@ in
     ++ [
       (import ../scripts { inherit pkgs; })
       (callPackage (import ../secrets) { })
-      (callPackage (import ../extra-pkgs/vfkit.nix) { })
     ]
     ++ [ pkgs-unstable.ollama ];
 
