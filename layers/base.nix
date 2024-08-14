@@ -25,26 +25,19 @@ in
       clang-tools
       devenv
       dprint
-      ffmpeg
       git
       gitui
       git-lfs
       htop
       jq
-      just
       nil
       nixfmt-rfc-style
       nix-index
       nodejs_22
-      podman
-      podman-compose
       openssh
       rsync
       tig
       tree
-      wabt
-      wasmtime
-      nodejs.pkgs.typescript-language-server
     ]
     ++ [
       (fenix.stable.withComponents [
@@ -118,7 +111,6 @@ in
   programs.starship = {
     enable = true;
   };
-  programs.yt-dlp.enable = true;
   programs.zsh = import ../configs/zsh.nix;
   programs.zellij = {
     enable = true;

@@ -32,6 +32,7 @@ in
 helpers.applyOverlays [
   ../layers/base.nix
   ../layers/graphical.nix
+  ../layers/workstation.nix
   ../layers/macos.nix
   overlay
 ] args
