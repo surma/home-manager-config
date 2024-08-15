@@ -31,6 +31,7 @@ in
       rsync
       tig
       tree
+      pinentry-curses
     ]
     ++ [
       (import ../scripts { inherit pkgs; })
@@ -39,6 +40,9 @@ in
 
   home.file = {
     ".npmrc".source = ../configs/npmrc;
+    ".gnupg/gpg-agent.conf".text = ''
+      pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
+    '';
   };
   xdg.configFile = {
     "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
@@ -101,9 +105,6 @@ in
     matchBlocks = {
       "*" = {
         identityFile = "${final.home.homeDirectory}/.secrets/id_rsa";
-        extraOptions = {
-          "IdentityAgent" = ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
-        };
       };
     };
   };
