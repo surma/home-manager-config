@@ -11,6 +11,9 @@
     gidiot = "git commit --amend --no-edit";
   };
   initExtra = ''
+    # Nix
+    test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
     # This is needed for gpg+pinentry to work
     export GPG_TTY=$(tty)
     # Only dashes are considered part of a word. 

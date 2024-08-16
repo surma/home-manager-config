@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cp $@ $@.tmp
+rm $@
+mv $@.tmp $@
+chmod u+w $@
