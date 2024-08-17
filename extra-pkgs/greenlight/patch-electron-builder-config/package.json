@@ -2,7 +2,7 @@
   "name": "patch-electron-builder-config",
   "version": "1.0.0",
   "bin": {
-    "patch-electron-builder-config": "patch-electron-builder-config.js"
+    "patch-electron-builder-config": "main.js"
   },
   "type": "module",
   "dependencies": {

@@ -26,7 +26,7 @@ let
     exec /usr/bin/sips "$@"
   '';
 
-  patchElectronBuilderConfig = callPackage (import ./patch-electron-builder-config.nix) {
+  patchElectronBuilderConfig = callPackage (import ./patch-electron-builder-config) {
     inherit nodejs;
   };
 
@@ -38,7 +38,7 @@ let
   os = if (kernel == "darwin") then "mac" else kernel;
 in
 mkYarnPackage {
-  name = "greenlight";
+  pname = "greenlight";
   inherit version;
   inherit src;
 
