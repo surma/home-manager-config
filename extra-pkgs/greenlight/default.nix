@@ -10,9 +10,34 @@
   python3,
   callPackage,
   system,
+  stdenv,
 }:
 let
   version = "2.3.1";
+
+  downloadElectron =
+    {
+      version,
+      arch,
+      os,
+      hash,
+    }:
+    let
+      name = "electron-v${version}-${os}-${arch}";
+    in
+    stdenv.mkDerivation {
+      inherit name;
+      tarball = builtins.fetchurl {
+        url = "https://github.com/electron/electron/releases/download/v${version}/${name}.zip";
+        sha256 = hash;
+      };
+      dontUnpack = true;
+      phases = [ "installPhase" ];
+      installPhase = ''
+        mkdir -p $out
+        cp $tarball $out/${name}.zip
+      '';
+    };
 
   src = fetchFromGitHub {
     owner = "unknownskl";
@@ -20,6 +45,13 @@ let
     rev = "v${version}";
     fetchSubmodules = true;
     hash = "sha256-3csPU6Qbvrj6nUZFmxg+EIrCs3Z5LwyLceycQp2FXXo=";
+  };
+
+  electronCache = downloadElectron {
+    version = "28.2.2";
+    arch = "arm64";
+    os = "darwin";
+    hash = "sha256:1k4dzcmp596fzvqr82drzv6cymarihxxqk706sgfm9a77hrrn493";
   };
 
   sips = writeShellScriptBin "sips" ''
@@ -41,6 +73,7 @@ mkYarnPackage {
   pname = "greenlight";
   inherit version;
   inherit src;
+  inherit electronCache;
 
   packageJSON = "${src}/package.json";
   offlineCache = fetchYarnDeps {
@@ -57,11 +90,13 @@ mkYarnPackage {
   ];
 
   patchPhase = ''
-    patch-electron-builder-config $PWD/electron-builder.yml $PWD/yarn.lock ${kernel} ${arch} $TMPDIR/ecache
+    patch-electron-builder-config $PWD/electron-builder.yml $PWD/yarn.lock ${kernel} ${arch} $TMPDIR/cache
   '';
 
   configurePhase = ''
     ln -s $node_modules node_modules
+    mkdir -p $TMPDIR/cache
+    cp $electronCache/* $TMPDIR/cache/
   '';
 
   buildPhase = ''
