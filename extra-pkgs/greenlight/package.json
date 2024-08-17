@@ -1,0 +1,12 @@
+{
+  "name": "patch-electron-builder-config",
+  "version": "1.0.0",
+  "bin": {
+    "patch-electron-builder-config": "patch-electron-builder-config.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "yaml": "^2.5.0"
+  }
+}
