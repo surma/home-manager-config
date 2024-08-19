@@ -17,7 +17,10 @@ let
           # mgba
           # vcv-rack
           # davinci-resolve
-        ]);
+        ])
+        ++ [
+          (pkgs.callPackage (import ../extra-pkgs/greenlight) {})
+        ];
 
       programs.zsh.shellAliases = {
         hms = "home-manager switch -A surmbook";
