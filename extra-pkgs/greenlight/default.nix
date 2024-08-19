@@ -17,8 +17,14 @@
 let
   version = "2.3.1";
 
-  srcHash = "sha256-3csPU6Qbvrj6nUZFmxg+EIrCs3Z5LwyLceycQp2FXXo=";
-  electronHash = "sha256:1k4dzcmp596fzvqr82drzv6cymarihxxqk706sgfm9a77hrrn493";
+  srcHash = {
+    aarch64-darwin = "sha256-3csPU6Qbvrj6nUZFmxg+EIrCs3Z5LwyLceycQp2FXXo=";
+    aarch64-linux = "sha256-Be2wgI6S5eIPMa+r9M6qYUa3hwvgzxms/TXic4Noc14=";
+  };
+  electronHash = {
+    aarch64-darwin = "sha256:1k4dzcmp596fzvqr82drzv6cymarihxxqk706sgfm9a77hrrn493";
+    aarch64-linux = "";
+  };
   depHash = "sha256-KW98Itndh437Uni9/HtTCSeSF4JqV7lQucDPZbtMyxQ=";
 
   systemObj = lib.systems.parse.mkSystemFromString system;
@@ -33,7 +39,7 @@ let
     repo = "greenlight";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = srcHash;
+    hash = srcHash.${system};
   };
 
   yarnlock-to-json = callPackage (import ./yarnlock-to-json) { };
@@ -45,9 +51,10 @@ let
         yarnlock-to-json
         jq
       ];
-      # dontUnpack = true;
-      dontInstall = true;
-      # phases = ["buildPhase"];
+      phases = [
+        "unpackPhase"
+        "buildPhase"
+      ];
       buildPhase = ''
         cat yarn.lock | \
         yarnlock-to-json  | \
@@ -64,11 +71,11 @@ let
       name = "electron-zip";
       tarball = builtins.fetchurl {
         url = "https://github.com/electron/electron/releases/download/v${electronVersion}/${name}.zip";
-        sha256 = electronHash;
+        sha256 = electronHash.${system};
       };
       dontUnpack = true;
-      phases = [ "installPhase" ];
-      installPhase = ''
+      phases = [ "buildPhase" ];
+      buildPhase = ''
         mkdir -p $out
         cp $tarball $out/${name}.zip
       '';
@@ -109,9 +116,9 @@ mkYarnPackage {
   '';
 
   buildPhase = ''
-    export npm_config_nodedir=${nodejs}
+    # export npm_config_nodedir=${nodejs}
     # Yarn writes cache directories etc to $HOME.
-    export HOME=$TMPDIR/yarn_home
+    # export HOME=$TMPDIR/yarn_home
 
     yarn --offline build
   '';
