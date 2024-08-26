@@ -14,13 +14,13 @@ let
         prev.home.packages
         ++ (with pkgs; [
           qbittorrent
+          darktable
+          utm
           # mgba
           # vcv-rack
           # davinci-resolve
         ])
-        ++ [
-          (pkgs.callPackage (import ../extra-pkgs/greenlight) {})
-        ];
+        ++ [ (pkgs.callPackage (import ../extra-pkgs/greenlight) { }) ];
 
       programs.zsh.shellAliases = {
         hms = "home-manager switch -A surmbook";
