@@ -16,6 +16,7 @@ let
           qbittorrent
           darktable
           utm
+          google-cloud-sdk
           # mgba
           # vcv-rack
           # davinci-resolve
