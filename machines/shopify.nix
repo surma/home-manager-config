@@ -3,12 +3,15 @@ let
   overlay =
     final: prev:
     lib.recursiveUpdate prev {
+
+      home.packages = prev.home.packages ++ (with pkgs; [ google-cloud-sdk ]);
+
       programs.git.extraConfig = {
-        core = {
-          untrackedCache = true;
-          fsmonitor = true;
-          fsmonitorhookversion = 2;
-        };
+        # core = {
+        #   untrackedCache = true;
+        #   fsmonitor = true;
+        #   fsmonitorhookversion = 2;
+        # };
         include = {
           path = "${final.home.homeDirectory}/.config/dev/gitconfig";
         };

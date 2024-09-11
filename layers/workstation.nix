@@ -19,7 +19,6 @@ lib.recursiveUpdate prev {
       nodejs.pkgs.typescript-language-server
       nil
       nixfmt-rfc-style
-      nodejs_22
       binaryen
       clang-tools
     ])
