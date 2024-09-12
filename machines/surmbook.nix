@@ -17,6 +17,7 @@ let
           darktable
           utm
           google-cloud-sdk
+          opentofu
           # mgba
           # vcv-rack
           # davinci-resolve

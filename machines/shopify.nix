@@ -4,7 +4,7 @@ let
     final: prev:
     lib.recursiveUpdate prev {
 
-      home.packages = prev.home.packages ++ (with pkgs; [ google-cloud-sdk ]);
+      home.packages = prev.home.packages ++ (with pkgs; [ google-cloud-sdk opentofu ]);
 
       programs.git.extraConfig = {
         # core = {
