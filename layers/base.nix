@@ -6,8 +6,7 @@
 }:
 final: prev:
 let
-  inherit (pkgs) system;
-  hm = home-manager.packages.${system};
+  x = 1;
 in
 {
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
@@ -31,7 +30,6 @@ in
       tig
       tree
       pinentry-curses
-      hm
     ]
     ++ [
       (callPackage (import ../scripts) { })
