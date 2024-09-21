@@ -3,7 +3,12 @@ final: prev:
 lib.recursiveUpdate prev {
 
   nixpkgs.config.allowUnfreePredicate =
-    pkg: (prev.nixpkgs.config.allowUnfreePredicate pkg) || builtins.elem (lib.getName pkg) [ ];
+    pkg:
+    (prev.nixpkgs.config.allowUnfreePredicate pkg)
+    || builtins.elem (lib.getName pkg) [
+      "obsidian"
+      "vscode"
+    ];
 
   home.packages =
     prev.home.packages

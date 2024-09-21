@@ -1,16 +1,16 @@
-{
-  applyOverlays =
-    overlays:
-    args@{
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
+args@{ nixpkgs, home-manager, ... }:
+let
+  inherit (nixpkgs) lib;
+  loadConfig =
+    system: path:
     let
-      import' = l: args: if builtins.isPath l then import l args else l;
-      overlays' = lib.map (o: import' o args) overlays;
-      result = lib.foldl (acc: o: acc // (o result acc)) { } overlays';
+      pkgs = nixpkgs.legacyPackages.${system};
+      inherit (pkgs) callPackage;
     in
-    result;
-}
+    home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [ (callPackage (import path) (args // { inherit system pkgs; })) ];
+    };
+in
+loadConfig

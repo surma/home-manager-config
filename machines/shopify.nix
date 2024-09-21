@@ -1,10 +1,16 @@
 args@{ pkgs, lib, ... }:
 let
+  applyOverlays = import ../apply-overlays.nix args;
   overlay =
     final: prev:
     lib.recursiveUpdate prev {
 
-      home.packages = prev.home.packages ++ (with pkgs; [ google-cloud-sdk opentofu ]);
+      home.packages =
+        prev.home.packages
+        ++ (with pkgs; [
+          google-cloud-sdk
+          opentofu
+        ]);
 
       programs.git.extraConfig = {
         # core = {
@@ -30,12 +36,11 @@ let
         };
       };
     };
-  helpers = import ../helpers.nix;
 in
-helpers.applyOverlays [
+applyOverlays [
   ../layers/base.nix
   ../layers/graphical.nix
   ../layers/workstation.nix
   ../layers/macos.nix
   overlay
-] args
+]

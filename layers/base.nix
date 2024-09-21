@@ -1,17 +1,15 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  home-manager,
+  ...
+}:
 final: prev:
 let
-  fenix-repo = import ../fenix.nix { inherit pkgs; };
+  x = 1;
 in
 {
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "obsidian"
-      "vscode"
-    ];
-
-  nixpkgs.overlays = [ (import "${fenix-repo}/overlay.nix") ];
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
 
   home.stateVersion = "24.05";
 
@@ -34,7 +32,7 @@ in
       pinentry-curses
     ]
     ++ [
-      (import ../scripts { inherit pkgs; })
+      (callPackage (import ../scripts) { })
       (callPackage (import ../secrets) { })
     ];
 

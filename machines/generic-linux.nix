@@ -13,7 +13,6 @@ let
         hms = "home-manager switch -A surmserver";
       };
     };
-  helpers = import ../helpers.nix;
 in
 applyOverlays [
   ../layers/base.nix
