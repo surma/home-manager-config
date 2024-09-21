@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 final: prev:
 let
-  ollama = import ../extra-pkgs/ollama.nix { inherit pkgs; };
+  ollama = pkgs.callPackage (import ../extra-pkgs/ollama.nix) { };
 in
 lib.recursiveUpdate prev {
   nixpkgs.config.allowUnfreePredicate =
