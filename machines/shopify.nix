@@ -1,5 +1,6 @@
 args@{ pkgs, lib, ... }:
 let
+  applyOverlays = import ../apply-overlays.nix args;
   overlay =
     final: prev:
     lib.recursiveUpdate prev {
@@ -35,12 +36,11 @@ let
         };
       };
     };
-  helpers = import ../helpers.nix;
 in
-helpers.applyOverlays [
+applyOverlays [
   ../layers/base.nix
   ../layers/graphical.nix
   ../layers/workstation.nix
   ../layers/macos.nix
   overlay
-] args
+]

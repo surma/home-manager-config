@@ -24,10 +24,10 @@ let
       };
     };
 in
-(applyOverlays [
+applyOverlays [
   ../layers/base.nix
   ../layers/graphical.nix
   ../layers/workstation.nix
   ../layers/macos.nix
   overlay
-])
+]
