@@ -1,7 +1,4 @@
-{
-  pkgs ? import <nixpkgs> { },
-}:
-with pkgs;
+{ stdenv, lib }:
 stdenv.mkDerivation {
   name = "scripts";
   src = lib.cleanSourceWith {

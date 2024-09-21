@@ -1,5 +1,7 @@
-args@{ pkgs, lib, ... }:
+{ pkgs, lib, ... }@args:
 let
+  inherit (pkgs) callPackage;
+  applyOverlays = import ../apply-overlays.nix args;
   overlay =
     final: prev:
     lib.recursiveUpdate prev {
@@ -22,18 +24,17 @@ let
           # vcv-rack
           # davinci-resolve
         ])
-        ++ [ (pkgs.callPackage (import ../extra-pkgs/greenlight) { }) ];
+        ++ [ (callPackage (import ../extra-pkgs/greenlight) { }) ];
 
       programs.zsh.shellAliases = {
         hms = "home-manager switch -A surmbook";
       };
     };
-  helpers = import ../helpers.nix;
 in
-helpers.applyOverlays [
+(applyOverlays [
   ../layers/base.nix
   ../layers/graphical.nix
   ../layers/workstation.nix
   ../layers/macos.nix
   overlay
-] args
+])

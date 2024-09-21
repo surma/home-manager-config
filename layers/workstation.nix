@@ -1,7 +1,14 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  fenix-pkgs,
+  ...
+}:
 final: prev:
 let
-  ollama = pkgs.callPackage (import ../extra-pkgs/ollama.nix) { };
+  inherit (pkgs) callPackage system;
+  ollama = callPackage (import ../extra-pkgs/ollama.nix) { };
+  fenix = fenix-pkgs.packages.${system};
 in
 lib.recursiveUpdate prev {
   nixpkgs.config.allowUnfreePredicate =
