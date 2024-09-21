@@ -6,11 +6,7 @@ let
     final: prev:
     lib.recursiveUpdate prev {
       nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        (prev.nixpkgs.config.allowUnfreePredicate pkg)
-        || builtins.elem (lib.getName pkg) [
-          # "vcv-rack" 
-        ];
+        pkg: (prev.nixpkgs.config.allowUnfreePredicate pkg) || builtins.elem (lib.getName pkg) [ ];
 
       home.packages =
         prev.home.packages
@@ -20,9 +16,6 @@ let
           utm
           google-cloud-sdk
           opentofu
-          # mgba
-          # vcv-rack
-          # davinci-resolve
         ])
         ++ [ (callPackage (import ../extra-pkgs/greenlight) { }) ];
 

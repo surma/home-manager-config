@@ -1,9 +1,16 @@
-{ pkgs, lib, ... }:
-final: prev: {
+{
+  pkgs,
+  lib,
+  home-manager,
+  ...
+}:
+final: prev:
+let
+  inherit (pkgs) system;
+  hm = home-manager.packages.${system};
+in
+{
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
-
-  # TODO: Can this go??
-  # nixpkgs.overlays = [ (import "${fenix}/overlay.nix") ];
 
   home.stateVersion = "24.05";
 
@@ -24,6 +31,7 @@ final: prev: {
       tig
       tree
       pinentry-curses
+      hm
     ]
     ++ [
       (callPackage (import ../scripts) { })

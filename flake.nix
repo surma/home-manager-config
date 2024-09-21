@@ -19,6 +19,9 @@
     {
       homeConfigurations = {
         surmbook = loadConfig "aarch64-darwin" ./machines/surmbook.nix;
+        shopisurm = loadConfig "aarch64-darwin" ./machines/shopisurm.nix;
+        surmserver = loadConfig "aarch64-linux" ./machines/surmserver.nix;
+        generic-linux = loadConfig "aarch64-linux" ./machines/generic-linux.nix;
       };
     };
 }
