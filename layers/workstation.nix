@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 final: prev:
 let
-  pkgs-unstable = import ../nixpkgs-unstable.nix { inherit pkgs; } { };
+  ollama = import ../extra-pkgs/ollama.nix { inherit pkgs; };
 in
 lib.recursiveUpdate prev {
   nixpkgs.config.allowUnfreePredicate =
@@ -34,6 +34,6 @@ lib.recursiveUpdate prev {
       fenix.targets.wasm32-wasi.stable.rust-std
       rust-analyzer
     ])
-    ++ [ pkgs-unstable.ollama ];
+    ++ [ ollama ];
   programs.yt-dlp.enable = true;
 }
