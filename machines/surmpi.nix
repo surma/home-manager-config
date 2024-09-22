@@ -9,12 +9,12 @@ let
 
       home.packages = prev.home.packages ++ (with pkgs; [ ]);
 
-      home.sessionVariables.FLAKE_CONFIG_URI = "path:${final.home.homeDirectory}/.config/home-manager#surmserver";
+      home.sessionVariables.FLAKE_CONFIG_URI = "path:${final.home.homeDirectory}/.config/home-manager#surmpi";
     };
-  helpers = import ../helpers.nix;
 in
 applyOverlays [
   ../layers/base.nix
   ../layers/linux.nix
+  ../layers/workstation.nix
   overlay
 ]

@@ -8,6 +8,8 @@ let
       nixpkgs.config.allowUnfreePredicate =
         pkg: (prev.nixpkgs.config.allowUnfreePredicate pkg) || builtins.elem (lib.getName pkg) [ ];
 
+      home.sessionVariables.FLAKE_CONFIG_URI = "path:${final.home.homeDirectory}/.config/home-manager#surmbook";
+
       home.packages =
         prev.home.packages
         ++ (with pkgs; [
@@ -16,12 +18,10 @@ let
           utm
           google-cloud-sdk
           opentofu
+          podman
+          podman-compose
         ])
         ++ [ (callPackage (import ../extra-pkgs/greenlight) { }) ];
-
-      programs.zsh.shellAliases = {
-        hms = "home-manager switch -A surmbook";
-      };
     };
 in
 applyOverlays [

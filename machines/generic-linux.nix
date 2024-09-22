@@ -9,9 +9,7 @@ let
 
       home.packages = prev.home.packages ++ (with pkgs; [ ]);
 
-      programs.zsh.shellAliases = {
-        hms = "home-manager switch -A surmserver";
-      };
+      home.sessionVariables.FLAKE_CONFIG_URI = "path:${final.home.homeDirectory}/.config/home-manager#generic-linux";
     };
 in
 applyOverlays [

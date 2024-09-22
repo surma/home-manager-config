@@ -17,8 +17,6 @@ lib.recursiveUpdate prev {
   home.packages =
     prev.home.packages
     ++ (with pkgs; [
-      podman
-      podman-compose
       just
       ffmpeg
       wabt

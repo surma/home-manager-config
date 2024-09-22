@@ -22,6 +22,7 @@
         shopisurm = loadConfig "aarch64-darwin" ./machines/shopisurm.nix;
         surmserver = loadConfig "aarch64-linux" ./machines/surmserver.nix;
         generic-linux = loadConfig "aarch64-linux" ./machines/generic-linux.nix;
+        surmpi = loadConfig "aarch64-linux" ./machines/surmpi.nix;
       };
     };
 }

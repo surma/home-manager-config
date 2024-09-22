@@ -44,6 +44,7 @@ in
   };
   xdg.configFile = {
     "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
+    "nix/nix.conf".text = "extra-experimental-features = flakes nix-command";
   };
 
   home.sessionVariables = {

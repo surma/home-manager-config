@@ -10,7 +10,11 @@ let
         ++ (with pkgs; [
           google-cloud-sdk
           opentofu
+          podman
+          podman-compose
         ]);
+
+      home.sessionVariables.FLAKE_CONFIG_URI = "path:${final.home.homeDirectory}/.config/home-manager#shopisurm";
 
       programs.git.extraConfig = {
         # core = {
@@ -31,9 +35,6 @@ let
             [ -f /opt/dev/sh/chruby/chruby.sh ] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
             [ -x /opt/homebrew/bin/brew ] && eval $(/opt/homebrew/bin/brew shellenv)
           '';
-        shellAliases = {
-          hms = "home-manager switch -A shopify";
-        };
       };
     };
 in
