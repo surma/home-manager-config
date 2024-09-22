@@ -15,5 +15,6 @@ in
 applyOverlays [
   ../layers/base.nix
   ../layers/linux.nix
+  ../layers/workstation.nix
   overlay
 ]
