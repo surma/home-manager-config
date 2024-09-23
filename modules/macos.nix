@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  inherit (pkgs) callPackage;
+in
 {
 
   options.allowUnfree.macos = {
@@ -13,15 +16,11 @@
   config = {
     home.username = "surma";
     home.homeDirectory = "/Users/surma";
-    home.packages = (
-      with pkgs;
-      [
-        raycast
+    home.packages = (with pkgs; [ raycast ]) ++ [
 
-        (callPackage (import ../extra-pkgs/hyperkey) { })
-        (callPackage (import ../extra-pkgs/aerospace-bin) { })
-      ]
-    );
+      (callPackage (import ../extra-pkgs/hyperkey) { })
+      (callPackage (import ../extra-pkgs/aerospace-bin) { })
+    ];
 
     home.file.".config/aerospace/aerospace.toml".source = ../configs/aerospace.toml;
 

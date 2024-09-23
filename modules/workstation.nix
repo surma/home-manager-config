@@ -7,7 +7,6 @@
 }:
 let
   inherit (pkgs) callPackage system;
-  ollama = callPackage (import ../extra-pkgs/ollama) { };
   fenix = fenix-pkgs.packages.${system};
 in
 {
@@ -37,7 +36,7 @@ in
         fenix.targets.wasm32-wasi.stable.rust-std
         rust-analyzer
       ])
-      ++ [ ollama ];
+      ++ [ (callPackage (import ../extra-pkgs/ollama) { }) ];
     programs.yt-dlp.enable = true;
   };
 }

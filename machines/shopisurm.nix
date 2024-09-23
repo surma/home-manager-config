@@ -1,13 +1,18 @@
 { config, pkgs, ... }:
+let
+  inherit (pkgs) callPackage;
+in
 {
   config = {
 
-    home.packages = [
-      google-cloud-sdk
-      opentofu
-      podman
-      podman-compose
-    ] ++ [ (callPackage (import ../extra-pkgs/vfkit) { }) ];
+    home.packages =
+      (with pkgs; [
+        google-cloud-sdk
+        opentofu
+        podman
+        podman-compose
+      ])
+      ++ [ (callPackage (import ../extra-pkgs/vfkit) { }) ];
 
     home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
 
