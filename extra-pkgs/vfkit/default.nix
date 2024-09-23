@@ -2,6 +2,7 @@
   fetchFromGitHub,
   buildGo121Module,
   callPackage,
+  lib,
 }:
 let
   version = "0.5.1";
@@ -26,4 +27,14 @@ buildGo121Module {
   postFixup = ''
     ${codesign}/bin/codesign -f --entitlements ${src}/vf.entitlements -s - $out/bin/vfkit
   '';
+
+  meta = {
+    description = "vfkit offers a command-line interface to start virtual machines using the macOS Virtualization framework.";
+    homepage = "https://github.com/crc-org/vfkit";
+    downloadPage = "https://github.com/crc-org/vfkit";
+    # license = lib.licenses.mit;
+    # maintainers = [ ];
+    platforms = [ lib.platforms.darwin ];
+    mainProgram = "vfkit";
+  };
 }

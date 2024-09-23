@@ -116,10 +116,6 @@ mkYarnPackage {
   '';
 
   buildPhase = ''
-    # export npm_config_nodedir=${nodejs}
-    # Yarn writes cache directories etc to $HOME.
-    # export HOME=$TMPDIR/yarn_home
-
     yarn --offline build
   '';
 
@@ -132,4 +128,14 @@ mkYarnPackage {
   doDist = false;
 
   # passthru.updateScript = ./update.py;
+
+  meta = {
+    description = "Greenlight is an open-source client for xCloud and Xbox home streaming made in Typescript.";
+    homepage = "https://github.com/unknownskl/greenlight";
+    downloadPage = "https://github.com/unknownskl/greenlight";
+    # license = lib.licenses.mit;
+    # maintainers = [ ];
+    platforms = [ lib.platforms.darwin ];
+    mainProgram = "Greenlight.app";
+  };
 }
