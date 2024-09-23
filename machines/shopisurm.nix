@@ -7,7 +7,7 @@
       opentofu
       podman
       podman-compose
-    ] ++ [ (callPackage (import ../extra-pkgs/vfkit.nix) { }) ];
+    ] ++ [ (callPackage (import ../extra-pkgs/vfkit) { }) ];
 
     home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
 

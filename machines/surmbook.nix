@@ -19,7 +19,7 @@ in
       ])
       ++ [
         (callPackage (import ../extra-pkgs/greenlight) { })
-        (callPackage (import ../extra-pkgs/vfkit.nix) { })
+        (callPackage (import ../extra-pkgs/vfkit) { })
       ];
   };
 }

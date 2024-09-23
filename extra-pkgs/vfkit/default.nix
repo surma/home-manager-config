@@ -11,7 +11,7 @@ let
     rev = "v${version}";
     hash = "sha256-9iPr9VhN60B6kBikdEIFAs5mMH+VcmnjGhLuIa3A2JU=";
   };
-  codesign = callPackage (import ./impure-codesign.nix) { };
+  codesign = callPackage (import ../impure-codesign) { };
 in
 buildGo121Module {
   pname = "vfkit";

@@ -18,8 +18,8 @@
       [
         raycast
 
-        (callPackage (import ../extra-pkgs/hyperkey.nix) { })
-        (callPackage (import ../extra-pkgs/aerospace-bin.nix) { })
+        (callPackage (import ../extra-pkgs/hyperkey) { })
+        (callPackage (import ../extra-pkgs/aerospace-bin) { })
       ]
     );
 

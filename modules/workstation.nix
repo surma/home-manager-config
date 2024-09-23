@@ -7,7 +7,7 @@
 }:
 let
   inherit (pkgs) callPackage system;
-  ollama = callPackage (import ../extra-pkgs/ollama.nix) { };
+  ollama = callPackage (import ../extra-pkgs/ollama) { };
   fenix = fenix-pkgs.packages.${system};
 in
 {
