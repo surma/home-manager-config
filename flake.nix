@@ -18,11 +18,37 @@
     in
     {
       homeConfigurations = {
-        surmbook = loadConfig "aarch64-darwin" ./machines/surmbook.nix;
-        shopisurm = loadConfig "aarch64-darwin" ./machines/shopisurm.nix;
-        surmserver = loadConfig "aarch64-linux" ./machines/surmserver.nix;
-        generic-linux = loadConfig "aarch64-linux" ./machines/generic-linux.nix;
-        surmpi = loadConfig "aarch64-linux" ./machines/surmpi.nix;
+        surmbook = loadConfig "aarch64-darwin" [
+          ./modules/base.nix
+          ./modules/graphical.nix
+          ./modules/workstation.nix
+          ./modules/macos.nix
+          ./machines/surmbook.nix
+        ];
+        shopisurm = loadConfig "aarch64-darwin" [
+          ./modules/base.nix
+          ./modules/graphical.nix
+          ./modules/workstation.nix
+          ./modules/macos.nix
+          ./machines/shopisurm.nix
+        ];
+        surmserver = loadConfig "aarch64-linux" [
+          ./modules/base.nix
+          ./modules/linux.nix
+          ./modules/workstation.nix
+          ./machines/surmserver.nix
+        ];
+        generic-linux = loadConfig "aarch64-linux" [
+          ./modules/base.nix
+          ./modules/linux.nix
+          ./machines/generic-linux.nix
+        ];
+        surmpi = loadConfig "aarch64-linux" [
+          ./modules/base.nix
+          ./modules/linux.nix
+          ./modules/workstation.nix
+          ./machines/surmpi.nix
+        ];
       };
     };
 }

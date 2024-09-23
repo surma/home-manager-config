@@ -1,0 +1,33 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+
+  options.allowUnfree.macos = {
+    "raycast" = true;
+  };
+
+  config = {
+    home.username = "surma";
+    home.homeDirectory = "/Users/surma";
+    home.packages = (
+      with pkgs;
+      [
+        raycast
+
+        (callPackage (import ../extra-pkgs/hyperkey.nix) { })
+        (callPackage (import ../extra-pkgs/aerospace-bin.nix) { })
+      ]
+    );
+
+    home.file.".config/aerospace/aerospace.toml".source = ../configs/aerospace.toml;
+
+    # Use 1password to unlock SSH key
+    programs.ssh.matchBlocks."*".extraOptions = {
+      "IdentityAgent" = ''"${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+    };
+  };
+}
