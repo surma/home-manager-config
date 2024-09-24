@@ -34,7 +34,7 @@ buildGo121Module {
     downloadPage = "https://github.com/crc-org/vfkit";
     # license = lib.licenses.mit;
     # maintainers = [ ];
-    platforms = [ lib.platforms.darwin ];
+    platforms = lib.platforms.darwin;
     mainProgram = "vfkit";
   };
 }

@@ -135,7 +135,7 @@ mkYarnPackage {
     downloadPage = "https://github.com/unknownskl/greenlight";
     # license = lib.licenses.mit;
     # maintainers = [ ];
-    platforms = [ lib.platforms.darwin ];
+    platforms = lib.platforms.darwin;
     mainProgram = "Greenlight.app";
   };
 }
