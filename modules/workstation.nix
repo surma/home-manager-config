@@ -1,16 +1,16 @@
-{
-  config,
-  pkgs,
-  lib,
-  fenix-pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
-  inherit (pkgs) callPackage system;
-  fenix = fenix-pkgs.packages.${system};
+  inherit (pkgs) callPackage;
 in
 {
   config = {
+
+    home.sessionVariables = {
+      RUSTUP_HOME = "${config.home.homeDirectory}/.rustup";
+      CARGO_HOME = "${config.home.homeDirectory}/.cargo";
+    };
+
+    home.sessionPath = [ "$CARGO_HOME/bin" ];
 
     home.packages =
       (with pkgs; [
@@ -23,18 +23,7 @@ in
         nixfmt-rfc-style
         binaryen
         clang-tools
-      ])
-      ++ (with pkgs; [
-        (fenix.stable.withComponents [
-          "cargo"
-          "clippy"
-          "rust-src"
-          "rustc"
-          "rustfmt"
-        ])
-        fenix.targets.wasm32-unknown-unknown.stable.rust-std
-        fenix.targets.wasm32-wasi.stable.rust-std
-        rust-analyzer
+        rustup
       ])
       ++ [ (callPackage (import ../extra-pkgs/ollama) { }) ];
     programs.yt-dlp.enable = true;
