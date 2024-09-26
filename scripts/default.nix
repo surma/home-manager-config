@@ -5,9 +5,9 @@ stdenv.mkDerivation {
     filter = path: _type: !lib.strings.hasSuffix ".nix" path;
     src = lib.cleanSource ./.;
   };
-  phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin
+    patchShebangs $src
     cp -r $src/* $out/bin
     chmod +x $out/bin/*
   '';

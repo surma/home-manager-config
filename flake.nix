@@ -45,6 +45,12 @@
           ./modules/workstation.nix
           ./machines/surmpi.nix
         ];
+        pixos = loadConfig "aarch64-linux" [
+          ./modules/base.nix
+          ./modules/linux.nix
+          ./modules/workstation.nix
+          ./machines/pixos.nix
+        ];
       };
     };
 }
