@@ -6,11 +6,11 @@
   unzip,
 }:
 let
-  version = "v0.12.0-Beta";
+  version = "v0.14.2-Beta";
   url = "https://github.com/nikitabobko/AeroSpace/releases/download/${version}/AeroSpace-${version}.zip";
   zipFile = fetchurl {
     inherit url;
-    hash = "sha256-iAEwG16scvqm2uBHl8t2gOsXXf0jyKDNfpChu7WBElc=";
+    hash = "sha256-xOIP51kFQTy9RbCGQo5gJGMzl/WhZlJ+lCtMOaMCnB8=";
   };
 in
 stdenv.mkDerivation rec {
