@@ -29,7 +29,7 @@
         action = wezterm.action.DisableDefaultAssignment,
       },
       {
-        key = '+',
+        key = '=',
         mods = 'CTRL',
         action = wezterm.action.DisableDefaultAssignment,
       },
@@ -39,5 +39,7 @@
         action = wezterm.action.DisableDefaultAssignment,
       },
     }
+
+    return config
   '';
 }
