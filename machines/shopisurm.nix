@@ -20,7 +20,6 @@ in
       ])
       ++ [ (callPackage (import ../extra-pkgs/vfkit) { }) ];
 
-
     home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
 
     programs.git.extraConfig = {
@@ -40,6 +39,12 @@ in
         [ -f /opt/dev/sh/chruby/chruby.sh ] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
         [ -x /opt/homebrew/bin/brew ] && eval $(/opt/homebrew/bin/brew shellenv)
       '';
+    };
+    programs.ssh = {
+      includes = [
+        "~/.spin/ssh/include"
+        "~/.config/spin/ssh/include"
+      ];
     };
   };
 }

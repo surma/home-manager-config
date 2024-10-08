@@ -12,8 +12,9 @@ in
 
     home.sessionPath = [ "$CARGO_HOME/bin" ];
 
-    home.packages =
-      (with pkgs; [
+    home.packages = (
+      with pkgs;
+      [
         just
         wabt
         wasmtime
@@ -23,6 +24,7 @@ in
         binaryen
         clang-tools
         rustup
-      ]);
+      ]
+    );
   };
 }
