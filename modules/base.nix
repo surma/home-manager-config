@@ -12,9 +12,14 @@ let
 in
 {
   config = {
-    nix.settings.experimental-features = "nix-command flakes";
+
     nixpkgs.config.allowUnfreePredicate =
       pkg: lib.lists.elem (lib.getName pkg) allAllowedUnfreePackages;
+
+    nix = {
+      package = pkgs.nix;
+      settings.experimental-features = "nix-command flakes";
+    };
     home.stateVersion = "24.05";
     home.packages =
       with pkgs;
