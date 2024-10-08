@@ -12,6 +12,7 @@ let
 in
 {
   config = {
+    nix.settings.experimental-features = "nix-command flakes";
     nixpkgs.config.allowUnfreePredicate =
       pkg: lib.lists.elem (lib.getName pkg) allAllowedUnfreePackages;
     home.stateVersion = "24.05";
@@ -46,7 +47,6 @@ in
     };
     xdg.configFile = {
       "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
-      "nix/nix.conf".text = "extra-experimental-features = flakes nix-command";
     };
 
     home.sessionVariables = {
