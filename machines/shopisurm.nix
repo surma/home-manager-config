@@ -3,6 +3,11 @@ let
   inherit (pkgs) callPackage;
 in
 {
+
+  options.allowUnfree.macos = {
+    "graphite-cli" = true;
+  };
+
   config = {
 
     home.packages =
@@ -11,8 +16,10 @@ in
         opentofu
         podman
         podman-compose
+        graphite-cli
       ])
       ++ [ (callPackage (import ../extra-pkgs/vfkit) { }) ];
+
 
     home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
 

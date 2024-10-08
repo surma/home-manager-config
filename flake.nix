@@ -18,6 +18,7 @@
           ./modules/base.nix
           ./modules/graphical.nix
           ./modules/workstation.nix
+          ./modules/physical.nix
           ./modules/macos.nix
           ./machines/surmbook.nix
         ];
@@ -26,6 +27,7 @@
           ./modules/graphical.nix
           ./modules/workstation.nix
           ./modules/macos.nix
+          ./modules/physical.nix
           ./machines/shopisurm.nix
         ];
         surmserver = loadConfig "aarch64-linux" [
@@ -37,6 +39,7 @@
         generic-linux = loadConfig "aarch64-linux" [
           ./modules/base.nix
           ./modules/linux.nix
+          ./modules/workstation.nix
           ./machines/generic-linux.nix
         ];
         surmpi = loadConfig "aarch64-linux" [

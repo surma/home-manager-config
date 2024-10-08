@@ -15,7 +15,6 @@ in
     home.packages =
       (with pkgs; [
         just
-        ffmpeg
         wabt
         wasmtime
         nodejs.pkgs.typescript-language-server
@@ -24,8 +23,6 @@ in
         binaryen
         clang-tools
         rustup
-      ])
-      ++ [ (callPackage (import ../extra-pkgs/ollama) { }) ];
-    programs.yt-dlp.enable = true;
+      ]);
   };
 }
