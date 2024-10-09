@@ -9,7 +9,6 @@ in
 
     home.packages =
       (with pkgs; [
-        qbittorrent
         darktable
         utm
         google-cloud-sdk
@@ -20,6 +19,7 @@ in
       ++ [
         (callPackage (import ../extra-pkgs/greenlight) { })
         (callPackage (import ../extra-pkgs/vfkit) { })
+        (callPackage (import ../extra-pkgs/qbittorrent) { })
       ];
   };
 }
