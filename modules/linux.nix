@@ -5,6 +5,6 @@
   ...
 }:
 {
-  home.username = "surma";
-  home.homeDirectory = "/home/surma";
+  home.username = lib.mkDefault "surma";
+  home.homeDirectory = lib.mkDefault "/home/surma";
 }

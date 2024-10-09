@@ -48,6 +48,12 @@
           ./modules/workstation.nix
           ./machines/surmpi.nix
         ];
+        spin = loadConfig "x86_64-linux" [
+          ./modules/base.nix
+          ./modules/linux.nix
+          ./modules/workstation.nix
+          ./machines/spin.nix
+        ];
         pixos = loadConfig "aarch64-linux" [
           ./modules/base.nix
           ./modules/linux.nix
