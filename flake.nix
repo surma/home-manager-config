@@ -19,47 +19,16 @@
     in
     {
       darwinConfigurations = {
-        surmbook = args.nix-darwin.lib.darwinSystem {
+        surmbook = loadDarwin {
           system = "aarch64-darwin";
-          modules = [
-            args.home-manager.darwinModules.home-manager
-            {
-              system.stateVersion = 5;
-
-              nixpkgs.config.allowUnfree = true;
-              nixpkgs.hostPlatform = "aarch64-darwin";
-
-              nix.settings.experimental-features = "nix-command flakes";
-
-              services.nix-daemon.enable = true;
-
-              system.configurationRevision = args.self.rev or args.self.dirtyRev or null;
-
-              users.users.surma = {
-                name = "surma";
-                home = "/Users/surma";
-              };
-
-              home-manager = {
-                # useGlobalPkgs = true;
-                # useUserPackages = true;
-                users.surma = {
-                  imports = [
-                    ./modules/base.nix
-                    ./modules/graphical.nix
-                    ./modules/workstation.nix
-                    ./modules/physical.nix
-                    ./modules/macos.nix
-                    ./machines/surmbook.nix
-                  ];
-                };
-                # home-manager.libw f{
-                # 	modules = paths;
-                # };
-                # # modules = paths;
-                extraSpecialArgs = args;
-              };
-            }
+          darwinModules = [ ./darwin/base.nix ];
+          hmModules = [
+            ./modules/base.nix
+            ./modules/graphical.nix
+            ./modules/workstation.nix
+            ./modules/physical.nix
+            ./modules/macos.nix
+            ./machines/surmbook.nix
           ];
         };
       };

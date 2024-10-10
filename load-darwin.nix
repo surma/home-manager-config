@@ -16,27 +16,25 @@ let
   loadConfig = import ./load-config.nix args;
 
   hmConfig = loadConfig system hmModules;
-  username = hmConfig.config.home.username;
+  userData = {
+    inherit (hmConfig.config.home) username homeDirectory;
+  };
 in
-nix-darwin.lib.darwinSystem {
-  inherit system;
 
+nix-darwin.lib.darwinSystem {
+  system = system;
   modules = darwinModules ++ [
-    home-manager.darwinModules.home-manager
+    args.home-manager.darwinModules.home-manager
     {
+      users.users.surma = {
+        name = userData.username;
+        home = userData.homeDirectory;
+      };
+
       home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.${username} = {
-          imports = hmModules;
-        };
-        # home-manager.libw f{
-        # 	modules = paths;
-        # };
-        # # modules = paths;
+        users.${userData.username}.imports = hmModules;
         extraSpecialArgs = args;
       };
     }
-    # hmConfig
   ];
 }
