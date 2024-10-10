@@ -14,8 +14,8 @@ in
   };
 
   config = {
-    home.username = "surma";
-    home.homeDirectory = "/Users/surma";
+    home.username = lib.mkDefault "surma";
+    home.homeDirectory = lib.mkDefault "/Users/surma";
     home.packages = (with pkgs; [ raycast ]) ++ [
 
       (callPackage (import ../extra-pkgs/hyperkey) { })
