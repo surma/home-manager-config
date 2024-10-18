@@ -17,7 +17,7 @@ in
       pkg: lib.lists.elem (lib.getName pkg) allAllowedUnfreePackages;
 
     nix = {
-      package = pkgs.nix;
+      package = lib.mkDefault pkgs.nix;
       settings.experimental-features = "nix-command flakes";
     };
     home.stateVersion = "24.05";
