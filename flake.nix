@@ -31,52 +31,21 @@
             ./machines/surmbook.nix
           ];
         };
+        shopisurm = loadDarwin {
+          system = "aarch64-darwin";
+          darwinModules = [ ./darwin/base.nix ];
+          hmModules = [
+            ./modules/base.nix
+            ./modules/graphical.nix
+            ./modules/workstation.nix
+            ./modules/physical.nix
+            ./modules/macos.nix
+            ./machines/shopisurm.nix
+          ];
+        };
       };
 
-      # surmbook = loadDarwin {
-      #   system = "aarch64-darwin";
-      #   hmModules = [
-      #     ./modules/base.nix
-      #     ./modules/graphical.nix
-      #     ./modules/workstation.nix
-      #     ./modules/physical.nix
-      #     ./modules/macos.nix
-      #     ./machines/surmbook.nix
-      #   ];
-      #   darwinModules = [
-      #     {
-      #       system.stateVersion = 5;
-      #        services.nix-daemon.enable = true;
-      #           nix.settings.experimental-features = "nix-command flakes";
-      #               nixpkgs.hostPlatform = "aarch64-darwin";
-
-      #       users.users.surma = {
-      #         name = "surma";
-      #         home = "/Users/surma";
-      #       };
-      #     }
-      #   ];
-      # };
-      # };
       homeConfigurations = {
-        surmbook = loadConfig "aarch64-darwin" [
-          # surmbook = ({...}: {imports = [
-          ./modules/base.nix
-          ./modules/graphical.nix
-          ./modules/workstation.nix
-          ./modules/physical.nix
-          ./modules/macos.nix
-          ./machines/surmbook.nix
-        ];
-        # });
-        shopisurm = loadConfig "aarch64-darwin" [
-          ./modules/base.nix
-          ./modules/graphical.nix
-          ./modules/workstation.nix
-          ./modules/macos.nix
-          ./modules/physical.nix
-          ./machines/shopisurm.nix
-        ];
         surmserver = loadConfig "aarch64-linux" [
           ./modules/base.nix
           ./modules/linux.nix
