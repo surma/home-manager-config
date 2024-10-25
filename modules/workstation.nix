@@ -24,6 +24,8 @@ in
         binaryen
         clang-tools
         rustup
+        brotli
+        cmake
       ]
     );
   };
