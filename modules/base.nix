@@ -29,6 +29,7 @@ in
         dprint
         git
         gitui
+        lazygit
         git-lfs
         htop
         jq

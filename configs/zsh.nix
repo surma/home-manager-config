@@ -9,6 +9,7 @@
     gdc = "git diff --cached -- . ':(exclude)package-lock.json'";
     gs = "git status";
     gidiot = "git commit --amend --no-edit";
+    gra = "git reset --hard origin/main";
     hms = "${"$"}{CONFIG_MANAGER:-home-manager} switch --flake $FLAKE_CONFIG_URI";
   };
   initExtra = ''
