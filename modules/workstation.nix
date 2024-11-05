@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 let
   inherit (pkgs) callPackage;
+
+  zig = callPackage (import ../extra-pkgs/zig) { };
 in
 {
   config = {
@@ -26,6 +28,10 @@ in
         rustup
         brotli
         cmake
+      ]
+      ++ [
+        zig.zig
+        zig.zls
       ]
     );
   };
