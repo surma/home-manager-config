@@ -28,6 +28,7 @@ in
         rustup
         brotli
         cmake
+        simple-http-server
       ]
       ++ [
         zig.zig
