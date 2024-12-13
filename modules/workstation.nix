@@ -29,6 +29,7 @@ in
         brotli
         cmake
         simple-http-server
+        nushell
       ]
       ++ [
         zig.zig

@@ -23,6 +23,7 @@
       lsp = {
         display-inlay-hints = true;
       };
+      hidden = false;
     };
     keys = {
       normal = {
