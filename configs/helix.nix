@@ -23,7 +23,9 @@
       lsp = {
         display-inlay-hints = true;
       };
-      hidden = false;
+      file-picker = {
+        hidden = false;
+      };
     };
     keys = {
       normal = {
