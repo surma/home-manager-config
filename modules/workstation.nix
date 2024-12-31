@@ -30,6 +30,7 @@ in
         cmake
         simple-http-server
         nushell
+        jwt-cli
       ]
       ++ [
         zig.zig
