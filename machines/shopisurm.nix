@@ -14,8 +14,6 @@ in
       (with pkgs; [
         google-cloud-sdk
         opentofu
-        podman
-        podman-compose
         graphite-cli
         python3
       ])

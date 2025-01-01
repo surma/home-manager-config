@@ -31,6 +31,8 @@ in
         simple-http-server
         nushell
         jwt-cli
+        podman
+        podman-compose
       ]
       ++ [
         zig.zig

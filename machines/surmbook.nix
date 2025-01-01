@@ -13,8 +13,6 @@ in
         utm
         google-cloud-sdk
         opentofu
-        podman
-        podman-compose
       ])
       ++ [
         (callPackage (import ../extra-pkgs/greenlight) { })
