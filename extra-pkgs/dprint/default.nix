@@ -1,10 +1,20 @@
-{ fetchFromGitHub, system }:
+{ fetchFromGitHub, rustPlatform }:
 let
-  pkgs-unstable = import (fetchFromGitHub {
-    owner = "nixos";
-    repo = "nixpkgs";
-    rev = "69b9a8c860bdbb977adfa9c5e817ccb717884182";
-    hash = "sha256-Jks8O42La+nm5AMTSq/PvM5O+fUAhIy0Ce1QYqLkyZ4=";
-  }) { inherit system; };
+  version = "0.48.0";
+  src = fetchFromGitHub {
+    owner = "dprint";
+    repo = "dprint";
+    rev = "${version}";
+    hash = "sha256-Zem37oHku90c7PDV8ep/7FN128eGRUvfIvRsaXa7X9g=";
+  };
 in
-pkgs-unstable.dprint
+rustPlatform.buildRustPackage {
+  inherit version src;
+  pname = "dprint";
+
+  cargoLock = {
+    lockFile = "${src}/Cargo.lock";
+  };
+
+  doCheck = false;
+}
