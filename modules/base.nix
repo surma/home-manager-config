@@ -26,7 +26,6 @@ in
       [
         age
         # barrier
-        dprint
         git
         gitui
         lazygit
@@ -40,6 +39,7 @@ in
         tree
         pinentry-curses
       ]
+      ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ]
       ++ [
         (callPackage (import ../scripts) { })
         (callPackage (import ../secrets) { })
@@ -89,7 +89,7 @@ in
 
     programs.eza = {
       enable = true;
-      icons = true;
+      icons = "auto";
       git = true;
     };
 

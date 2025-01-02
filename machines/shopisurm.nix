@@ -18,7 +18,7 @@ in
         python3
       ])
       ++ [
-        (callPackage (import ../extra-pkgs/vfkit) { })
+        # (callPackage (import ../extra-pkgs/vfkit) { })
         (callPackage (import ../extra-pkgs/greenlight) { })
       ];
 

@@ -13,10 +13,11 @@ in
         utm
         google-cloud-sdk
         opentofu
+        openscad
       ])
       ++ [
         (callPackage (import ../extra-pkgs/greenlight) { })
-        (callPackage (import ../extra-pkgs/vfkit) { })
+        # (callPackage (import ../extra-pkgs/vfkit) { })
         (callPackage (import ../extra-pkgs/qbittorrent) { })
       ];
   };

@@ -1,11 +1,11 @@
 {
   fetchFromGitHub,
-  buildGo121Module,
+  buildGo122Module,
   callPackage,
   lib,
 }:
 let
-  version = "0.5.1";
+  version = "0.6.0";
   src = fetchFromGitHub {
     owner = "crc-org";
     repo = "vfkit";
@@ -14,7 +14,7 @@ let
   };
   codesign = callPackage (import ../impure-codesign) { };
 in
-buildGo121Module {
+buildGo122Module {
   pname = "vfkit";
   inherit version src;
   vendorHash = "sha256-6O1T9aOCymYXGAIR/DQBWfjc2sCyU/nZu9b1bIuXEps=";
