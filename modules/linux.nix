@@ -12,5 +12,12 @@
     "containers/policy.json".text = builtins.toJSON {
       default = [ { type = "insecureAcceptAnything"; } ];
     };
+    "containers/registries.conf".text = ''
+      unqualified-search-registries = ['docker.io']
+
+      [[registry]]
+      prefix = "docker.io"
+      location = "docker.io"
+    '';
   };
 }
