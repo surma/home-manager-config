@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  amber-upstream,
+  ...
+}@args:
 let
   inherit (pkgs) callPackage;
 in
@@ -19,6 +24,7 @@ in
         (callPackage (import ../extra-pkgs/greenlight) { })
         # (callPackage (import ../extra-pkgs/vfkit) { })
         (callPackage (import ../extra-pkgs/qbittorrent) { })
+        (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
       ];
   };
 }

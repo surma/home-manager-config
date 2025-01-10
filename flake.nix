@@ -9,6 +9,10 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    amber-upstream = {
+      url = "github:amber-lang/Amber";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
