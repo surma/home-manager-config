@@ -34,6 +34,7 @@ in
         jwt-cli
         podman
         podman-compose
+        graphviz
       ]
       ++ [
         zig.zig

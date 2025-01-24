@@ -15,7 +15,10 @@ in
         google-cloud-sdk
         opentofu
         graphite-cli
-        python3
+        keycastr
+        (python3.withPackages (ps: [
+          ps.distutils
+        ]))
       ])
       ++ [
         # (callPackage (import ../extra-pkgs/vfkit) { })
