@@ -21,6 +21,7 @@ in
         wabt
         wasmtime
         nodejs.pkgs.typescript-language-server
+        pnpm_9
         nil
         nixfmt-rfc-style
         binaryen

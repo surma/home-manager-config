@@ -19,6 +19,7 @@ in
         google-cloud-sdk
         opentofu
         openscad
+        jqp
       ])
       ++ [
         (callPackage (import ../extra-pkgs/greenlight) { })
