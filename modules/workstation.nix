@@ -1,8 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (pkgs) callPackage;
 
   zig = callPackage (import ../extra-pkgs/zig) { };
+  llvm_19 = callPackage (import ../extra-pkgs/llvm_19) { };
 in
 {
   config = {
@@ -14,9 +20,8 @@ in
 
     home.sessionPath = [ "$CARGO_HOME/bin" ];
 
-    home.packages = (
-      with pkgs;
-      [
+    home.packages =
+      (with pkgs; [
         just
         wabt
         wasmtime
@@ -25,7 +30,6 @@ in
         nil
         nixfmt-rfc-style
         binaryen
-        clang-tools
         rustup
         brotli
         cmake
@@ -35,11 +39,20 @@ in
         podman
         podman-compose
         graphviz
-      ]
+      ])
       ++ [
         zig.zig
         zig.zls
       ]
-    );
+      ++ (
+        with llvm_19;
+        (lib.lists.map lib.getDev [
+          lld
+          llvm
+          libllvm
+          libclang
+          clang
+        ])
+      );
   };
 }
