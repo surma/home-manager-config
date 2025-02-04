@@ -10,6 +10,8 @@
 
   fonts.packages = with pkgs; [ fira-code ];
 
+  security.pam.enableSudoTouchIdAuth = true;
+
   homebrew = {
     enable = true;
   };
