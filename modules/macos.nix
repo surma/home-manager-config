@@ -19,7 +19,6 @@ in
     home.packages =
       (with pkgs; [
         raycast
-        iconv
       ])
       ++ [
 
@@ -29,7 +28,10 @@ in
 
     home.file.".config/aerospace/aerospace.toml".source = ../configs/aerospace.toml;
 
-    home.sessionVariables.CONFIG_MANAGER = "darwin-rebuild";
+    home.sessionVariables = {
+      # LIBRARY_PATH = ''${lib.makeLibraryPath [pkgs.iconv]}''${LIBRARY_PATH:+:$LIBRARY_PATH}'';
+      CONFIG_MANAGER = "darwin-rebuild";
+    };
 
     # Use 1password to unlock SSH key
     programs.ssh.matchBlocks."*".extraOptions = {

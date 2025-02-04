@@ -22,8 +22,8 @@
 
   system.defaults = {
     NSGlobalDomain = {
-      InitialKeyRepeat = 2;
-      KeyRepeat = 15;
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
       NSAutomaticPeriodSubstitutionEnabled = false;
