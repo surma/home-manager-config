@@ -16,11 +16,16 @@ in
   config = {
     home.username = lib.mkDefault "surma";
     home.homeDirectory = lib.mkDefault "/Users/surma";
-    home.packages = (with pkgs; [ raycast ]) ++ [
+    home.packages =
+      (with pkgs; [
+        raycast
+        iconv
+      ])
+      ++ [
 
-      (callPackage (import ../extra-pkgs/hyperkey) { })
-      (callPackage (import ../extra-pkgs/aerospace-bin) { })
-    ];
+        (callPackage (import ../extra-pkgs/hyperkey) { })
+        (callPackage (import ../extra-pkgs/aerospace-bin) { })
+      ];
 
     home.file.".config/aerospace/aerospace.toml".source = ../configs/aerospace.toml;
 
