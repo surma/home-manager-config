@@ -20,6 +20,8 @@ in
         opentofu
         openscad
         jqp
+        uv
+        deno
       ])
       ++ [
         (callPackage (import ../extra-pkgs/greenlight) { })
