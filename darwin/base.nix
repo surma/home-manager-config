@@ -14,6 +14,16 @@
 
   homebrew = {
     enable = true;
+    casks = [
+      "arc"
+      "superwhisper"
+      "barrier"
+      "nvidia-geforce-now"
+      "spotify"
+      "discord"
+      "signal"
+      "slack"
+    ];
   };
 
   # networking.computerName = "";
