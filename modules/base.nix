@@ -32,7 +32,7 @@ in
         git-lfs
         htop
         jq
-        nix-index
+        btop
         openssh
         rsync
         tig
