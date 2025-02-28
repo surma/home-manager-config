@@ -43,6 +43,9 @@ in
       ++ [
         zig.zig
         zig.zls
+      ]
+      ++ [
+        (callPackage (import ../extra-pkgs/aider) { })
       ];
     # Shadowing MacOS's clang breaks all kind of shit
     # ++ (
