@@ -25,6 +25,7 @@ in
         just
         wabt
         wasmtime
+        wasm-tools
         nodejs.pkgs.typescript-language-server
         pnpm_9
         nil
