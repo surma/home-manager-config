@@ -24,8 +24,6 @@ in
       (with pkgs; [
         just
         wabt
-        wasmtime
-        wasm-tools
         nodejs.pkgs.typescript-language-server
         pnpm_9
         nil
@@ -47,6 +45,7 @@ in
       ]
       ++ [
         (callPackage (import ../extra-pkgs/aider) { })
+        (callPackage (import ../extra-pkgs/wasmtime) { })
       ];
     # Shadowing MacOS's clang breaks all kind of shit
     # ++ (
