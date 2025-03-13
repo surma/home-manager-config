@@ -25,7 +25,10 @@
       darwinConfigurations = {
         surmbook = loadDarwin {
           system = "aarch64-darwin";
-          darwinModules = [ ./darwin/base.nix ];
+          darwinModules = [
+            ./darwin/base.nix
+            ./darwin/surmbook.nix
+          ];
           hmModules = [
             ./modules/base.nix
             ./modules/graphical.nix
