@@ -3,8 +3,9 @@ let
   pkgs-unstable = import (fetchFromGitHub {
     owner = "nixos";
     repo = "nixpkgs";
-    rev = "69b9a8c860bdbb977adfa9c5e817ccb717884182";
-    hash = "sha256-Jks8O42La+nm5AMTSq/PvM5O+fUAhIy0Ce1QYqLkyZ4=";
+    # `nixpks-unstable` on Mar 16, 2025
+    rev = "573c650e8a14b2faa0041645ab18aed7e60f0c9a";
+    hash = "sha256-4thdbnP6dlbdq+qZWTsm4ffAwoS8Tiq1YResB+RP6WE=";
   }) { inherit system; };
 in
 {
