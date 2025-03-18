@@ -38,6 +38,8 @@ in
         podman
         podman-compose
         graphviz
+        fzf
+        zoxide
       ])
       ++ [
         zig.zig
