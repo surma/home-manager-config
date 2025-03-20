@@ -1,11 +1,11 @@
 { fetchFromGitHub, rustPlatform }:
 let
-  version = "0.48.0";
+  version = "0.49.1";
   src = fetchFromGitHub {
     owner = "dprint";
     repo = "dprint";
     rev = "${version}";
-    hash = "sha256-Zem37oHku90c7PDV8ep/7FN128eGRUvfIvRsaXa7X9g=";
+    hash = "sha256-6ye9FqOGW40TqoDREQm6pZAQaSuO2o9SY5RSfpmwKV4=";
   };
 in
 rustPlatform.buildRustPackage {
