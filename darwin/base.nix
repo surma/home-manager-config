@@ -23,6 +23,7 @@
       "discord"
       "signal"
       "slack"
+      "zulip"
     ];
   };
 

@@ -18,7 +18,7 @@ in
 
     nix = {
       package = lib.mkDefault pkgs.nix;
-      settings.experimental-features = "nix-command flakes";
+      settings.experimental-features = "nix-command flakes pipe-operators";
     };
     home.stateVersion = "24.05";
     home.packages =
@@ -32,7 +32,7 @@ in
         git-lfs
         htop
         jq
-        nix-index
+        btop
         openssh
         rsync
         tig
@@ -83,8 +83,14 @@ in
       enable = true;
     };
 
-    programs.autojump = {
+    programs.zoxide = {
       enable = true;
+      enableZshIntegration = true;
+    };
+
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     programs.eza = {

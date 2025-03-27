@@ -24,7 +24,6 @@ in
       (with pkgs; [
         just
         wabt
-        wasmtime
         nodejs.pkgs.typescript-language-server
         pnpm_9
         nil
@@ -39,10 +38,16 @@ in
         podman
         podman-compose
         graphviz
+        fzf
+        zoxide
       ])
       ++ [
         zig.zig
         zig.zls
+      ]
+      ++ [
+        (callPackage (import ../extra-pkgs/aider) { })
+        (callPackage (import ../extra-pkgs/wasmtime) { })
       ];
     # Shadowing MacOS's clang breaks all kind of shit
     # ++ (
