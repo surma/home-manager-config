@@ -1,11 +1,6 @@
 #!/usr/bin/env nu
 
 def main [ip?: string] {
-	let key = gcloud auth print-identity-token --format json
-		| from json
-		| get id_token
-		| http post --headers ["Authorization" $"Bearer ($in)"] https://openai-proxy.shopify.io/hmac/personal
-		| get key
-
+	let key = get-shopify-key
 	http get -u admin -p su4wi $"http://($ip | default "10.0.0.2:1337")/update-shopify-key?key=($key | url encode)"
 }
