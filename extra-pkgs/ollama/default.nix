@@ -3,8 +3,8 @@ let
   pkgs-unstable = import (fetchFromGitHub {
     owner = "nixos";
     repo = "nixpkgs";
-    rev = "8bff6b79c139a29558c52397eb4b0b2917448172";
-    hash = "sha256-KDWyMgpaTVsAIdKs+fmeiXKfuZhsho8NKWze5tOt2x8=";
+    rev = "250b695f41e0e2f5afbf15c6b12480de1fe0001b";
+    hash = "sha256-drDyYyUmjeYGiHmwB9eOPTQRjmrq3Yz26knwmMPLZFk=";
   }) { inherit system; };
 in
 pkgs-unstable.ollama
