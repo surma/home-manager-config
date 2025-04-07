@@ -38,6 +38,7 @@ in
         tig
         tree
         pinentry-curses
+        chafa
       ]
       ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ]
       ++ [
@@ -108,7 +109,7 @@ in
       enable = true;
     };
     programs.zsh = import ../configs/zsh.nix;
-    programs.zellij = import ../configs/zellij.nix;
+    programs.zellij = (pkgs.callPackage (import ../configs/zellij.nix) { }).zellij;
     programs.ssh = {
       enable = true;
       forwardAgent = true;
