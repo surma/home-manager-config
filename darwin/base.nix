@@ -24,6 +24,7 @@
       "signal"
       "slack"
       "zulip"
+      "android-file-transfer"
     ];
   };
 
