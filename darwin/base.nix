@@ -25,6 +25,7 @@
       "slack"
       "zulip"
       "android-file-transfer"
+      "syncthing"
     ];
   };
 
