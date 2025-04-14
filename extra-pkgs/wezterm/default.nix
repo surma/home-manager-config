@@ -1,10 +1,6 @@
 { fetchFromGitHub, system }:
 let
-  pkgs = import (fetchFromGitHub {
-    owner = "nixos";
-    repo = "nixpkgs";
-    rev = "250b695f41e0e2f5afbf15c6b12480de1fe0001b";
-    hash = "sha256-drDyYyUmjeYGiHmwB9eOPTQRjmrq3Yz26knwmMPLZFk=";
-  }) { inherit system; };
+  nixpkgs-unstable-rev = import ../nixpkgs-unstable.nix;
+  pkgs-unstable = import (fetchFromGitHub nixpkgs-unstable-rev) { inherit system; };
 in
-pkgs.wezterm
+pkgs-unstable.wezterm

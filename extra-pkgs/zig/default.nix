@@ -1,12 +1,7 @@
 { fetchFromGitHub, system }:
 let
-  pkgs-unstable = import (fetchFromGitHub {
-    owner = "nixos";
-    repo = "nixpkgs";
-    # `nixpks-unstable` on Mar 16, 2025
-    rev = "573c650e8a14b2faa0041645ab18aed7e60f0c9a";
-    hash = "sha256-4thdbnP6dlbdq+qZWTsm4ffAwoS8Tiq1YResB+RP6WE=";
-  }) { inherit system; };
+  nixpkgs-unstable-rev = import ../nixpkgs-unstable.nix;
+  pkgs-unstable = import (fetchFromGitHub nixpkgs-unstable-rev) { inherit system; };
 in
 {
   zig = pkgs-unstable.zig;
