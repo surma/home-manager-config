@@ -24,6 +24,6 @@
       ]
     );
 
-    programs.wezterm = import ../configs/wezterm.nix;
+    programs.wezterm = (pkgs.callPackage (import ../configs/wezterm.nix) { }).wezterm;
   };
 }

@@ -7,4 +7,4 @@ let
     hash = "sha256-drDyYyUmjeYGiHmwB9eOPTQRjmrq3Yz26knwmMPLZFk=";
   }) { inherit system; };
 in
-pkgs-unstable.ollama
+pkgs-unstable.zellij
