@@ -36,6 +36,9 @@ in
       include = {
         path = "${config.home.homeDirectory}/.config/dev/gitconfig";
       };
+      maintenance = {
+        repo = "${config.home.homeDirectory}/world/git";
+      };
     };
 
     programs.zsh = {
@@ -46,6 +49,9 @@ in
 
         export NIX_PATH=world=$HOME/world/trees/root/src/.meta/substrate/nix
         export PATH=$HOME/.local/state/nix/profiles/wb/bin:$PATH
+
+        # Added by //areas/tools/world-up
+        [[ -x ~/.local/state/nix/profiles/world/init ]] && eval "$(~/.local/state/nix/profiles/world/init zsh)"
       '';
     };
     programs.ssh = {
