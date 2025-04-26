@@ -38,6 +38,7 @@ in
         podman
         podman-compose
         graphviz
+        yazi
         fzf
         zoxide
       ])
