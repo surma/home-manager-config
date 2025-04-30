@@ -10,6 +10,20 @@ in
 
     enable = true;
     extraConfig = ''
+
+      local light_scheme = 'Gruvbox (Gogh)'
+      local dark_scheme = 'Gruvbox Dark (Gogh)'
+
+      wezterm.on('toggle-color-scheme', function(window, pane)
+        local overrides = window:get_config_overrides() or {}
+        if overrides.color_scheme == light_scheme then
+          overrides.color_scheme = dark_scheme
+        else
+          overrides.color_scheme = light_scheme
+        end
+        window:set_config_overrides(overrides)
+      end)
+
       local config = wezterm.config_builder()
       config.send_composed_key_when_left_alt_is_pressed = true
       config.enable_tab_bar = false
@@ -45,6 +59,11 @@ in
           key = '0',
           mods = 'CTRL',
           action = wezterm.action.DisableDefaultAssignment,
+        },
+        {
+          key = 't',
+          mods = 'SHIFT|CTRL',
+          action = wezterm.action({ EmitEvent = 'toggle-color-scheme' }),
         },
       }
 
