@@ -35,8 +35,6 @@ in
         simple-http-server
         nushell
         jwt-cli
-        podman
-        podman-compose
         graphviz
         yazi
         fzf
@@ -49,6 +47,8 @@ in
       ++ [
         (callPackage (import ../extra-pkgs/aider) { })
         (callPackage (import ../extra-pkgs/wasmtime) { })
+        (callPackage (import ../extra-pkgs/podman) { }).podman
+        (callPackage (import ../extra-pkgs/podman) { }).podman-compose
       ];
     # Shadowing MacOS's clang breaks all kind of shit
     # ++ (
