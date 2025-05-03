@@ -14,14 +14,23 @@ in
       local light_scheme = 'Gruvbox (Gogh)'
       local dark_scheme = 'Gruvbox Dark (Gogh)'
 
-      wezterm.on('toggle-color-scheme', function(window, pane)
-        local overrides = window:get_config_overrides() or {}
-        if overrides.color_scheme == light_scheme then
-          overrides.color_scheme = dark_scheme
+      function scheme_for_appearance(appearance)
+        if appearance:find 'Dark' then
+          return  'Gruvbox Dark (Gogh)'
         else
-          overrides.color_scheme = light_scheme
+          return 'Gruvbox (Gogh)'
         end
-        window:set_config_overrides(overrides)
+      end
+
+      wezterm.on('window-config-reloaded', function(window, pane)
+        wezterm.log_info 'the config was reloaded for this window!'
+        local overrides = window:get_config_overrides() or {}
+        local appearance = window:get_appearance()
+        local scheme = scheme_for_appearance(appearance)
+        if overrides.color_scheme ~= scheme then
+          overrides.color_scheme = scheme
+          window:set_config_overrides(overrides)
+        end
       end)
 
       local config = wezterm.config_builder()
@@ -59,11 +68,6 @@ in
           key = '0',
           mods = 'CTRL',
           action = wezterm.action.DisableDefaultAssignment,
-        },
-        {
-          key = 't',
-          mods = 'SHIFT|CTRL',
-          action = wezterm.action({ EmitEvent = 'toggle-color-scheme' }),
         },
       }
 

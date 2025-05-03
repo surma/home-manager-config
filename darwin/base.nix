@@ -26,6 +26,7 @@
       "zulip"
       "android-file-transfer"
       "syncthing"
+      "nightfall"
     ];
   };
 
