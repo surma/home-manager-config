@@ -23,7 +23,6 @@ in
       end
 
       wezterm.on('window-config-reloaded', function(window, pane)
-        wezterm.log_info 'the config was reloaded for this window!'
         local overrides = window:get_config_overrides() or {}
         local appearance = window:get_appearance()
         local scheme = scheme_for_appearance(appearance)

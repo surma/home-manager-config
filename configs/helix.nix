@@ -36,6 +36,8 @@
           C-f = "file_picker_in_current_directory";
           "[" = ":set-option lsp.display-inlay-hints false";
           "]" = ":set-option lsp.display-inlay-hints true";
+          "{" = ":theme gruvbox";
+          "}" = ":theme gruvbox_light_hard";
         };
       };
     };
