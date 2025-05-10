@@ -4,7 +4,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.experimental-features = "nix-command flakes pipe-operators";
 
   services.nix-daemon.enable = true;
 

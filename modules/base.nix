@@ -33,6 +33,7 @@ in
         htop
         jq
         btop
+        mosh
         openssh
         rsync
         tig
