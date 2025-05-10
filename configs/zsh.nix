@@ -2,7 +2,7 @@
   enable = true;
   shellAliases = {
     ".." = "cd ..";
-    cd = "zoxide";
+    cd = "z";
     ga = "git add";
     gc = "git commit -v";
     gca = "git commit -av";
