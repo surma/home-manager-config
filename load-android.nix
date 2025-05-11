@@ -1,13 +1,13 @@
 {
   nixpkgs,
-  nix-darwin,
+  nix-on-droid,
   home-manager,
   ...
 }@args:
 {
   system,
   hmModules,
-  darwinModules,
+  droidModules,
 }:
 let
   loadConfig = import ./load-config.nix args;
@@ -18,20 +18,22 @@ let
   };
 in
 
-nix-darwin.lib.darwinSystem {
-  system = system;
-  modules = darwinModules ++ [
-    home-manager.darwinModules.home-manager
+nix-on-droid.lib.nixOnDroidConfiguration {
+  modules = droidModules ++ [
     {
-      users.users.surma = {
-        name = userData.username;
-        home = userData.homeDirectory;
-      };
-
       home-manager = {
         users.${userData.username}.imports = hmModules;
         extraSpecialArgs = args;
       };
     }
   ];
+  pkgs = import args.nixpkgs {
+    inherit system;
+
+    overlays = [
+      nix-on-droid.overlays.default
+    ];
+  };
+
+  home-manager-path = home-manager.outPath;
 }
