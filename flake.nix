@@ -13,6 +13,12 @@
       url = "github:amber-lang/Amber";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
   };
 
   outputs =
@@ -86,6 +92,20 @@
           ./modules/workstation.nix
           ./machines/pixos.nix
         ];
+      };
+      nixOnDroidConfigurations.surmpixel = args.nix-on-droid.lib.nixOnDroidConfiguration {
+        modules = [
+          ./nix-on-droid/base.nix
+        ];
+        pkgs = import args.nixpkgs {
+          system = "aarch64-linux";
+
+          overlays = [
+            args.nix-on-droid.overlays.default
+          ];
+        };
+
+        home-manager-path = args.home-manager.outPath;
       };
     };
 }
