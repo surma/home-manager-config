@@ -30,6 +30,10 @@
           system = "aarch64-darwin";
           machine = ./machines/surmbook.nix;
         };
+        shopisurm = loadDarwin {
+          system = "aarch64-darwin";
+          machine = ./machines/shopisurm.nix;
+        };
       };
       #   surmbook = loadDarwin {
       #     system = "aarch64-darwin";
