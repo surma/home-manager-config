@@ -40,37 +40,16 @@
           system = "aarch64-linux";
           machine = ./machines/surmpi.nix;
         };
-        # surmserver = loadLinux "aarch64-linux" [
-        #   ./modules/base.nix
-        #   ./modules/linux.nix
-        #   ./modules/workstation.nix
-        #   ./machines/surmserver.nix
-        # ];
-        # generic-linux = loadLinux "aarch64-linux" [
-        #   ./modules/base.nix
-        #   ./modules/linux.nix
-        #   ./modules/workstation.nix
-        #   ./machines/generic-linux.nix
-        # ];
-        # surmpi = loadLinux "aarch64-linux" [
-        #   ./modules/base.nix
-        #   ./modules/linux.nix
-        #   ./modules/workstation.nix
-        #   ./machines/surmpi.nix
-        # ];
-        # spin = loadLinux "x86_64-linux" [
-        #   ./modules/base.nix
-        #   ./modules/linux.nix
-        #   ./modules/workstation.nix
-        #   ./machines/spin.nix
-        # ];
-        # pixos = loadLinux "aarch64-linux" [
-        #   ./modules/base.nix
-        #   ./modules/linux.nix
-        #   ./modules/workstation.nix
-        #   ./machines/pixos.nix
-        # ];
+        surmserver = loadLinux {
+          system = "aarch64-linux";
+          machine = ./machines/surmserver.nix;
+        };
+        generic-linux = loadLinux {
+          system = "aarch64-linux";
+          machine = ./machines/generic-linux.nix;
+        };
       };
+
       nixOnDroidConfigurations.generic-android = loadAndroid {
         droidModules = [
           ./nix-on-droid/base.nix
