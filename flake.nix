@@ -102,7 +102,6 @@
         ];
         hmModules = [
           ./modules/base.nix
-          ./modules/android.nix
           ./machines/surmpixel.nix
         ];
       };
