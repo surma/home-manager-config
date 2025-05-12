@@ -14,7 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
   };
 
   outputs =
@@ -30,38 +29,11 @@
           system = "aarch64-darwin";
           machine = ./machines/surmbook.nix;
         };
+        shopisurm = loadDarwin {
+          system = "aarch64-darwin";
+          machine = ./machines/shopisurm.nix;
+        };
       };
-      #   surmbook = loadDarwin {
-      #     system = "aarch64-darwin";
-      #     darwinModules = [
-      #       ./darwin/base.nix
-      #       ./darwin/surmbook.nix
-      #     ];
-      #     hmModules = [
-      #       ./modules/base.nix
-      #       ./modules/graphical.nix
-      #       ./modules/workstation.nix
-      #       ./modules/physical.nix
-      #       ./modules/macos.nix
-      #       ./machines/surmbook.nix
-      #     ];
-      #   };
-      #   shopisurm = loadDarwin {
-      #     system = "aarch64-darwin";
-      #     darwinModules = [
-      #       ./darwin/base.nix
-      #       ./darwin/shopisurm.nix
-      #     ];
-      #     hmModules = [
-      #       ./modules/base.nix
-      #       ./modules/graphical.nix
-      #       ./modules/workstation.nix
-      #       ./modules/physical.nix
-      #       ./modules/macos.nix
-      #       ./machines/shopisurm.nix
-      #     ];
-      #   };
-      # };
 
       homeConfigurations = {
         surmserver = loadConfig "aarch64-linux" [
