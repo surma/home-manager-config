@@ -1,7 +1,7 @@
 {
   owner = "nixos";
   repo = "nixpkgs";
-  # nixpkgs-unstable @ Mar 4, 2025
-  rev = "02032da4af073d0f6110540c8677f16d4be0117f";
-  hash = "sha256-SvtvVKHaUX4Owb+PasySwZsoc5VUeTf1px34BByiOxw=";
+  # nixpkgs-unstable @ May 7, 2025
+  rev = "b3582c75c7f21ce0b429898980eddbbf05c68e55";
+  hash = "sha256-FshoQvr6Aor5SnORVvh/ZdJ1Sa2U4ZrIMwKBX5k2wu0=";
 }
