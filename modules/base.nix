@@ -21,31 +21,31 @@ in
       settings.experimental-features = "nix-command flakes pipe-operators";
     };
     home.stateVersion = "24.05";
-    # home.packages =
-    #   with pkgs;
-    #   [
-    #     age
-    #     # barrier
-    #     git
-    #     gitui
-    #     lazygit
-    #     git-lfs
-    #     htop
-    #     jq
-    #     btop
-    #     mosh
-    #     openssh
-    #     rsync
-    #     tig
-    #     tree
-    #     pinentry-curses
-    #     chafa
-    #   ]
-    #   ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ]
-    #   ++ [
-    #     (callPackage (import ../scripts) { })
-    #     (callPackage (import ../secrets) { })
-    #   ];
+    home.packages =
+      with pkgs;
+      [
+        age
+        # barrier
+        git
+        gitui
+        lazygit
+        git-lfs
+        htop
+        jq
+        btop
+        mosh
+        openssh
+        rsync
+        tig
+        tree
+        pinentry-curses
+        chafa
+      ]
+      ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ]
+      ++ [
+        (callPackage (import ../scripts) { })
+        (callPackage (import ../secrets) { })
+      ];
 
     # home.file = {
     #   ".npmrc".source = ../configs/npmrc;
@@ -63,23 +63,23 @@ in
 
     # programs.home-manager.enable = true;
 
-    # programs.git = {
-    #   enable = true;
-    #   userName = "Surma";
-    #   userEmail = "surma@surma.dev";
-    #   signing = {
-    #     key = "0x0F58C405";
-    #     signByDefault = true;
-    #   };
-    #   diff-so-fancy = {
-    #     enable = true;
-    #   };
-    #   extraConfig = {
-    #     init = {
-    #       defaultBranch = "main";
-    #     };
-    #   };
-    # };
+    programs.git = {
+      enable = true;
+      userName = "Surma";
+      userEmail = "surma@surma.dev";
+      signing = {
+        key = "0x0F58C405";
+        signByDefault = true;
+      };
+      diff-so-fancy = {
+        enable = true;
+      };
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
+      };
+    };
 
     # programs.bat = {
     #   enable = true;
@@ -106,9 +106,9 @@ in
     # programs.jq.enable = true;
     # programs.obs-studio.enable = true;
     # programs.ripgrep.enable = true;
-    # programs.starship = {
-    #   enable = true;
-    # };
+    programs.starship = {
+      enable = true;
+    };
     programs.zsh = import ../configs/zsh.nix;
     programs.zellij = (pkgs.callPackage (import ../configs/zellij.nix) { }).zellij;
     # programs.ssh = {
