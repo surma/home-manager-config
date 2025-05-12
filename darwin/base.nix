@@ -1,4 +1,8 @@
 { pkgs, system, ... }@args:
+let
+  inherit (pkgs) callPackage;
+  karabiner-elements = callPackage (import ../extra-pkgs/karabiner-elements) { };
+in
 {
   system.stateVersion = 5;
 
@@ -27,8 +31,14 @@
       "android-file-transfer"
       "syncthing"
       "nightfall"
+      "karabiner-elements"
     ];
   };
+
+  # services.karabiner-elements = {
+  #   enable = true;
+  #   package = karabiner-elements;
+  # };
 
   # networking.computerName = "";
   # networking.hostName = "";

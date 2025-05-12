@@ -28,6 +28,10 @@ in
 
     home.file.".config/aerospace/aerospace.toml".source = ../configs/aerospace.toml;
 
+    home.file.".config/karabiner/karabiner.json" = {
+      source = ../configs/karabiner.json;
+    };
+
     home.sessionVariables = {
       # LIBRARY_PATH = ''${lib.makeLibraryPath [pkgs.iconv]}''${LIBRARY_PATH:+:$LIBRARY_PATH}'';
       CONFIG_MANAGER = "darwin-rebuild";
