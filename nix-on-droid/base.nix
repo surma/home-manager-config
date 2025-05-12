@@ -20,10 +20,4 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-
-  home-manager = {
-    config = ../modules/base.nix;
-    # backupFileExtension = "hm-bak";
-    # useGlobalPkgs = true;
-  };
 }

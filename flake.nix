@@ -22,6 +22,7 @@
     let
       loadConfig = import ./load-config.nix args;
       loadDarwin = import ./load-darwin.nix args;
+      loadAndroid = import ./load-android.nix args;
     in
     {
       darwinConfigurations = {
@@ -89,19 +90,14 @@
           ./machines/pixos.nix
         ];
       };
-      nixOnDroidConfigurations.generic-android = args.nix-on-droid.lib.nixOnDroidConfiguration {
-        modules = [
+      nixOnDroidConfigurations.generic-android = loadAndroid {
+        droidModules = [
           ./nix-on-droid/base.nix
         ];
-        pkgs = import args.nixpkgs {
-          system = "aarch64-linux";
-
-          overlays = [
-            args.nix-on-droid.overlays.default
-          ];
-        };
-
-        home-manager-path = args.home-manager.outPath;
+        hmModules = [
+          ./modules/base.nix
+          ./machines/surmpixel.nix
+        ];
       };
     };
 }
