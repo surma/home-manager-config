@@ -93,7 +93,7 @@
           ./machines/pixos.nix
         ];
       };
-      nixOnDroidConfigurations.surmpixel = args.nix-on-droid.lib.nixOnDroidConfiguration {
+      nixOnDroidConfigurations.generic-android = args.nix-on-droid.lib.nixOnDroidConfiguration {
         modules = [
           ./nix-on-droid/base.nix
         ];
