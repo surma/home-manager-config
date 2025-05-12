@@ -4,35 +4,36 @@
   home-manager,
   ...
 }@args:
-{
-  system,
-  hmModules,
-  darwinModules,
-}:
+{ machine, system }:
 let
-  loadConfig = import ./load-config.nix args;
+  extraModule =
+    { config, lib, ... }:
+    {
+      options = with lib; {
+        adminUser = mkOption {
+          type = types.str;
+          default = "surma";
+        };
+      };
+      config = {
+        users.users.${config.adminUser} = {
+          name = config.adminUser;
+          home = "/Users/${config.adminUser}";
+        };
 
-  hmConfig = loadConfig system hmModules;
-  userData = {
-    inherit (hmConfig.config.home) username homeDirectory;
-  };
+        home-manager = {
+          backupFileExtension = "bak";
+          extraSpecialArgs = args;
+        };
+      };
+    };
 in
 
 nix-darwin.lib.darwinSystem {
   system = system;
-  modules = darwinModules ++ [
+  modules = [
+    machine
     home-manager.darwinModules.home-manager
-    {
-      users.users.surma = {
-        name = userData.username;
-        home = userData.homeDirectory;
-      };
-
-      home-manager = {
-        users.${userData.username}.imports = hmModules;
-        backupFileExtension = "bak";
-        extraSpecialArgs = args;
-      };
-    }
+    extraModule
   ];
 }

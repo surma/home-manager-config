@@ -1,9 +1,17 @@
-{ pkgs, system, ... }@args:
+{
+  pkgs,
+  system,
+  lib,
+  ...
+}@args:
 let
   inherit (pkgs) callPackage;
   karabiner-elements = callPackage (import ../extra-pkgs/karabiner-elements) { };
 in
 {
+
+  adminUser = lib.mkDefault "surma";
+
   system.stateVersion = 5;
 
   nixpkgs.config.allowUnfree = true;
