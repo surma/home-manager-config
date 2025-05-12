@@ -22,7 +22,6 @@ in
       ])
       ++ [
         # (callPackage (import ../extra-pkgs/vfkit) { })
-        (callPackage (import ../extra-pkgs/greenlight) { })
       ];
 
     home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";

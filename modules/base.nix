@@ -25,6 +25,7 @@ in
       with pkgs;
       [
         age
+        gawk
         # barrier
         git
         gitui
