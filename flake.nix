@@ -19,7 +19,7 @@
   outputs =
     args:
     let
-      loadConfig = import ./load-config.nix args;
+      loadLinux = import ./load-linux.nix args;
       loadDarwin = import ./load-darwin.nix args;
       loadAndroid = import ./load-android.nix args;
     in
@@ -36,36 +36,40 @@
       };
 
       homeConfigurations = {
-        surmserver = loadConfig "aarch64-linux" [
-          ./modules/base.nix
-          ./modules/linux.nix
-          ./modules/workstation.nix
-          ./machines/surmserver.nix
-        ];
-        generic-linux = loadConfig "aarch64-linux" [
-          ./modules/base.nix
-          ./modules/linux.nix
-          ./modules/workstation.nix
-          ./machines/generic-linux.nix
-        ];
-        surmpi = loadConfig "aarch64-linux" [
-          ./modules/base.nix
-          ./modules/linux.nix
-          ./modules/workstation.nix
-          ./machines/surmpi.nix
-        ];
-        spin = loadConfig "x86_64-linux" [
-          ./modules/base.nix
-          ./modules/linux.nix
-          ./modules/workstation.nix
-          ./machines/spin.nix
-        ];
-        pixos = loadConfig "aarch64-linux" [
-          ./modules/base.nix
-          ./modules/linux.nix
-          ./modules/workstation.nix
-          ./machines/pixos.nix
-        ];
+        surmpi = loadLinux {
+          system = "aarch64-linux";
+          machine = ./machines/surmpi.nix;
+        };
+        # surmserver = loadLinux "aarch64-linux" [
+        #   ./modules/base.nix
+        #   ./modules/linux.nix
+        #   ./modules/workstation.nix
+        #   ./machines/surmserver.nix
+        # ];
+        # generic-linux = loadLinux "aarch64-linux" [
+        #   ./modules/base.nix
+        #   ./modules/linux.nix
+        #   ./modules/workstation.nix
+        #   ./machines/generic-linux.nix
+        # ];
+        # surmpi = loadLinux "aarch64-linux" [
+        #   ./modules/base.nix
+        #   ./modules/linux.nix
+        #   ./modules/workstation.nix
+        #   ./machines/surmpi.nix
+        # ];
+        # spin = loadLinux "x86_64-linux" [
+        #   ./modules/base.nix
+        #   ./modules/linux.nix
+        #   ./modules/workstation.nix
+        #   ./machines/spin.nix
+        # ];
+        # pixos = loadLinux "aarch64-linux" [
+        #   ./modules/base.nix
+        #   ./modules/linux.nix
+        #   ./modules/workstation.nix
+        #   ./machines/pixos.nix
+        # ];
       };
       nixOnDroidConfigurations.generic-android = loadAndroid {
         droidModules = [

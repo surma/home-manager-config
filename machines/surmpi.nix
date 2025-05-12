@@ -1,8 +1,12 @@
 { config, pkgs, ... }:
 {
-  config = {
-    home.packages = (with pkgs; [ syncthing ]);
+  imports = [
+    ../home-manager/base.nix
+    ../home-manager/linux.nix
+    ../home-manager/workstation.nix
+  ];
 
-    home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmpi";
-  };
+  home.packages = (with pkgs; [ syncthing ]);
+
+  home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmpi";
 }

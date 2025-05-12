@@ -15,11 +15,11 @@ in
     { config, ... }:
     {
       imports = [
-        ../modules/base.nix
-        ../modules/graphical.nix
-        ../modules/workstation.nix
-        ../modules/physical.nix
-        ../modules/macos.nix
+        ../home-manager/base.nix
+        ../home-manager/graphical.nix
+        ../home-manager/workstation.nix
+        ../home-manager/physical.nix
+        ../home-manager/macos.nix
       ];
 
       home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
