@@ -50,14 +50,15 @@
         };
       };
 
-      nixOnDroidConfigurations.generic-android = loadAndroid {
-        droidModules = [
-          ./nix-on-droid/base.nix
-        ];
-        hmModules = [
-          ./modules/base.nix
-          ./machines/surmpixel.nix
-        ];
+      nixOnDroidConfigurations = {
+        generic-android = loadAndroid {
+          system = "aarch64-linux";
+          machine = ./machines/generic-android.nix;
+        };
+        surmpixel = loadAndroid {
+          system = "aarch64-linux";
+          machine = ./machines/surmpixel.nix;
+        };
       };
     };
 }
