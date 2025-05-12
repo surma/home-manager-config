@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 {
   environment.packages = with pkgs; [
@@ -21,9 +16,9 @@
     experimental-features = nix-command flakes
   '';
 
-  # home-manager = {
-  #   config = ../modules/base.nix;
-  #   # backupFileExtension = "hm-bak";
-  #   # useGlobalPkgs = true;
-  # };
+  home-manager = {
+    config = ../modules/base.nix;
+    # backupFileExtension = "hm-bak";
+    # useGlobalPkgs = true;
+  };
 }

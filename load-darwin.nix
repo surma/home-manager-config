@@ -10,6 +10,9 @@
   darwinModules,
 }:
 let
+  pkgs = nixpkgs.legacyPackages.${system};
+  inherit (pkgs) lib;
+
   loadConfig = import ./load-config.nix args;
 
   hmConfig = loadConfig system hmModules;
@@ -21,7 +24,7 @@ in
 nix-darwin.lib.darwinSystem {
   system = system;
   modules = darwinModules ++ [
-    home-manager.darwinModules.home-manager
+    args.home-manager.darwinModules.home-manager
     {
       users.users.surma = {
         name = userData.username;
