@@ -27,7 +27,7 @@ nix-on-droid.lib.nixOnDroidConfiguration {
   {
       home-manager = {
         config = {
-          imports = hmModules;
+          imports = [ ./modules/android.nix ] ++ hmModules;
         };
         extraSpecialArgs = args;
       };

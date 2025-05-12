@@ -47,21 +47,21 @@ in
         (callPackage (import ../secrets) { })
       ];
 
-    # home.file = {
-    #   ".npmrc".source = ../configs/npmrc;
-    #   ".gnupg/gpg-agent.conf".text = ''
-    #     pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
-    #   '';
-    # };
-    # xdg.configFile = {
-    #   "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
-    # };
+    home.file = {
+      ".npmrc".source = ../configs/npmrc;
+      ".gnupg/gpg-agent.conf".text = ''
+        pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
+      '';
+    };
+    xdg.configFile = {
+      "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
+    };
 
-    # home.sessionVariables = {
-    #   EDITOR = "hx";
-    # };
+    home.sessionVariables = {
+      EDITOR = "hx";
+    };
 
-    # programs.home-manager.enable = true;
+    programs.home-manager.enable = true;
 
     programs.git = {
       enable = true;
@@ -81,45 +81,45 @@ in
       };
     };
 
-    # programs.bat = {
-    #   enable = true;
-    # };
+    programs.bat = {
+      enable = true;
+    };
 
-    # programs.zoxide = {
-    #   enable = true;
-    #   enableZshIntegration = true;
-    # };
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
 
-    # programs.fzf = {
-    #   enable = true;
-    #   enableZshIntegration = true;
-    # };
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    };
 
-    # programs.eza = {
-    #   enable = true;
-    #   icons = "auto";
-    #   git = true;
-    # };
+    programs.eza = {
+      enable = true;
+      icons = "auto";
+      git = true;
+    };
 
     programs.helix = import ../configs/helix.nix;
 
-    # programs.jq.enable = true;
+    programs.jq.enable = true;
     # programs.obs-studio.enable = true;
-    # programs.ripgrep.enable = true;
+    programs.ripgrep.enable = true;
     programs.starship = {
       enable = true;
     };
     programs.zsh = import ../configs/zsh.nix;
     programs.zellij = (pkgs.callPackage (import ../configs/zellij.nix) { }).zellij;
-    # programs.ssh = {
-    #   enable = true;
-    #   forwardAgent = true;
-    #   addKeysToAgent = "yes";
-    #   matchBlocks = {
-    #     "*" = {
-    #       identityFile = "${config.home.homeDirectory}/.secrets/id_rsa";
-    #     };
-    #   };
-    # };
+    programs.ssh = {
+      enable = true;
+      forwardAgent = true;
+      addKeysToAgent = "yes";
+      matchBlocks = {
+        "*" = {
+          identityFile = "${config.home.homeDirectory}/.secrets/id_rsa";
+        };
+      };
+    };
   };
 }
