@@ -2,6 +2,7 @@
   nixpkgs,
   nix-on-droid,
   home-manager,
+  # lib,
   ...
 }@args:
 {
@@ -16,17 +17,6 @@ let
   userData = {
     inherit (hmConfig.config.home) username homeDirectory;
   };
-in
-
-nix-on-droid.lib.nixOnDroidConfiguration {
-  modules = droidModules ++ [
-    {
-      home-manager = {
-        users.${userData.username}.imports = hmModules;
-        extraSpecialArgs = args;
-      };
-    }
-  ];
   pkgs = import args.nixpkgs {
     inherit system;
 
@@ -35,5 +25,22 @@ nix-on-droid.lib.nixOnDroidConfiguration {
     ];
   };
 
+in
+
+nix-on-droid.lib.nixOnDroidConfiguration {
+  inherit pkgs;
+  modules = droidModules ++ [
+    {
+      home-manager = {
+        # users.${userData.username}.imports = hmModules;
+      config = hmConfig.config;
+      # config = ./modules/base.nix;
+      # config = pkgs.callPackage ./modules/base.nix args;
+        # config = [./modules/base.nix ./modules/physical.nix];
+        # config = hmConfig;
+        extraSpecialArgs = args;
+      };
+    }
+  ];
   home-manager-path = home-manager.outPath;
 }
