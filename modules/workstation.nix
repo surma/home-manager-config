@@ -1,14 +1,13 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }:
 let
   inherit (pkgs) callPackage;
 
   zig = callPackage (import ../extra-pkgs/zig) { };
-  llvm_19 = callPackage (import ../extra-pkgs/llvm_19) { };
+  podman = (callPackage (import ../extra-pkgs/podman) { });
 in
 {
   config = {
@@ -24,8 +23,6 @@ in
       (with pkgs; [
         just
         wabt
-        nodejs.pkgs.typescript-language-server
-        pnpm_9
         nil
         nixfmt-rfc-style
         binaryen
@@ -43,12 +40,12 @@ in
       ++ [
         zig.zig
         zig.zls
+        podman.podman
+        podman.podman-compose
       ]
       ++ [
         (callPackage (import ../extra-pkgs/aider) { })
         (callPackage (import ../extra-pkgs/wasmtime) { })
-        (callPackage (import ../extra-pkgs/podman) { }).podman
-        (callPackage (import ../extra-pkgs/podman) { }).podman-compose
       ];
     # Shadowing MacOS's clang breaks all kind of shit
     # ++ (

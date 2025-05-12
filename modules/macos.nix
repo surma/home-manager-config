@@ -8,7 +8,6 @@ let
   inherit (pkgs) callPackage;
 in
 {
-
   options.allowUnfree.macos = {
     "raycast" = true;
   };
@@ -21,7 +20,6 @@ in
         raycast
       ])
       ++ [
-
         (callPackage (import ../extra-pkgs/hyperkey) { })
         (callPackage (import ../extra-pkgs/aerospace-bin) { })
       ];
