@@ -29,7 +29,7 @@ in
         [
           google-cloud-sdk
           opentofu
-          graphite-cli
+          # graphite-cli
           keycastr
           (python3.withPackages (ps: [
             ps.distutils
