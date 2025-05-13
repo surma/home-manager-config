@@ -33,14 +33,12 @@ in
 
       home.packages =
         (with pkgs; [
-          darktable
-          utm
           google-cloud-sdk
           opentofu
           openscad
           jqp
           uv
-          deno
+          qmk
         ])
         ++ [
           # (callPackage (import ../extra-pkgs/vfkit) { })
