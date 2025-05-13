@@ -23,10 +23,17 @@
     termux-setup-storage.enable = true;
     termux-wake-lock.enable = true;
     termux-wake-unlock.enable = true;
+    termux-reload-settings.enable = true;
     xdg-open.enable = true;
   };
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+
+  home-manager.config = {
+    home.file.".termux/termux.properties".text = ''
+      extra-keys = []
+    '';
+  };
 }
