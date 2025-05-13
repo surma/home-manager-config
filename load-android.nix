@@ -7,8 +7,7 @@
 }@args:
 {
   system,
-  hmModules,
-  droidModules,
+  machine,
 }:
 let
   pkgs = import args.nixpkgs {
@@ -23,12 +22,24 @@ in
 
 nix-on-droid.lib.nixOnDroidConfiguration {
   inherit pkgs;
-  modules = droidModules ++ [
+  modules = [
+    machine
     {
       home-manager = {
-        config = {
-          imports = [ ./modules/android.nix ] ++ hmModules;
-        };
+        config =
+          { lib, ... }:
+          {
+            config = {
+
+              home.username = lib.mkDefault "nix-on-droid";
+              home.homeDirectory = lib.mkDefault "/data/data/com.termux.nix/files/home";
+              home.sessionVariables = {
+                CONFIG_MANAGER = "nix-on-droid";
+              };
+
+            };
+          };
+
         extraSpecialArgs = args;
       };
     }

@@ -3,10 +3,7 @@
   imports = [
     ../nix-on-droid/base.nix
   ];
-
-  system.stateVersion = "24.05";
-
-  home-manager.config =
+  home-manager =
     { config, ... }:
     {
       imports = [
