@@ -7,6 +7,8 @@
     ../home-manager/workstation.nix
   ];
 
+  home.stateVersion = "24.05";
+
   home.packages = (
     with pkgs;
     [

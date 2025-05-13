@@ -7,6 +7,8 @@ in
     ../darwin/base.nix
   ];
 
+  system.stateVersion = 5;
+
   nix.extraOptions = ''
     !include nix.conf.d/shopify.conf
   '';
@@ -21,6 +23,8 @@ in
         ../home-manager/physical.nix
         ../home-manager/macos.nix
       ];
+
+      home.stateVersion = "24.05";
 
       home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
 

@@ -6,6 +6,9 @@ in
   imports = [
     ../darwin/base.nix
   ];
+
+  system.stateVersion = 5;
+
   homebrew = {
     casks = [
       "nvidia-geforce-now"
@@ -23,6 +26,8 @@ in
         ../home-manager/physical.nix
         ../home-manager/macos.nix
       ];
+
+      home.stateVersion = "24.05";
 
       home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmbook";
 

@@ -18,7 +18,6 @@ in
     package = lib.mkDefault pkgs.nix;
     settings.experimental-features = "nix-command flakes pipe-operators";
   };
-  home.stateVersion = "24.05";
   home.packages =
     with pkgs;
     [

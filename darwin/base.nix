@@ -12,8 +12,6 @@ in
 
   adminUser = lib.mkDefault "surma";
 
-  system.stateVersion = 5;
-
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = "nix-command flakes pipe-operators";
