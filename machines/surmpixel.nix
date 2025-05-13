@@ -3,7 +3,7 @@
   imports = [
     ../nix-on-droid/base.nix
   ];
-  home-manager =
+  home-manager.config =
     { config, ... }:
     {
       imports = [

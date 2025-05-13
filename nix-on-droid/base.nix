@@ -15,6 +15,8 @@
 
   environment.etcBackupExtension = ".bak";
 
+  user.shell = "${pkgs.zsh}/bin/zsh";
+
   system.stateVersion = "24.05";
 
   nix.extraOptions = ''

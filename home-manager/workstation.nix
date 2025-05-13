@@ -23,18 +23,13 @@ in
       just
       wabt
       nil
-      nixfmt-rfc-style
       binaryen
       rustup
       brotli
       cmake
       simple-http-server
-      nushell
       jwt-cli
       graphviz
-      yazi
-      fzf
-      zoxide
     ])
     ++ [
       zig.zig

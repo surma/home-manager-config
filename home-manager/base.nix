@@ -39,6 +39,11 @@ in
       tree
       pinentry-curses
       chafa
+      yazi
+      fzf
+      nixfmt-rfc-style
+      nushell
+      zoxide
     ]
     ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ]
     ++ [

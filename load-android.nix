@@ -25,20 +25,23 @@ nix-on-droid.lib.nixOnDroidConfiguration {
   modules = [
     machine
     {
-      home-manager =
-        { lib, ... }:
-        {
-          config = {
+      home-manager = {
+        config =
+          { lib, ... }:
+          {
+            config = {
 
-            home.username = lib.mkDefault "nix-on-droid";
-            home.homeDirectory = lib.mkDefault "/data/data/com.termux.nix/files/home";
-            home.sessionVariables = {
-              CONFIG_MANAGER = "nix-on-droid";
+              home.username = lib.mkDefault "nix-on-droid";
+              home.homeDirectory = lib.mkDefault "/data/data/com.termux.nix/files/home";
+              home.sessionVariables = {
+                CONFIG_MANAGER = "nix-on-droid";
+              };
+
             };
-
           };
-          extraSpecialArgs = args;
-        };
+
+        extraSpecialArgs = args;
+      };
     }
   ];
   home-manager-path = home-manager.outPath;
