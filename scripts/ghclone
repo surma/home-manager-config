@@ -1,8 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env nu
 
-OWNER=$1
-REPO=$2
-shift 2
-mkdir -p $HOME/src/github.com/$OWNER
-cd $HOME/src/github.com/$OWNER
-git clone $@ ssh://git@github.com/$OWNER/$REPO
+def main [
+  --url: string,
+  ...args: string
+] {
+  if $url != null {
+    let purl = $url | url parse | get path | split column "/" owner repo
+    main $purl.owner $purl.repo
+    return
+  }
+  if ($args | length) == 1 {
+    main --url $args.0
+    return
+  }
+  if ($args | length) == 2 {
+    let target = $"($env.HOME)/src/github.com/($args.0)/($args.1)"
+    mkdir $target
+    git clone $"ssh://git@github.com/($args.0)/($args.1)" $target
+    return
+  }
+  error make {msg: "Invalid invocation"}
+}
