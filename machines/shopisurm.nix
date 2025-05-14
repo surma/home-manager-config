@@ -33,6 +33,7 @@ in
         [
           google-cloud-sdk
           opentofu
+          qmk
           # graphite-cli
           keycastr
           (python3.withPackages (ps: [

@@ -36,8 +36,10 @@
           C-f = "file_picker_in_current_directory";
           "[" = ":set-option lsp.display-inlay-hints false";
           "]" = ":set-option lsp.display-inlay-hints true";
-          "{" = ":theme gruvbox";
-          "}" = ":theme gruvbox_light_hard";
+          "{" = ":theme gruvbox_light_hard";
+          "}" = ":theme gruvbox";
+          "(" = ":set soft-wrap.enable false";
+          ")" = ":set soft-wrap.enable true";
         };
       };
     };
