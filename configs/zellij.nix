@@ -13,6 +13,7 @@ in
     settings = {
       pane_frames = false;
       session_serialization = false;
+      show_startup_tips = false;
 
       theme = "gruvbox";
       themes = {
