@@ -22,6 +22,7 @@ in
       imports = [
         ../home-manager/base.nix
         ../home-manager/graphical.nix
+        ../home-manager/keyboard-dev.nix
         ../home-manager/workstation.nix
         ../home-manager/physical.nix
         ../home-manager/macos.nix
@@ -38,7 +39,6 @@ in
           openscad
           jqp
           uv
-          qmk
         ])
         ++ [
           # (callPackage (import ../extra-pkgs/vfkit) { })

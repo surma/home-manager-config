@@ -20,8 +20,6 @@ in
 
   home.packages =
     (with pkgs; [
-      just
-      wabt
       nil
       binaryen
       rustup
@@ -40,6 +38,7 @@ in
     ++ [
       (callPackage (import ../extra-pkgs/aider) { })
       (callPackage (import ../extra-pkgs/wasmtime) { })
+      (callPackage (import ../extra-pkgs/just) { })
     ];
   # Shadowing MacOS's clang breaks all kind of shit
   # ++ (
