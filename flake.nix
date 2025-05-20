@@ -9,6 +9,10 @@
       url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    amber-upstream = {
+      url = "github:amber-lang/Amber";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
