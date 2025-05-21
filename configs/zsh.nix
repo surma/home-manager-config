@@ -16,7 +16,7 @@
     hms = "${"$"}{CONFIG_MANAGER:-home-manager} switch --flake $FLAKE_CONFIG_URI";
     ltt = "eza --tree --git-ignore";
   };
-  initExtra = ''
+  initContent = ''
     # Nix
     test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 

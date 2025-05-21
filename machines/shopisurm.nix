@@ -13,7 +13,7 @@ in
     !include nix.conf.d/shopify.conf
   '';
 
-  home-manager.users.${config.adminUser} =
+  home-manager.users.${config.system.primaryUser} =
     { config, ... }:
     {
       imports = [
@@ -22,6 +22,7 @@ in
         ../home-manager/workstation.nix
         ../home-manager/physical.nix
         ../home-manager/macos.nix
+        ../home-manager/cloud.nix
       ];
 
       home.stateVersion = "24.05";
@@ -31,9 +32,6 @@ in
       home.packages = (
         with pkgs;
         [
-          google-cloud-sdk
-          opentofu
-          qmk
           # graphite-cli
           keycastr
           (python3.withPackages (ps: [
@@ -57,7 +55,7 @@ in
       };
 
       programs.zsh = {
-        initExtra = ''
+        initContent = ''
           [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
           [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
           [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)

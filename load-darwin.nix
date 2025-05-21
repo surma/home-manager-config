@@ -9,16 +9,10 @@ let
   extraModule =
     { config, lib, ... }:
     {
-      options = with lib; {
-        adminUser = mkOption {
-          type = types.str;
-          default = "surma";
-        };
-      };
       config = {
-        users.users.${config.adminUser} = {
-          name = config.adminUser;
-          home = "/Users/${config.adminUser}";
+        users.users.${config.system.primaryUser} = {
+          name = config.system.primaryUser;
+          home = "/Users/${config.system.primaryUser}";
         };
 
         home-manager = {

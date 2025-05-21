@@ -5,9 +5,6 @@
 }:
 let
   inherit (pkgs) callPackage;
-
-  zig = callPackage (import ../extra-pkgs/zig) { };
-  podman = (callPackage (import ../extra-pkgs/podman) { });
 in
 {
 
@@ -28,15 +25,10 @@ in
       simple-http-server
       jwt-cli
       graphviz
+      hyperfine
+      uv
     ])
     ++ [
-      zig.zig
-      zig.zls
-      podman.podman
-      podman.podman-compose
-    ]
-    ++ [
-      (callPackage (import ../extra-pkgs/aider) { })
       (callPackage (import ../extra-pkgs/wasmtime) { })
       (callPackage (import ../extra-pkgs/just) { })
     ];

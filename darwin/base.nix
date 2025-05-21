@@ -10,17 +10,15 @@ let
 in
 {
 
-  adminUser = lib.mkDefault "surma";
-
   nixpkgs.config.allowUnfree = true;
+
+  nix.enable = true;
 
   nix.settings.experimental-features = "nix-command flakes pipe-operators";
 
-  services.nix-daemon.enable = true;
-
   fonts.packages = with pkgs; [ fira-code ];
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   homebrew = {
     enable = true;
@@ -49,6 +47,8 @@ in
   # networking.computerName = "";
   # networking.hostName = "";
   # system.configurationRevision = self.rev or self.dirtyRev or null;
+
+  system.primaryUser = "surma";
 
   system.defaults = {
     NSGlobalDomain = {

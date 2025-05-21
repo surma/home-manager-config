@@ -16,7 +16,9 @@ in
     ];
   };
 
-  home-manager.users.${config.adminUser} =
+  ids.gids.nixbld = 30000;
+
+  home-manager.users.${config.system.primaryUser} =
     { config, amber-upstream, ... }:
     {
       imports = [
@@ -26,6 +28,7 @@ in
         ../home-manager/workstation.nix
         ../home-manager/physical.nix
         ../home-manager/macos.nix
+        ../home-manager/experiments.nix
       ];
 
       home.stateVersion = "24.05";
@@ -34,16 +37,13 @@ in
 
       home.packages =
         (with pkgs; [
-          google-cloud-sdk
-          opentofu
           openscad
           jqp
-          uv
         ])
         ++ [
           # (callPackage (import ../extra-pkgs/vfkit) { })
           (callPackage (import ../extra-pkgs/qbittorrent) { })
-          (callPackage (import ../extra-pkgs/amber) {inherit amber-upstream; })
+          (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
         ];
     };
 }

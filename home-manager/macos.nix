@@ -42,7 +42,7 @@ in
     };
 
     programs.zsh = {
-      initExtra = ''
+      initContent = ''
         export PATH=$PATH:/run/current-system/sw/bin
       '';
     };
