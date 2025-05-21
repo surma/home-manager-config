@@ -27,6 +27,8 @@ in
       graphviz
       hyperfine
       uv
+      mprocs
+      dua
     ])
     ++ [
       (callPackage (import ../extra-pkgs/wasmtime) { })
