@@ -5,6 +5,16 @@
         "rules": [
           {
             "description": "Tap Caps Lock for ESC or Hold for Hyper",
+              "conditions": [
+              {
+                "type": "device_if",
+                "identifiers": [
+                  {
+                    "is_built_in_keyboard": true
+                  }
+                ]
+              }
+            ],
             "manipulators": [
               {
                 "from": {
