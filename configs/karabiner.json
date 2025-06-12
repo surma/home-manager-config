@@ -5,7 +5,7 @@
         "rules": [
           {
             "description": "Tap Caps Lock for ESC or Hold for Hyper",
-              "conditions": [
+            "conditions": [
               {
                 "type": "device_if",
                 "identifiers": [

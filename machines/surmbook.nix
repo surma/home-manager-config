@@ -29,6 +29,10 @@ in
         ../home-manager/physical.nix
         ../home-manager/macos.nix
         ../home-manager/experiments.nix
+        ../home-manager/cloud.nix
+        ../home-manager/nixdev.nix
+        ../home-manager/javascript.nix
+        ../home-manager/dev.nix
       ];
 
       home.stateVersion = "24.05";

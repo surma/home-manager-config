@@ -13,7 +13,6 @@
     gfo = "git fetch origin";
     gra = "git reset --hard origin/main";
     gom = "git checkout -B main origin/main";
-    hms = "${"$"}{CONFIG_MANAGER:-home-manager} switch --flake $FLAKE_CONFIG_URI";
     ltt = "eza --tree --git-ignore";
   };
   initContent = ''

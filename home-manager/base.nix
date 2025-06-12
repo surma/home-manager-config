@@ -23,13 +23,7 @@ in
     [
       age
       gawk
-      # barrier
-      git
-      gitui
-      lazygit
-      git-lfs
       htop
-      jq
       btop
       mosh
       openssh
@@ -40,7 +34,6 @@ in
       chafa
       yazi
       fzf
-      nixfmt-rfc-style
       nushell
       zoxide
     ]
@@ -51,7 +44,6 @@ in
     ];
 
   home.file = {
-    ".npmrc".source = ../configs/npmrc;
     ".gnupg/gpg-agent.conf".text = ''
       pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
     '';
@@ -65,24 +57,6 @@ in
   };
 
   programs.home-manager.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "Surma";
-    userEmail = "surma@surma.dev";
-    signing = {
-      key = "0x0F58C405";
-      signByDefault = true;
-    };
-    diff-so-fancy = {
-      enable = true;
-    };
-    extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
-    };
-  };
 
   programs.bat = {
     enable = true;
@@ -106,8 +80,6 @@ in
 
   programs.helix = import ../configs/helix.nix;
 
-  programs.jq.enable = true;
-  # programs.obs-studio.enable = true;
   programs.ripgrep.enable = true;
   programs.starship = {
     enable = true;

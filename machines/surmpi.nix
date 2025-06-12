@@ -4,6 +4,9 @@
     ../home-manager/base.nix
     ../home-manager/linux.nix
     ../home-manager/workstation.nix
+    ../home-manager/nixdev.nix
+    ../home-manager/javascript.nix
+    ../home-manager/dev.nix
   ];
 
   home.stateVersion = "24.05";

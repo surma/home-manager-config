@@ -1,0 +1,11 @@
+#!/usr/bin/env nu
+
+let isMacOS = (which darwin-rebuild | length | $in > 0)
+
+mut command = ["switch" "--flake" $env.FLAKE_CONFIG_URI]
+if $isMacOS {
+	$command = ["sudo" "darwin-rebuild" ...$command]
+} else {
+	$command = ["home-manager" ...$command]
+}
+run-external ...$command
