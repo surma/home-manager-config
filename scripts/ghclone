@@ -1,16 +1,24 @@
 #!/usr/bin/env nu
 
+def isUrl [] {
+  ($in | str starts-with "http:") or ($in | str starts-with  "https:")
+}
+
 def main [
   --url: string,
   ...args: string
 ] {
   if $url != null {
-    let purl = $url | url parse | get path | split column "/" owner repo
+    let purl = $url | url parse | get path | split column "/" _root owner repo | get 0
     main $purl.owner $purl.repo
     return
   }
-  if ($args | length) == 1 {
+  if ($args | length) == 1 and ($args | get 0 | isUrl) {
     main --url $args.0
+    return
+  }
+  if ($args | length) == 1 {
+    main --url $"https://github.com/($args | get 0)"
     return
   }
   if ($args | length) == 2 {
