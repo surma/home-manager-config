@@ -45,7 +45,8 @@ in
           jqp
         ])
         ++ [
-          # (callPackage (import ../extra-pkgs/vfkit) { })
+          (callPackage (import ../extra-pkgs/ollama) { })
+          # (callPackage (import ../extra-pkgs/vfkit) {
           (callPackage (import ../extra-pkgs/qbittorrent) { })
           (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
         ];
