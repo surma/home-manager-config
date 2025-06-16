@@ -32,16 +32,17 @@ in
 
       home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
 
-      home.packages = (
-        with pkgs;
-        [
+      home.packages =
+        (with pkgs; [
           # graphite-cli
           keycastr
           (python3.withPackages (ps: [
             ps.distutils
           ]))
-        ]
-      );
+        ])
+        ++ [
+          (callPackage (import ../extra-pkgs/ollama) { })
+        ];
 
       programs.git.extraConfig = {
         # core = {
