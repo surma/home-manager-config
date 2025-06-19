@@ -18,14 +18,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    args:
+    args@{ flake-utils, nixpkgs, ... }:
     let
       loadLinux = import ./load-linux.nix args;
       loadDarwin = import ./load-darwin.nix args;
       loadAndroid = import ./load-android.nix args;
+
+      callPackageForEachDefaultSystem =
+        name: path:
+        flake-utils.lib.eachDefaultSystem (system: {
+          ${name} = nixpkgs.legacyPackages.${system}.callPackage (import path) { };
+        });
     in
     {
       darwinConfigurations = {
@@ -64,5 +71,11 @@
           machine = ./machines/surmpixel.nix;
         };
       };
-    };
+
+    }
+    // (flake-utils.lib.eachDefaultSystem (system: {
+      packages = {
+        jupyterDeno = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/jupyter { };
+      };
+    }));
 }

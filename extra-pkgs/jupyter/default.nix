@@ -29,7 +29,7 @@ let
   denoKernelSpecFile = writeTextFile {
     name = "deno-kernel";
     destination = "/kernels/deno/kernel.json";
-    text = denoKernelSpec |> builtins.toJSON;
+    text = builtins.toJSON denoKernelSpec;
   };
 
   kernels = symlinkJoin {
