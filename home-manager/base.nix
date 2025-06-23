@@ -6,13 +6,8 @@
 }:
 let
   inherit (pkgs) callPackage;
-  allAllowedUnfreePackages = lib.lists.flatten (
-    lib.lists.map (a: lib.attrsets.attrNames a) (lib.attrsets.attrValues config.allowUnfree)
-  );
 in
 {
-  nixpkgs.config.allowUnfreePredicate =
-    pkg: lib.lists.elem (lib.getName pkg) allAllowedUnfreePackages;
 
   nix = {
     package = lib.mkDefault pkgs.nix;

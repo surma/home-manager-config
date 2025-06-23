@@ -6,12 +6,18 @@
 }:
 {
 
-  options.allowUnfree.graphical = {
-    "obsidian" = true;
-    "vscode" = true;
-  };
+  imports = [
+    ./wezterm.nix
+  ];
 
   config = {
+
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      lib.lists.elem (lib.getName pkg) [
+        "obsidian"
+        "vscode"
+      ];
     home.packages = (
       with pkgs;
       [
@@ -22,6 +28,6 @@
       ]
     );
 
-    programs.wezterm = (pkgs.callPackage (import ../configs/wezterm.nix) { }).wezterm;
+    programs.wezterm.enable = true;
   };
 }

@@ -8,6 +8,7 @@
     ../home-manager/linux.nix
     ../home-manager/graphical.nix
     ../home-manager/workstation.nix
+    ../home-manager/wezterm.nix
   ];
   home.packages = (
     with pkgs;
@@ -20,6 +21,7 @@
 
   home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
 
+  programs.wezterm.frontend = "OpenGL";
   programs.kitty.enable = true;
   wayland.windowManager.hyprland = {
     enable = false;
