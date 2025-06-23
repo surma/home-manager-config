@@ -16,11 +16,9 @@
       with pkgs;
       [
         telegram-desktop
-        audacity
         fira-code
         obsidian
         vscode
-        vlc-bin
       ]
     );
 

@@ -156,6 +156,26 @@
         "type": "github"
       }
     },
+    "nix-system-graphics": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737457219,
+        "narHash": "sha256-nX9dxoATDCSQgWw/iv6BngXDJEyHVYYEvHEVQ7Ig3fI=",
+        "owner": "soupglasses",
+        "repo": "nix-system-graphics",
+        "rev": "9c875e0c56cf2eb272b9102a4f3e24e4e31629fd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "soupglasses",
+        "repo": "nix-system-graphics",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1747822332,
@@ -265,7 +285,9 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-on-droid": "nix-on-droid",
-        "nixpkgs": "nixpkgs"
+        "nix-system-graphics": "nix-system-graphics",
+        "nixpkgs": "nixpkgs",
+        "system-manager": "system-manager"
       }
     },
     "rust-overlay": {
@@ -302,6 +324,26 @@
       "original": {
         "owner": "andreymatin",
         "repo": "scss-reset",
+        "type": "github"
+      }
+    },
+    "system-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748252092,
+        "narHash": "sha256-6nL55wvV7SthEXaXDiQo8xxkxQLAVcNBU21YJ7GJLm8=",
+        "owner": "numtide",
+        "repo": "system-manager",
+        "rev": "c6850451ef769fd03d0ad5474f928b916aa23775",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "system-manager",
         "type": "github"
       }
     },

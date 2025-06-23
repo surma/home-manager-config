@@ -18,21 +18,29 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-system-graphics = {
+      url = "github:soupglasses/nix-system-graphics";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    args@{ flake-utils, nixpkgs, ... }:
+    args@{
+      flake-utils,
+      nixpkgs,
+      system-manager,
+      nix-system-graphics,
+      ...
+    }:
     let
       loadLinux = import ./load-linux.nix args;
       loadDarwin = import ./load-darwin.nix args;
       loadAndroid = import ./load-android.nix args;
-
-      callPackageForEachDefaultSystem =
-        name: path:
-        flake-utils.lib.eachDefaultSystem (system: {
-          ${name} = nixpkgs.legacyPackages.${system}.callPackage (import path) { };
-        });
     in
     {
       darwinConfigurations = {
@@ -43,6 +51,15 @@
         shopisurm = loadDarwin {
           system = "aarch64-darwin";
           machine = ./machines/shopisurm.nix;
+        };
+      };
+
+      systemConfigs = {
+        surmframework = system-manager.lib.makeSystemConfig {
+          modules = [
+            nix-system-graphics.systemModules.default
+            ./system-manager/base.nix
+          ];
         };
       };
 
