@@ -1,12 +1,18 @@
 {
   callPackage,
+  writeShellScriptBin,
 }:
 let
   package = callPackage (import ../extra-pkgs/wezterm) { };
+
+  wrapper = writeShellScriptBin "wezterm" ''
+    ${package}/bin/wezterm --config 'front_end="OpenGL"'
+  '';
 in
 {
   wezterm = {
-    inherit package;
+    # inherit package;
+    package = wrapper;
 
     enable = true;
     extraConfig = ''
@@ -33,6 +39,7 @@ in
       end)
 
       local config = wezterm.config_builder()
+      config.front_end = "OpenGL"
       config.send_composed_key_when_left_alt_is_pressed = true
       config.enable_tab_bar = false
       config.window_padding = {
