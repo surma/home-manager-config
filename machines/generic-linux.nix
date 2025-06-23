@@ -8,5 +8,7 @@
   ];
   home.packages = (with pkgs; [ ]);
 
+  home.stateVersion = "24.05";
+
   home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#generic-linux";
 }
