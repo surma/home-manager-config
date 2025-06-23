@@ -55,9 +55,13 @@
           system = "aarch64-linux";
           machine = ./machines/surmserver.nix;
         };
-        generic-linux = loadLinux {
+        generic-aarch64-linux = loadLinux {
           system = "aarch64-linux";
           machine = ./machines/generic-linux.nix;
+        };
+        surmframework = loadLinux {
+          system = "x86_64-linux";
+          machine = ./machines/surmframework.nix;
         };
       };
 
