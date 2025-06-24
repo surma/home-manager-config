@@ -42,7 +42,7 @@
       loadDarwin = import ./load-darwin.nix args;
       loadAndroid = import ./load-android.nix args;
     in
-    {
+    rec {
       darwinConfigurations = {
         surmbook = loadDarwin {
           system = "aarch64-darwin";
@@ -56,6 +56,7 @@
 
       systemConfigs = {
         surmframework = system-manager.lib.makeSystemConfig {
+          # homeConfiguration.surmframework.
           modules = [
             nix-system-graphics.systemModules.default
             ./system-manager/base.nix

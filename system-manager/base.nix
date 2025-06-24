@@ -11,14 +11,14 @@
 
     environment = {
       etc = {
-        "foo.conf".text = ''
-          launch_the_rockets = true
+        "nix/nix.conf".text = ''
+          build-users-group = nixbld
+          experimental-features = nix-command flakes pipe-operators
         '';
       };
-      systemPackages = [
-        # pkgs.ripgrep
-        # pkgs.fd
-        # pkgs.hello
+      systemPackages = with pkgs; [
+        helix
+        git
       ];
     };
 
@@ -37,6 +37,14 @@
       #     echo "We launched the rockets!"
       #   '';
       # };
+    };
+
+    build = {
+      scripts = {
+        lol = pkgs.writeShellScriptBin "lol" ''
+          echo hi
+        '';
+      };
     };
   };
 }
