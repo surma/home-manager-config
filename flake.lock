@@ -192,7 +192,7 @@
         "type": "github"
       }
     },
-    "nixospkgs": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1750969886,
         "narHash": "sha256-zW/OFnotiz/ndPFdebpo3X0CrbVNf22n4DjN2vxlb58=",
@@ -204,22 +204,6 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-25.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1747822332,
-        "narHash": "sha256-PDoqTWUt9r9usPdMhr+O9gaDd/YLeRkG10dvnkGuXgw=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d8c429b16a4022dff591f9b095df0d75d2d9404f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "release-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -319,7 +303,6 @@
         "nix-on-droid": "nix-on-droid",
         "nix-system-graphics": "nix-system-graphics",
         "nixos-hardware": "nixos-hardware",
-        "nixospkgs": "nixospkgs",
         "nixpkgs": "nixpkgs",
         "system-manager": "system-manager"
       }

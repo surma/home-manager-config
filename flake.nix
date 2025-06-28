@@ -1,7 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
-    nixospkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,27 +26,23 @@
       url = "github:soupglasses/nix-system-graphics";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/98236410ea0fe204d0447149537a924fb71a6d4f";
-      inputs.nixpkgs.follows = "nixopgs";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/98236410ea0fe204d0447149537a924fb71a6d4f";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    args@{
+    inputs@{
       flake-utils,
       nixpkgs,
-      nixospkgs,
       system-manager,
       nix-system-graphics,
       nixos-hardware,
       ...
     }:
     let
-      loadLinux = import ./load-linux.nix args;
-      loadDarwin = import ./load-darwin.nix args;
-      loadAndroid = import ./load-android.nix args;
+      loadLinux = import ./load-linux.nix inputs;
+      loadDarwin = import ./load-darwin.nix inputs;
+      loadAndroid = import ./load-android.nix inputs;
     in
     rec {
       darwinConfigurations = {
@@ -61,15 +56,14 @@
         };
       };
 
-      systemConfigs = {
-        surmframework = system-manager.lib.makeSystemConfig {
-          # homeConfiguration.surmframework.
-          modules = [
-            nix-system-graphics.systemModules.default
-            ./system-manager/base.nix
-          ];
-        };
-      };
+      # systemConfigs = {
+      #   surmframework = system-manager.lib.makeSystemConfig {
+      #     modules = [
+      #       nix-system-graphics.systemModules.default
+      #       ./system-manager/base.nix
+      #     ];
+      #   };
+      # };
 
       homeConfigurations = {
         surmpi = loadLinux {
@@ -102,11 +96,12 @@
       };
 
       nixosConfigurations = {
-        framework = nixospkgs.lib.nixosSystem {
+        surmframework = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./nixos/framework.nix
           ];
+          specialArgs = {inherit inputs;};
         };
       };
     }

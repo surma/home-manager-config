@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let
 
 hardware-configuration ={ config, lib, pkgs, modulesPath, ... }:
@@ -12,7 +12,8 @@ hardware-configuration ={ config, lib, pkgs, modulesPath, ... }:
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "uas" "sd_mod" ];
@@ -48,8 +49,8 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-
       hardware-configuration
+      inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
     ];
 
   # Bootloader.
@@ -69,6 +70,7 @@ in
 
   # Enable network manager applet
   programs.nm-applet.enable = true;
+  programs._1password-gui.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -89,20 +91,20 @@ in
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # Enable the LXQT Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.lxqt.enable = true;
+  # services.xserver.displayManager.lightdm.enable = true;
+  # services.xserver.desktopManager.lxqt.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -128,6 +130,7 @@ in
     isNormalUser = true;
     description = "Surma";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -139,6 +142,11 @@ in
   # Install firefox.
   programs.firefox.enable = true;
 
+  programs.zsh.enable = true;
+  programs.hyprland.enable = true;
+  programs.waybar.enable = true;
+  programs.hyprlock.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -147,7 +155,13 @@ in
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    wezterm
+    wofi
+    kdePackages.dolphin
+    brightnessctl
+    playerctl
   ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

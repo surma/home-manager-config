@@ -1,9 +1,4 @@
-{ nix-system-graphics, system-manager, config, pkgs, lib, ... }:
-
-let
-  inherit (pkgs) callPackage;
-  systemManagerModule = callPackage (import "${system-manager}/nix/modules") {inherit system-manager;};
-in
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ../home-manager/base.nix
@@ -23,13 +18,6 @@ in
   };
 
   config = {
-    system-manager =  {
-      imports = [
-        # nix-system-graphics.systemModules.default
-        # ../system-manager/base.nix
-      ];
-    };
-
     home.activation.myScript = (lib.hm.dag.entryAfter ["writeBoundary"] ''
       # nix run 'github:numtide/system-manager -- --flake'
     '');
@@ -37,7 +25,6 @@ in
     home.packages = (
       with pkgs;
       [
-        # hyprland
       ]
     );
 
@@ -46,14 +33,10 @@ in
     home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
 
     programs.wezterm.frontend = "OpenGL";
+    programs.wezterm.theme = "dark";
     wayland.windowManager.hyprland = {
-      enable = false;
-      extraConfig = ''
-        # lol
-      '';
-      # set the flake package
-      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      enable = true;
+      extraConfig = lib.readFile ../configs/hyprland.conf;
     };
   };
 }
