@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
+    nixospkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +27,10 @@
       url = "github:soupglasses/nix-system-graphics";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/98236410ea0fe204d0447149537a924fb71a6d4f";
+      inputs.nixpkgs.follows = "nixopgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -33,8 +38,10 @@
     args@{
       flake-utils,
       nixpkgs,
+      nixospkgs,
       system-manager,
       nix-system-graphics,
+      nixos-hardware,
       ...
     }:
     let
@@ -94,6 +101,14 @@
         };
       };
 
+      nixosConfigurations = {
+        framework = nixospkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./nixos/framework.nix
+          ];
+        };
+      };
     }
     // (flake-utils.lib.eachDefaultSystem (system: {
       packages = {
