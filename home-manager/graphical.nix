@@ -23,6 +23,8 @@
       [
         telegram-desktop
         fira-code
+        roboto
+        font-awesome
         obsidian
         vscode
       ]

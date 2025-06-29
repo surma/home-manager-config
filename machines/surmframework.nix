@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ../home-manager/base.nix
@@ -11,20 +16,28 @@
   ];
 
   options = with lib; {
-    system-manager = with types; mkOption {
-      type = nullOr (submodule {inherit (systemManagerModule) options config imports;});
-      default = null;
-    };
+    system-manager =
+      with types;
+      mkOption {
+        type = nullOr (submodule {
+          inherit (systemManagerModule) options config imports;
+        });
+        default = null;
+      };
   };
 
   config = {
-    home.activation.myScript = (lib.hm.dag.entryAfter ["writeBoundary"] ''
-      # nix run 'github:numtide/system-manager -- --flake'
-    '');
+    home.activation.myScript = (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        # nix run 'github:numtide/system-manager -- --flake'
+      ''
+    );
 
     home.packages = (
       with pkgs;
       [
+        roboto
+        font-awesome
       ]
     );
 
@@ -34,6 +47,7 @@
 
     programs.wezterm.frontend = "OpenGL";
     programs.wezterm.theme = "dark";
+    programs.wezterm.window-decorations = null;
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = lib.readFile ../configs/hyprland.conf;

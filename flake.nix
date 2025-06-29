@@ -101,7 +101,7 @@
           modules = [
             ./nixos/framework.nix
           ];
-          specialArgs = {inherit inputs;};
+          specialArgs = { inherit inputs; };
         };
       };
     }
