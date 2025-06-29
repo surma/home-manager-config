@@ -78,10 +78,6 @@
           system = "aarch64-linux";
           machine = ./machines/generic-linux.nix;
         };
-        surmframework = loadLinux {
-          system = "x86_64-linux";
-          machine = ./machines/surmframework.nix;
-        };
       };
 
       nixOnDroidConfigurations = {
@@ -99,7 +95,7 @@
         surmframework = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./nixos/framework.nix
+            ./machines/surmframework.nix
           ];
           specialArgs = { inherit inputs; };
         };
