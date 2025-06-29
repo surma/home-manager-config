@@ -33,5 +33,47 @@
     programs.wezterm.window-decorations = null;
     programs.waybar.enable = true;
     wayland.windowManager.hyprland.enable = true;
+    wayland.windowManager.hyprland.commands = [
+      {
+        variable = "terminal";
+        package = pkgs.wezterm;
+      }
+      {
+        variable = "lockScreen";
+        package = pkgs.hyprlock;
+      }
+      rec {
+        variable = "fileManager";
+        package = pkgs.kdePackages.dolphin;
+        bin = "${package}/bin/dolphin";
+      }
+      {
+        variable = "appMenu";
+        package = pkgs.wofi;
+        args = [
+          "--show"
+          "drun"
+        ];
+      }
+    ];
+    wayland.windowManager.hyprland.execShortcuts = [
+      {
+        key = "T";
+        command = "$terminal";
+      }
+      {
+        key = "L";
+        extraMods = "SHIFT";
+        command = "$lockScreen";
+      }
+      {
+        key = "F";
+        command = "$fileManager";
+      }
+      {
+        key = "Space";
+        command = "$appMenu";
+      }
+    ];
   };
 }
