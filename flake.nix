@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,23 +18,33 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-system-graphics = {
+      url = "github:soupglasses/nix-system-graphics";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/98236410ea0fe204d0447149537a924fb71a6d4f";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    args@{ flake-utils, nixpkgs, ... }:
+    inputs@{
+      flake-utils,
+      nixpkgs,
+      system-manager,
+      nix-system-graphics,
+      nixos-hardware,
+      ...
+    }:
     let
-      loadLinux = import ./load-linux.nix args;
-      loadDarwin = import ./load-darwin.nix args;
-      loadAndroid = import ./load-android.nix args;
-
-      callPackageForEachDefaultSystem =
-        name: path:
-        flake-utils.lib.eachDefaultSystem (system: {
-          ${name} = nixpkgs.legacyPackages.${system}.callPackage (import path) { };
-        });
+      loadLinux = import ./load-linux.nix inputs;
+      loadDarwin = import ./load-darwin.nix inputs;
+      loadAndroid = import ./load-android.nix inputs;
     in
-    {
+    rec {
       darwinConfigurations = {
         surmbook = loadDarwin {
           system = "aarch64-darwin";
@@ -45,6 +55,15 @@
           machine = ./machines/shopisurm.nix;
         };
       };
+
+      # systemConfigs = {
+      #   surmframework = system-manager.lib.makeSystemConfig {
+      #     modules = [
+      #       nix-system-graphics.systemModules.default
+      #       ./system-manager/base.nix
+      #     ];
+      #   };
+      # };
 
       homeConfigurations = {
         surmpi = loadLinux {
@@ -59,10 +78,6 @@
           system = "aarch64-linux";
           machine = ./machines/generic-linux.nix;
         };
-        surmframework = loadLinux {
-          system = "x86_64-linux";
-          machine = ./machines/surmframework.nix;
-        };
       };
 
       nixOnDroidConfigurations = {
@@ -76,6 +91,15 @@
         };
       };
 
+      nixosConfigurations = {
+        surmframework = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/surmframework.nix
+          ];
+          specialArgs = { inherit inputs; };
+        };
+      };
     }
     // (flake-utils.lib.eachDefaultSystem (system: {
       packages = {
