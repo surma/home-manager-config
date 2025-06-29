@@ -35,7 +35,6 @@ let
         "sd_mod"
       ];
       boot.initrd.kernelModules = [ ];
-      boot.kernelParams = [ "mem_sleep_default=deep" ];
       boot.kernelModules = [ "kvm-amd" ];
       boot.extraModulePackages = [ ];
 
@@ -53,7 +52,12 @@ let
         ];
       };
 
-      swapDevices = [ ];
+      swapDevices = [
+        {
+          device = "/var/lib/swapfile";
+          size = 50 * 1024; # Size in megabytes (16 GB in this example)
+        }
+      ];
 
       # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
       # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -78,9 +82,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  systemd.sleep.extraConfig = ''
-    SuspendState=mem
-  '';
   networking.hostName = "surmframework"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   nix.settings.experimental-features = [

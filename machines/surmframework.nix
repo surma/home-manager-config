@@ -13,31 +13,14 @@
     ../home-manager/graphical.nix
     ../home-manager/workstation.nix
     ../home-manager/wezterm.nix
+    ../home-manager/hyprland.nix
+    ../home-manager/waybar.nix
   ];
 
-  options = with lib; {
-    system-manager =
-      with types;
-      mkOption {
-        type = nullOr (submodule {
-          inherit (systemManagerModule) options config imports;
-        });
-        default = null;
-      };
-  };
-
   config = {
-    home.activation.myScript = (
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        # nix run 'github:numtide/system-manager -- --flake'
-      ''
-    );
-
     home.packages = (
       with pkgs;
       [
-        roboto
-        font-awesome
       ]
     );
 
@@ -48,9 +31,7 @@
     programs.wezterm.frontend = "OpenGL";
     programs.wezterm.theme = "dark";
     programs.wezterm.window-decorations = null;
-    wayland.windowManager.hyprland = {
-      enable = true;
-      extraConfig = lib.readFile ../configs/hyprland.conf;
-    };
+    programs.waybar.enable = true;
+    wayland.windowManager.hyprland.enable = true;
   };
 }
