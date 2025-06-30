@@ -108,6 +108,7 @@
     // (flake-utils.lib.eachDefaultSystem (system: {
       packages = {
         jupyterDeno = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/jupyter { };
+        opencode = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/opencode { };
       };
     }));
 }
