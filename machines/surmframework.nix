@@ -58,6 +58,7 @@
         ../home-manager/wezterm.nix
         ../home-manager/hyprland.nix
         ../home-manager/waybar.nix
+        ../home-manager/experiments.nix
 
         ../home-manager/unfree-apps.nix
       ];
@@ -71,6 +72,7 @@
             signal-desktop
             telegram-desktop
             slack
+            nodejs_24
           ]
         );
 
@@ -131,6 +133,7 @@
     };
 
   programs.firefox.enable = true;
+  services.fprintd.enable = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }

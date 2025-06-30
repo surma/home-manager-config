@@ -13,6 +13,7 @@
       lazygit
       git-lfs
       tig
+      nodejs_24.pkgs.typescript-language-server
     ]
     ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ];
 
