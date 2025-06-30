@@ -2,17 +2,26 @@
   config,
   pkgs,
   inputs,
+  system,
+  lib,
   ...
 }:
+let
+  # For bleeding edge
+  # hyprlandPackage = inputs.hyprland.packages.${system}.default;
+  # hyprlandPortalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+
+  hyprlandPackage = pkgs.hyprland;
+  hyprlandPortalPackage = pkgs.xdg-desktop-portal-hyprland;
+in
 {
   imports = [
+    ../home-manager/unfree-apps.nix
     ./surmframework-hardware.nix
     inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
     inputs.home-manager.nixosModules.home-manager
     ../nixos/base.nix
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -22,6 +31,17 @@
     "nix-command"
     "flakes"
     "pipe-operators"
+  ];
+
+  allowedUnfreeApps = [
+    "1password"
+    "spotify"
+  ];
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+    playerctl
+    wireplumber
+    spotify
   ];
 
   programs._1password-gui.enable = true;
@@ -79,65 +99,73 @@
         programs.wezterm.theme = "dark";
         programs.wezterm.window-decorations = null;
         programs.waybar.enable = true;
-        wayland.windowManager.hyprland.enable = true;
-        wayland.windowManager.hyprland.commands = [
-          {
-            variable = "terminal";
-            package = pkgs.wezterm;
-          }
-          {
-            variable = "lockScreen";
-            package = pkgs.hyprlock;
-          }
-          rec {
-            variable = "fileManager";
-            package = pkgs.kdePackages.dolphin;
-            bin = "${package}/bin/dolphin";
-          }
-          {
-            variable = "appMenu";
-            package = pkgs.wofi;
-            args = [
-              "--show"
-              "drun"
-            ];
-          }
-        ];
-        wayland.windowManager.hyprland.execShortcuts = [
-          {
-            key = "T";
-            command = "$terminal";
-          }
-          {
-            key = "L";
-            extraMods = "SHIFT";
-            command = "$lockScreen";
-          }
-          {
-            key = "F";
-            command = "$fileManager";
-          }
-          {
-            key = "Space";
-            command = "$appMenu";
-          }
-        ];
+        wayland.windowManager.hyprland = {
+          enable = true;
+          package = hyprlandPackage;
+          commands = [
+            {
+              variable = "terminal";
+              package = pkgs.wezterm;
+            }
+            {
+              variable = "lockScreen";
+              package = pkgs.hyprlock;
+            }
+            rec {
+              variable = "fileManager";
+              package = pkgs.kdePackages.dolphin;
+              bin = "${package}/bin/dolphin";
+            }
+            {
+              variable = "appMenu";
+              package = pkgs.wofi;
+              args = [
+                "--show"
+                "drun"
+              ];
+            }
+          ];
+          execShortcuts = [
+            {
+              key = "T";
+              command = "$terminal";
+            }
+            {
+              key = "L";
+              extraMods = "SHIFT";
+              command = "$lockScreen";
+            }
+            {
+              key = "F";
+              command = "$fileManager";
+            }
+            {
+              key = "Space";
+              command = "$appMenu";
+            }
+          ];
+        };
       };
     };
 
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
+  programs.hyprland.package = hyprlandPackage;
+  programs.hyprland.portalPackage = hyprlandPortalPackage;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ hyprlandPortalPackage ];
+    #   # config = {
+    #   #   common.default = ["hyprland"];
+    #   # }
+  };
+
   programs.waybar.enable = true;
   services.xserver.displayManager.gdm = {
     enable = true;
     wayland = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-    playerctl
-    wireplumber
-  ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }
