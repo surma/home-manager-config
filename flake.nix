@@ -13,6 +13,10 @@
       url = "github:amber-lang/Amber";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      url = "github:hyprwm/hyprland/v0.49.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,12 +96,12 @@
       };
 
       nixosConfigurations = {
-        surmframework = nixpkgs.lib.nixosSystem {
+        surmframework = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           modules = [
             ./machines/surmframework.nix
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs system; };
         };
       };
     }
