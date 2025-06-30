@@ -55,12 +55,19 @@
         ../home-manager/wezterm.nix
         ../home-manager/hyprland.nix
         ../home-manager/waybar.nix
+
+        ../home-manager/unfree-apps.nix
       ];
 
       config = {
+        allowedUnfreeApps = [ "slack" ];
+
         home.packages = (
           with pkgs;
           [
+            signal-desktop
+            telegram-desktop
+            slack
           ]
         );
 

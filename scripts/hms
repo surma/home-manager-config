@@ -1,9 +1,12 @@
 #!/usr/bin/env nu
 
+let isNixOS = (which nixos-rebuild | length | $in > 0)
 let isMacOS = (which darwin-rebuild | length | $in > 0)
 
 mut command = ["switch" "--flake" $env.FLAKE_CONFIG_URI]
-if $isMacOS {
+if $isNixOS {
+	$command = ["sudo" "nixos-rebuild" ...$command]
+} else if $isMacOS {
 	$command = ["sudo" "darwin-rebuild" ...$command]
 } else {
 	$command = ["home-manager" ...$command]

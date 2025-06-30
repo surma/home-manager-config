@@ -8,16 +8,15 @@
 
   imports = [
     ./wezterm.nix
+
+    ./unfree-apps.nix
   ];
 
   config = {
-
-    nixpkgs.config.allowUnfreePredicate =
-      pkg:
-      lib.lists.elem (lib.getName pkg) [
-        "obsidian"
-        "vscode"
-      ];
+    allowedUnfreeApps = [
+      "obsidian"
+      "vscode"
+    ];
     home.packages = (
       with pkgs;
       [
