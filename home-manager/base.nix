@@ -9,6 +9,10 @@ let
 in
 {
 
+  imports = [
+    ./zellij.nix
+  ];
+
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings.experimental-features = "nix-command flakes pipe-operators";
@@ -80,7 +84,6 @@ in
     enable = true;
   };
   programs.zsh = import ../configs/zsh.nix;
-  programs.zellij = (pkgs.callPackage (import ../configs/zellij.nix) { }).zellij;
   programs.ssh = {
     enable = true;
     forwardAgent = true;

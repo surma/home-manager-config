@@ -84,6 +84,7 @@
         programs.wezterm.theme = "dark";
         programs.wezterm.window-decorations = null;
         programs.waybar.enable = true;
+        programs.zellij.wl-clipboard.enable = true;
         wayland.windowManager.hyprland = {
           enable = true;
           commands = [
