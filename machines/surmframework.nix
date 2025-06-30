@@ -51,11 +51,13 @@
       imports = [
         ../home-manager/base.nix
         ../home-manager/dev.nix
+        ../home-manager/gamedev.nix
         ../home-manager/nixdev.nix
         ../home-manager/linux.nix
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
         ../home-manager/experiments.nix
+        ../home-manager/opencode-defaults.nix
 
         ../home-manager/wezterm.nix
         ../home-manager/hyprland.nix
@@ -76,6 +78,7 @@
             telegram-desktop
             slack
             nodejs_24
+            chromium
           ]
         );
 
@@ -88,31 +91,6 @@
         programs.wezterm.window-decorations = null;
         programs.waybar.enable = true;
         programs.zellij.wl-clipboard.enable = true;
-        programs.fetch-mcp.enable = true;
-        programs.opencode = {
-          enable = true;
-          extraConfig = {
-            provider = {
-              litellm = {
-                models = {
-                  "shopify:anthropic:claude-sonnet-4" = { };
-                };
-                npm = "@ai-sdk/openai-compatible";
-                options = {
-                  baseURL = "http://litellm.surmcluster.10.0.0.2.nip.io";
-                };
-              };
-            };
-
-          };
-          mcps = {
-            fetch-mcp = {
-              type = "local";
-              command = [ "fetch-mcp" ];
-              enabled = true;
-            };
-          };
-        };
         wayland.windowManager.hyprland = {
           enable = true;
           commands = [
