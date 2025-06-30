@@ -1,14 +1,8 @@
 {
-  buildNpmPackage,
-  stdenv,
-  pkgs,
-  nodejs ? pkgs.nodejs_24,
   system,
-  writeShellScriptBin,
   ...
 }:
 let
-  pname = "opencode-ai";
   version = "0.1.166";
 
   opencodeMeta = {

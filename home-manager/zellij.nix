@@ -8,7 +8,8 @@ let
   inherit (pkgs) callPackage wl-clipboard;
   package = callPackage (import ../extra-pkgs/zellij) { };
 in
-with lib; {
+with lib;
+{
   options = {
     programs.zellij.wl-clipboard.enable = mkEnableOption "Use wl-clipboard";
   };
