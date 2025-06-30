@@ -2,18 +2,9 @@
   config,
   pkgs,
   inputs,
-  system,
   lib,
   ...
 }:
-let
-  # For bleeding edge
-  # hyprlandPackage = inputs.hyprland.packages.${system}.default;
-  # hyprlandPortalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
-
-  hyprlandPackage = pkgs.hyprland;
-  hyprlandPortalPackage = pkgs.xdg-desktop-portal-hyprland;
-in
 {
   imports = [
     ../home-manager/unfree-apps.nix
@@ -21,26 +12,18 @@ in
     inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
     inputs.home-manager.nixosModules.home-manager
     ../nixos/base.nix
+    ../nixos/hyprland.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "surmframework"; # Define your hostname.
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-    "pipe-operators"
-  ];
-
   allowedUnfreeApps = [
     "1password"
     "spotify"
   ];
   environment.systemPackages = with pkgs; [
-    brightnessctl
-    playerctl
-    wireplumber
     spotify
   ];
 
@@ -101,7 +84,6 @@ in
         programs.waybar.enable = true;
         wayland.windowManager.hyprland = {
           enable = true;
-          package = hyprlandPackage;
           commands = [
             {
               variable = "terminal";
@@ -149,23 +131,6 @@ in
     };
 
   programs.firefox.enable = true;
-  programs.hyprland.enable = true;
-  programs.hyprland.package = hyprlandPackage;
-  programs.hyprland.portalPackage = hyprlandPortalPackage;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ hyprlandPortalPackage ];
-    #   # config = {
-    #   #   common.default = ["hyprland"];
-    #   # }
-  };
-
-  programs.waybar.enable = true;
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }
