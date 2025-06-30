@@ -51,14 +51,19 @@
       imports = [
         ../home-manager/base.nix
         ../home-manager/dev.nix
+        ../home-manager/gamedev.nix
         ../home-manager/nixdev.nix
         ../home-manager/linux.nix
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
+        ../home-manager/experiments.nix
+        ../home-manager/opencode-defaults.nix
+
         ../home-manager/wezterm.nix
         ../home-manager/hyprland.nix
         ../home-manager/waybar.nix
-        ../home-manager/experiments.nix
+        ../home-manager/fetch-mcp.nix
+        ../home-manager/opencode.nix
 
         ../home-manager/unfree-apps.nix
       ];
@@ -73,6 +78,7 @@
             telegram-desktop
             slack
             nodejs_24
+            chromium
           ]
         );
 
@@ -84,6 +90,7 @@
         programs.wezterm.theme = "dark";
         programs.wezterm.window-decorations = null;
         programs.waybar.enable = true;
+        programs.zellij.wl-clipboard.enable = true;
         wayland.windowManager.hyprland = {
           enable = true;
           commands = [

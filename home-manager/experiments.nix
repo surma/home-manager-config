@@ -12,7 +12,7 @@ in
 {
   home.packages =
     (with pkgs; [
-      (callPackage (import ../extra-pkgs/psst) { })
+      (callPackage (import ../extra-pkgs/opencode) { })
     ])
     ++ [
     ];
