@@ -16,6 +16,7 @@
 
     ../nixos/framework-suspend-fix.nix
     ../nixos/shopify-cloudflare-warp.nix
+    ../nixos/_1password-wrapper.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
