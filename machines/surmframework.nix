@@ -64,6 +64,7 @@
         ../home-manager/waybar.nix
 
         ../home-manager/unfree-apps.nix
+        ../home-manager/webapps.nix
       ];
 
       config = {
@@ -85,6 +86,10 @@
         home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
 
         programs.wezterm.frontend = "OpenGL";
+        programs.whatsapp.enable = true;
+        programs.squoosh.enable = true;
+        programs.geforce-now.enable = true;
+        programs.xbox-remote-play.enable = true;
         programs.wezterm.theme = "dark";
         programs.wezterm.window-decorations = null;
         programs.waybar.enable = true;
