@@ -21,6 +21,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
     "1password"
@@ -148,6 +152,7 @@
             }
           ];
         };
+        services.blueman-applet.enable = true;
       };
     };
 
