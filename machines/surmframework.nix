@@ -13,6 +13,8 @@
     inputs.home-manager.nixosModules.home-manager
     ../nixos/base.nix
     ../nixos/hyprland.nix
+
+    ../nixos/framework-suspend-fix.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
