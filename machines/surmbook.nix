@@ -22,6 +22,10 @@ in
     { config, amber-upstream, ... }:
     {
       imports = [
+        ../home-manager/opencode.nix
+
+        ../home-manager/unfree-apps.nix
+
         ../home-manager/base.nix
         ../home-manager/graphical.nix
         ../home-manager/keyboard-dev.nix
@@ -31,6 +35,7 @@ in
         ../home-manager/experiments.nix
         ../home-manager/cloud.nix
         ../home-manager/nixdev.nix
+        ../home-manager/opencode-defaults.nix
         ../home-manager/javascript.nix
         ../home-manager/dev.nix
       ];

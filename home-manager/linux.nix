@@ -10,4 +10,5 @@
   home.packages = with pkgs; [
     wl-clipboard
   ];
+  services.ssh-agent.enable = true;
 }

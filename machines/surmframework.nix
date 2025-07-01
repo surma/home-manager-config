@@ -62,8 +62,6 @@
         ../home-manager/wezterm.nix
         ../home-manager/hyprland.nix
         ../home-manager/waybar.nix
-        ../home-manager/fetch-mcp.nix
-        ../home-manager/opencode.nix
 
         ../home-manager/unfree-apps.nix
       ];

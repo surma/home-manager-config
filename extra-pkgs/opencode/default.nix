@@ -12,7 +12,7 @@ let
     };
     "aarch64-darwin" = {
       platform = "darwin-arm64";
-      hash = "";
+      hash = "sha256:12fsvpjk4mf4bhs258mwrf9jsff90fxxyjrwpp9yk8wx7ncafmfc";
     };
   };
 

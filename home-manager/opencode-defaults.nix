@@ -5,6 +5,11 @@
   ...
 }:
 {
+  imports = [
+    ./opencode.nix
+    ./fetch-mcp.nix
+  ];
+
   programs.fetch-mcp.enable = true;
   programs.opencode = {
     enable = true;

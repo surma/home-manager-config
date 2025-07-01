@@ -8,13 +8,15 @@ let
   inherit (pkgs) callPackage;
 in
 {
-  options.allowUnfree.macos = {
-    "raycast" = true;
-  };
+  imports = [
+    ./unfree-apps.nix
+  ];
 
   config = {
     home.username = lib.mkDefault "surma";
     home.homeDirectory = lib.mkDefault "/Users/surma";
+
+    allowedUnfreeApps = [ "raycast" ];
     home.packages =
       (with pkgs; [
         raycast
