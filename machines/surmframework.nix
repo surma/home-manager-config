@@ -19,6 +19,14 @@
     ../nixos/_1password-wrapper.nix
   ];
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+
+  boot.kernelModules = [
+    "v4l2loopback"
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -97,6 +105,7 @@
             slack
             nodejs_24
             chromium
+            obs-studio
           ]
         );
 
