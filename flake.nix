@@ -105,11 +105,17 @@
         };
       };
     }
-    // (flake-utils.lib.eachDefaultSystem (system: {
+    // (flake-utils.lib.eachDefaultSystem (system: rec {
       packages = {
         jupyterDeno = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/jupyter { };
         opencode = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/opencode { };
         fetch-mcp = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/fetch-mcp { };
+      };
+      apps = {
+        jupyterDeno = {
+          type = "app";
+          program = "${packages.jupyterDeno}/bin/jupyter-start";
+        };
       };
     }));
 }

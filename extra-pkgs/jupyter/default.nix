@@ -11,6 +11,7 @@ let
     ps: with ps; [
       jupyter
       ipython
+      pip
     ]
   );
 
@@ -25,7 +26,6 @@ let
     display_name = "Deno";
     language = "typescript";
   };
-
   denoKernelSpecFile = writeTextFile {
     name = "deno-kernel";
     destination = "/kernels/deno/kernel.json";
@@ -38,6 +38,26 @@ let
   };
 in
 writeShellScriptBin "jupyter-start" ''
-  export JUPYTER_PATH="${kernels}:$JUPYTER_PATH"
+  ${python}/bin/python -m venv venv
+  source venv/bin/activate
+  pip install ipykernel
+  mkdir -p venv/conf/kernels/python
+  cat << EOF
+  {
+   "argv": [
+    "python",
+    "-m",
+    "ipykernel_launcher",
+    "-f",
+    "{connection_file}"
+   ],
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "metadata": {
+    "debugger": true
+    }
+  }
+  EOF > venv/conf/kernels/python
+  export JUPYTER_PATH="$PWD/venv/conf:${kernels}:$JUPYTER_PATH"
   ${python}/bin/jupyter lab --no-browser
 ''
