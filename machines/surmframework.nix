@@ -28,11 +28,14 @@
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
     "1password"
+    "1password-cli"
   ];
   environment.systemPackages = with pkgs; [
   ];
 
+  programs._1password.enable = true;
   programs._1password-gui.enable = true;
+  programs._1password-gui.polkitPolicyOwners = [ "surma" ];
 
   users.users.surma = {
     isNormalUser = true;
