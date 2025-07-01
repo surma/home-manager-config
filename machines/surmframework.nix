@@ -190,6 +190,7 @@
           ];
         };
         services.blueman-applet.enable = true;
+        services.dunst.enable = true;
       };
     };
 
