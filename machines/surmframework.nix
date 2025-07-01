@@ -33,6 +33,17 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      settings = {
+        main = {
+          capslock = "overload(meh, escape)";
+        };
+        "meh:C-A-M" = { };
+      };
+    };
+  };
 
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
@@ -41,6 +52,7 @@
   ];
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
+    keyd
   ];
 
   programs._1password.enable = true;
@@ -133,6 +145,7 @@
         programs.zellij.wl-clipboard.enable = true;
         wayland.windowManager.hyprland = {
           enable = true;
+          mainMod = "SUPER ALT CTRL";
           commands = [
             {
               variable = "terminal";

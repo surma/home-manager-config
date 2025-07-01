@@ -46,7 +46,7 @@ in
 {
   options = {
     wayland.windowManager.hyprland = {
-      main-mod = mkOption {
+      mainMod = mkOption {
         type = types.str;
         default = "SUPER";
       };
@@ -92,7 +92,7 @@ in
       home.packages = hyprland.commands |> lib.map (v: v.package);
       wayland.windowManager.hyprland = {
         extraConfig = ''
-          $mainMod = ${hyprland.main-mod}
+          $mainMod = ${hyprland.mainMod}
           ${commandVariables}
           ${execBinds}
           ${lib.readFile ../configs/hyprland.conf}
