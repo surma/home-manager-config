@@ -15,6 +15,7 @@
     ../nixos/hyprland.nix
 
     ../nixos/framework-suspend-fix.nix
+    ../nixos/shopify-cloudflare-warp.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
