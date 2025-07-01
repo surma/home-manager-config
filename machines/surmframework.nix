@@ -32,11 +32,14 @@
     "1password-cli"
   ];
   environment.systemPackages = with pkgs; [
+    hyprpolkitagent
   ];
 
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
   programs._1password-gui.polkitPolicyOwners = [ "surma" ];
+
+  security.polkit.enable = true;
 
   users.users.surma = {
     isNormalUser = true;
