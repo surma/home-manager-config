@@ -97,6 +97,14 @@
           ]
         );
 
+        gtk = {
+          enable = true;
+          iconTheme = {
+            name = "Papirus-Dark";
+            package = pkgs.papirus-icon-theme;
+          };
+        };
+
         home.stateVersion = "24.05";
 
         home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
