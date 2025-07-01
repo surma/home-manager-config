@@ -147,19 +147,19 @@
           enable = true;
           mainMod = "SUPER ALT CTRL";
           commands = [
-            {
-              variable = "terminal";
-              package = pkgs.wezterm;
-            }
-            {
-              variable = "lockScreen";
-              package = pkgs.hyprlock;
-            }
-            rec {
-              variable = "fileManager";
-              package = pkgs.kdePackages.dolphin;
-              bin = "${package}/bin/dolphin";
-            }
+            #   {
+            #     variable = "terminal";
+            #     package = pkgs.wezterm;
+            #   }
+            #   {
+            #     variable = "lockScreen";
+            #     package = pkgs.hyprlock;
+            #   }
+            #   rec {
+            #     variable = "fileManager";
+            #     package = pkgs.kdePackages.dolphin;
+            #     bin = "${package}/bin/dolphin";
+            #   }
             {
               variable = "appMenu";
               package = pkgs.wofi;
@@ -170,19 +170,19 @@
             }
           ];
           execShortcuts = [
-            {
-              key = "T";
-              command = "$terminal";
-            }
-            {
-              key = "L";
-              extraMods = "SHIFT";
-              command = "$lockScreen";
-            }
-            {
-              key = "F";
-              command = "$fileManager";
-            }
+            #   {
+            #     key = "T";
+            #     command = "$terminal";
+            #   }
+            #   {
+            #     key = "L";
+            #     extraMods = "SHIFT";
+            #     command = "$lockScreen";
+            #   }
+            #   {
+            #     key = "F";
+            #     command = "$fileManager";
+            #   }
             {
               key = "Space";
               command = "$appMenu";
