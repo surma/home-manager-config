@@ -24,10 +24,8 @@
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
     "1password"
-    "spotify"
   ];
   environment.systemPackages = with pkgs; [
-    spotify
   ];
 
   programs._1password-gui.enable = true;
@@ -65,6 +63,7 @@
         ../home-manager/wezterm.nix
         ../home-manager/hyprland.nix
         ../home-manager/waybar.nix
+        ../home-manager/spotify.nix
 
         ../home-manager/unfree-apps.nix
         ../home-manager/webapps.nix
@@ -75,6 +74,7 @@
         allowedUnfreeApps = [
           "slack"
           "discord"
+          "spotify"
         ];
 
         home.packages = (
@@ -93,6 +93,7 @@
 
         home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
 
+        programs.spotify.enable = true;
         programs.wezterm.frontend = "OpenGL";
         programs.whatsapp.enable = true;
         programs.squoosh.enable = true;
