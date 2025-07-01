@@ -68,15 +68,20 @@
 
         ../home-manager/unfree-apps.nix
         ../home-manager/webapps.nix
+        ../home-manager/screenshot.nix
       ];
 
       config = {
-        allowedUnfreeApps = [ "slack" ];
+        allowedUnfreeApps = [
+          "slack"
+          "discord"
+        ];
 
         home.packages = (
           with pkgs;
           [
             signal-desktop
+            discord
             telegram-desktop
             slack
             nodejs_24
