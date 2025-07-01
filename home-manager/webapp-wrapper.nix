@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  inherit (pkgs) writeShellScriptBin writeTextFile symlinkJoin;
+  inherit (pkgs) writeShellScriptBin makeDesktopItem symlinkJoin;
 
   webapp = (
     { config, ... }:
@@ -31,17 +31,10 @@ let
     }@args:
     let
       bin = writeShellScriptBin name (runner.invocation args);
-      desktopItem = writeTextFile {
-        name = "${name}.desktop";
-        destination = "/share/applications/${name}.desktop";
-        text = ''
-          [Desktop Entry]
-          Name=${webapp.title}
-          Exec=${bin}/bin/${name}
-          Terminal=false
-          Type=Application
-          StartupNotify=true
-        '';
+      desktopItem = makeDesktopItem {
+        inherit name;
+        desktopName = webapp.title;
+        exec = "${bin}/bin/${name}";
       };
     in
     symlinkJoin {
@@ -61,11 +54,25 @@ in
           type = types.package;
           default = pkgs.chromium;
         };
+        profileName = mkOption {
+          type = types.str;
+          default = "webapps";
+        };
+        platform = mkOption {
+          type =
+            with types;
+            enum [
+              "wayland"
+              "x11"
+              "auto"
+            ];
+          default = "wayland";
+        };
         invocation = mkOption {
           type = with types; functionTo str;
           default = (
             { runner, webapp, ... }:
-            "${runner.package}/bin/chromium --ozone-platform=wayland --new-window --app=${webapp.url} --name=${webapp.title}"
+            "${runner.package}/bin/chromium --user-data-dir=$HOME/.config/chromium/${runner.profileName} --ozone-platform=${runner.platform} --new-window --app=${webapp.url} --name=${webapp.title}"
           );
         };
       };
