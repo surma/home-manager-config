@@ -148,6 +148,29 @@
         programs.wezterm.window-decorations = null;
         programs.waybar.enable = true;
         programs.zellij.wl-clipboard.enable = true;
+
+        services.syncthing = {
+          enable = true;
+          settings = {
+            devices = {
+              surmcluster = {
+                id = "CJT6SJ3-YD5KOXR-WRLN3GM-D5ALFHQ-7M6ZWSG-4MNKWG3-T525QU4-M77GYA3";
+                addresses = [
+                  "tcp://10.0.0.2:22000"
+                  "tcp://sync.surmcluster.surmnet.surma.link:22000"
+                ];
+              };
+            };
+            folders = {
+              "/home/surma/sync/scratch" = {
+                id = "hbza9-iimbx";
+                devices = [ "surmcluster" ];
+              };
+            };
+          };
+          tray.enable = true;
+        };
+
         wayland.windowManager.hyprland = {
           enable = true;
           mainMod = "SUPER ALT CTRL";
