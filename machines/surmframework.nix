@@ -173,47 +173,73 @@
 
         wayland.windowManager.hyprland = {
           enable = true;
-          mainMod = "SUPER ALT CTRL";
-          commands = [
-            #   {
-            #     variable = "terminal";
-            #     package = pkgs.wezterm;
-            #   }
-            #   {
-            #     variable = "lockScreen";
-            #     package = pkgs.hyprlock;
-            #   }
-            #   rec {
-            #     variable = "fileManager";
-            #     package = pkgs.kdePackages.dolphin;
-            #     bin = "${package}/bin/dolphin";
-            #   }
+          header = ''
+            $meh = SUPER ALT CTRL
+          '';
+          bindings = [
             {
-              variable = "appMenu";
-              package = pkgs.wofi;
-              args = [
-                "--show"
-                "drun"
-              ];
+              key = "$meh SHIFT, W";
+              action.text = "killactive";
             }
-          ];
-          execShortcuts = [
-            #   {
-            #     key = "T";
-            #     command = "$terminal";
-            #   }
-            #   {
-            #     key = "L";
-            #     extraMods = "SHIFT";
-            #     command = "$lockScreen";
-            #   }
-            #   {
-            #     key = "F";
-            #     command = "$fileManager";
-            #   }
             {
-              key = "Space";
-              command = "$appMenu";
+              key = "$meh SHIFT, Q";
+              action.text = "exit";
+            }
+            {
+              key = "$meh, 0";
+              action.activateWorkspace = 10;
+            }
+            {
+              key = "$meh, 1";
+              action.activateWorkspace = 1;
+            }
+            {
+              key = "$meh, left";
+              action.moveFocus = "left";
+            }
+            {
+              key = "$meh, right";
+              action.moveFocus = "right";
+            }
+            {
+              key = "$meh, up";
+              action.moveFocus = "up";
+            }
+            {
+              key = "$meh, down";
+              action.moveFocus = "down";
+            }
+            {
+              key = "$meh SHIFT, 1";
+              action.moveToWorkspace = 1;
+            }
+            {
+              key = "$meh, return";
+              action.layoutMsg = "swapwithmaster";
+            }
+            {
+              key = "$meh, minus";
+              action.layoutMsg = "mfact -0.01";
+            }
+            {
+              key = "$meh, equal";
+              action.layoutMsg = "mfact +0.01";
+            }
+            {
+              key = "$meh SHIFT, F";
+              action.toggleFloating = true;
+            }
+            {
+              key = "$meh, grave";
+              action.text = "togglespecialworkspace, magic";
+            }
+            {
+              key = "$meh SHIFT, grave";
+              action.moveToWorkspace = "special:magic";
+            }
+            {
+              key = "SUPER, Space";
+              action.exec = "${pkgs.wofi}/bin/wofi --show drun";
             }
           ];
         };
