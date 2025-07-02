@@ -8,9 +8,11 @@
   imports = [
     ./opencode.nix
     ./fetch-mcp.nix
+    ./browser-mcp.nix
   ];
 
   programs.fetch-mcp.enable = true;
+  programs.browser-mcp.enable = true;
   programs.opencode = {
     enable = true;
     extraConfig = {
@@ -31,6 +33,11 @@
       fetch-mcp = {
         type = "local";
         command = [ "fetch-mcp" ];
+        enabled = true;
+      };
+      browser-mcp = {
+        type = "local";
+        command = [ "browser-mcp" ];
         enabled = true;
       };
     };
