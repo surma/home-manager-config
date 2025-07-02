@@ -53,6 +53,7 @@
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
     keyd
+    hyprlock
   ];
 
   programs._1password.enable = true;
@@ -60,6 +61,7 @@
   programs._1password-gui.polkitPolicyOwners = [ "surma" ];
 
   security.polkit.enable = true;
+  security.pam.services.hyprlock = { };
 
   users.users.surma = {
     isNormalUser = true;
