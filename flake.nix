@@ -49,7 +49,7 @@
       loadAndroid = import ./load-android.nix inputs;
       loadNixos = import ./load-nixos.nix inputs;
     in
-    rec {
+    {
       darwinConfigurations = {
         surmbook = loadDarwin {
           system = "aarch64-darwin";

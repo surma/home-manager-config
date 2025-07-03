@@ -14,7 +14,7 @@
     ../nixos/base.nix
     ../nixos/hyprland.nix
 
-    # ../common/signal
+    ../common/signal
     # ../common/obs
 
     ../nixos/obs-virtual-camera-fix.nix
@@ -63,7 +63,7 @@
   programs._1password-gui.polkitPolicyOwners = [ "surma" ];
   # programs.obs.enable = true;
   programs.obs.virtualCameraFix = true;
-  # programs.signal.enable = true;
+  programs.signal.enable = true;
 
   security.polkit.enable = true;
   security.pam.services.hyprlock = { };

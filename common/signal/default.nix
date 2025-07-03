@@ -1,34 +1,30 @@
 {
-  systemManager,
   pkgs,
+  config,
   lib,
   ...
 }:
 let
-  package = pkgs.signal-desktop;
-  configs = rec {
+  extraLib = import ../../lib/default.nix;
+  inherit (extraLib) mkMultiSystemModule;
+
+  mod = mkMultiSystemModule "signal" rec {
     nix-darwin = {
-      homebrew.casks = [ "signal" ];
+      homebrew.casks = lib.optionals config.programs.signal.enable [ "signal" ];
     };
     nixos = {
-      environment.systemPackages = [ package ];
+      environment.systemPackages = lib.optionals config.programs.signal.enable [ pkgs.signal-desktop ];
     };
     home-manager = {
-      home.systemPackages = [ package ];
+      home.systemPackages = lib.optionals config.programs.signal.enable [ pkgs.signal-desktop ];
     };
     system-manager = nixos;
   };
 in
 with lib;
 {
+  imports = [ mod ];
   options = {
-    programs.signal = {
-      enable = mkEnableOption "";
-    };
+    programs.signal.enable = mkEnableOption "";
   };
-  config =
-    if configs ? systemManager then
-      configs.${systemManager}
-    else
-      throw "Unsupported system manager ${systemManager} for ${package.meta.name}";
 }
