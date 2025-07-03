@@ -6,6 +6,75 @@
 }:
 with lib;
 let
+  bindingFlags = types.submodule {
+    options = {
+      l = mkOption {
+        description = "locked, will also work when an input inhibitor (e.g. a lockscreen) is active.";
+        type = types.bool;
+        default = false;
+      };
+      r = mkOption {
+        description = "release, will trigger on release of a key.";
+        type = types.bool;
+        default = false;
+      };
+      c = mkOption {
+        description = "click, will trigger on release of a key or button as long as the mouse cursor stays inside binds:drag_threshold.";
+        type = types.bool;
+        default = false;
+      };
+      g = mkOption {
+        description = "drag, will trigger on release of a key or button as long as the mouse cursor moves outside binds:drag_threshold.";
+        type = types.bool;
+        default = false;
+      };
+      o = mkOption {
+        description = "longPress, will trigger on long press of a key.";
+        type = types.bool;
+        default = false;
+      };
+      e = mkOption {
+        description = "repeat, will repeat when held.";
+        type = types.bool;
+        default = false;
+      };
+      n = mkOption {
+        description = "non-consuming, key/mouse events will be passed to the active window in addition to triggering the dispatcher.";
+        type = types.bool;
+        default = false;
+      };
+      m = mkOption {
+        description = "mouse, see below.";
+        type = types.bool;
+        default = false;
+      };
+      t = mkOption {
+        description = "transparent, cannot be shadowed by other binds.";
+        type = types.bool;
+        default = false;
+      };
+      i = mkOption {
+        description = "ignore mods, will ignore modifiers.";
+        type = types.bool;
+        default = false;
+      };
+      s = mkOption {
+        description = "separate, will arbitrarily combine keys between each mod/key, see [Keysym combos](#keysym-combos) above.";
+        type = types.bool;
+        default = false;
+      };
+      d = mkOption {
+        description = "has description, will allow you to write a description for your bind.";
+        type = types.bool;
+        default = false;
+      };
+      p = mkOption {
+        description = "bypasses the app's requests to inhibit keybinds.";
+        type = types.bool;
+        default = false;
+      };
+    };
+  };
   actionType = types.submodule {
     options = {
       activateWorkspace = mkOption {
@@ -69,19 +138,14 @@ let
         type = types.str;
         description = "Key combination (e.g., '$mainMod SHIFT, W')";
       };
+      flags = mkOption {
+        type = types.nullOr bindingFlags;
+        description = "Flags for the binding";
+        default = null;
+      };
       action = mkOption {
         type = actionType;
         description = "Action to perform";
-      };
-      bindType = mkOption {
-        type = types.enum [
-          "bind"
-          "bindel"
-          "bindl"
-          "bindm"
-        ];
-        default = "bind";
-        description = "Type of binding";
       };
     };
   };
@@ -107,6 +171,20 @@ in
   config =
     let
       inherit (config.wayland.windowManager) hyprland;
+
+      asBindingKeyword =
+        bind:
+        "bind"
+        + (
+          if bind == null then
+            ""
+          else
+            bind
+            |> lib.attrsToList
+            |> lib.filter ({ value, ... }: value)
+            |> lib.map ({ name, ... }: name)
+            |> lib.concatStrings
+        );
 
       actionToCommand =
         action:
@@ -134,7 +212,9 @@ in
 
       bindings =
         hyprland.bindings
-        |> map (binding: "${binding.bindType} = ${binding.key}, ${actionToCommand binding.action}")
+        |> map (
+          binding: "${binding.flags |> asBindingKeyword} = ${binding.key}, ${actionToCommand binding.action}"
+        )
         |> lib.concatLines;
     in
 

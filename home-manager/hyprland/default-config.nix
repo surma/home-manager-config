@@ -118,6 +118,29 @@ with lib;
           key = "$meh, comma";
           action.text = "movecurrentworkspacetomonitor, u";
         }
+        {
+          key = ",XF86AudioRaiseVolume";
+          action.exec = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
+          flags.e = true;
+          flags.l = true;
+        }
+        {
+          key = ",XF86AudioLowerVolume";
+          action.exec = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          flags.e = true;
+          flags.l = true;
+        }
+        # bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+        # bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+        # bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        # bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+        # bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
+        # bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+
+        # bindl = , XF86AudioNext, exec, playerctl next
+        # bindl = , XF86AudioPause, exec, playerctl play-pause
+        # bindl = , XF86AudioPlay, exec, playerctl play-pause
+        # bindl = , XF86AudioPrev, exec, playerctl previous
       ];
     };
   };
