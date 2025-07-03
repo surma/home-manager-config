@@ -44,6 +44,7 @@
       };
     };
   };
+  services.libinput.touchpad.disableWhileTyping = true;
 
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
@@ -73,6 +74,8 @@
       "networkmanager"
       "wheel"
       "input"
+      "video"
+      "audio"
     ];
     shell = pkgs.zsh;
   };
@@ -124,6 +127,7 @@
             chromium
             obs-studio
             kdePackages.dolphin
+            vlc
           ]
         );
 
