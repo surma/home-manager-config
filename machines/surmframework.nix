@@ -15,7 +15,7 @@
     ../nixos/hyprland.nix
 
     ../common/signal
-    # ../common/obs
+    ../common/obs
 
     ../nixos/obs-virtual-camera-fix.nix
     ../nixos/framework-suspend-fix.nix
@@ -61,8 +61,9 @@
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
   programs._1password-gui.polkitPolicyOwners = [ "surma" ];
-  # programs.obs.enable = true;
+  programs.obs.enable = true;
   programs.obs.virtualCameraFix = true;
+  programs.firefox.enable = true;
   programs.signal.enable = true;
 
   security.polkit.enable = true;
@@ -168,7 +169,6 @@
       };
     };
 
-  programs.firefox.enable = true;
   services.fprintd.enable = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?

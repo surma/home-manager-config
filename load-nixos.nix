@@ -8,7 +8,7 @@ nixpkgs.lib.nixosSystem rec {
   inherit system;
   modules = [
     machine
-    home-manager.darwinModules.home-manager
+    home-manager.nixosModules.home-manager
   ];
   specialArgs = {
     inherit inputs system;

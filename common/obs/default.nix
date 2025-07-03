@@ -1,34 +1,34 @@
 {
-  systemManager,
   pkgs,
+  config,
   lib,
   ...
 }:
 let
+  extraLib = import ../../lib/default.nix;
+  inherit (extraLib) mkMultiSystemModule;
+
+  name = "obs";
+  caskName = "obs";
   package = pkgs.obs-studio;
-  configs = rec {
+
+  mod = mkMultiSystemModule name rec {
     nix-darwin = {
-      homebrew.casks = [ "obs" ];
+      homebrew.casks = lib.optionals config.programs.${name}.enable [ caskName ];
     };
     nixos = {
-      environment.systemPackages = [ package ];
+      environment.systemPackages = lib.optionals config.programs.${name}.enable [ package ];
     };
     home-manager = {
-      home.systemPackages = [ package ];
+      home.systemPackages = lib.optionals config.programs.${name}.enable [ package ];
     };
     system-manager = nixos;
   };
 in
 with lib;
 {
+  imports = [ mod ];
   options = {
-    programs.signal = {
-      enable = mkEnableOption "";
-    };
+    programs.${name}.enable = mkEnableOption "";
   };
-  config =
-    if configs ? systemManager then
-      configs.${systemManager}
-    else
-      throw "Unsupported system manager ${systemManager} for ${package.meta.name}";
 }
