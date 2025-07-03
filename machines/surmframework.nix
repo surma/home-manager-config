@@ -123,6 +123,7 @@
             nodejs_24
             chromium
             obs-studio
+            kdePackages.dolphin
           ]
         );
 
