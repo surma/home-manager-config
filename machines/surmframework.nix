@@ -244,11 +244,11 @@
             }
             {
               key = "$meh, period";
-              action.text = "movecurrentworkspacetomonitor, r";
+              action.text = "movecurrentworkspacetomonitor, d";
             }
             {
               key = "$meh, comma";
-              action.text = "movecurrentworkspacetomonitor, l";
+              action.text = "movecurrentworkspacetomonitor, u";
             }
           ];
         };
