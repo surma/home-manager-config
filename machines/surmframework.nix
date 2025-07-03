@@ -98,7 +98,7 @@
         ../home-manager/wezterm.nix
         ../home-manager/hyprland
         ../home-manager/syncthing
-        ../home-manager/waybar.nix
+        ../home-manager/waybar
         ../home-manager/spotify.nix
 
         ../home-manager/unfree-apps.nix
