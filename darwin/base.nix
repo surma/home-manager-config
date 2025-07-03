@@ -29,7 +29,6 @@ in
       "nvidia-geforce-now"
       "spotify"
       "discord"
-      "signal"
       "slack"
       "zulip"
       "android-file-transfer"

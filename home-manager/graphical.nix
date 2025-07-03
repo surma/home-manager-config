@@ -7,9 +7,9 @@
 {
 
   imports = [
-    ./wezterm.nix
-
     ./unfree-apps.nix
+
+    ./wezterm
   ];
 
   config = {
@@ -30,5 +30,6 @@
     );
 
     programs.wezterm.enable = true;
+    defaultConfigs.wezterm.enable = true;
   };
 }

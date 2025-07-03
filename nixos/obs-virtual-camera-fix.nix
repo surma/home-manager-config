@@ -12,12 +12,10 @@ in
 with lib;
 {
   options = {
-    programs.obs = {
-      enable = mkEnableOption "";
-    };
+    programs.obs.virtualCameraFix = mkEnableOption "";
   };
 
-  config = mkIf (config.programs.obs.enable) {
+  config = mkIf (config.programs.obs.virtualCameraFix) {
 
     boot.kernelModules = [
       "v4l2loopback"
@@ -29,9 +27,5 @@ with lib;
     boot.extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
-
-    environment.systemPackages = [
-      pkgs.obs-studio
-    ];
   };
 }

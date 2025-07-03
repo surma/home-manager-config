@@ -14,9 +14,12 @@
     ../nixos/base.nix
     ../nixos/hyprland.nix
 
-    ../nixos/obs.nix
+    # ../common/signal
+    # ../common/obs
 
+    ../nixos/obs-virtual-camera-fix.nix
     ../nixos/framework-suspend-fix.nix
+
     ../nixos/shopify-cloudflare-warp.nix
     ../nixos/_1password-wrapper.nix
   ];
@@ -58,7 +61,9 @@
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
   programs._1password-gui.polkitPolicyOwners = [ "surma" ];
-  programs.obs.enable = true;
+  # programs.obs.enable = true;
+  programs.obs.virtualCameraFix = true;
+  # programs.signal.enable = true;
 
   security.polkit.enable = true;
   security.pam.services.hyprlock = { };
@@ -95,7 +100,6 @@
         ../home-manager/experiments.nix
         ../home-manager/opencode-defaults.nix
 
-        ../home-manager/wezterm.nix
         ../home-manager/hyprland
         ../home-manager/syncthing
         ../home-manager/waybar
@@ -116,7 +120,6 @@
         home.packages = (
           with pkgs;
           [
-            signal-desktop
             discord
             telegram-desktop
             slack
@@ -140,13 +143,17 @@
         home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
 
         programs.spotify.enable = true;
-        programs.wezterm.frontend = "OpenGL";
         programs.whatsapp.enable = true;
         programs.squoosh.enable = true;
         programs.geforce-now.enable = true;
         programs.xbox-remote-play.enable = true;
+
+        programs.wezterm.enable = true;
+        programs.wezterm.frontend = "OpenGL";
         programs.wezterm.theme = "dark";
         programs.wezterm.window-decorations = null;
+        defaultConfigs.wezterm.enable = true;
+
         programs.waybar.enable = true;
         programs.zellij.wl-clipboard.enable = true;
 

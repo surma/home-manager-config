@@ -47,6 +47,7 @@
       loadLinux = import ./load-linux.nix inputs;
       loadDarwin = import ./load-darwin.nix inputs;
       loadAndroid = import ./load-android.nix inputs;
+      loadNixos = import ./load-nixos.nix inputs;
     in
     rec {
       darwinConfigurations = {
@@ -96,12 +97,9 @@
       };
 
       nixosConfigurations = {
-        surmframework = nixpkgs.lib.nixosSystem rec {
+        surmframework = loadNixos {
           system = "x86_64-linux";
-          modules = [
-            ./machines/surmframework.nix
-          ];
-          specialArgs = { inherit inputs system; };
+          machine = ./machines/surmframework.nix;
         };
       };
     }

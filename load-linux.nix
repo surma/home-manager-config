@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, ... }@args:
+{ nixpkgs, home-manager, ... }@inputs:
 { system, machine }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
@@ -8,5 +8,8 @@ home-manager.lib.homeManagerConfiguration {
 
   modules = [ machine ];
 
-  extraSpecialArgs = args;
+  extraSpecialArgs = {
+    inherit inputs system;
+    systemManager = "home-manager";
+  };
 }
