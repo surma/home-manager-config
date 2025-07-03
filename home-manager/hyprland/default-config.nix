@@ -1,0 +1,124 @@
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  disabledWorkspaces = "QWF" |> lib.stringToCharacters;
+  numberWorkspaces =
+    "123456789"
+    |> lib.stringToCharacters
+    |> lib.imap (
+      i: key: {
+        inherit key;
+        idx = i - 1;
+      }
+    );
+
+  letterWorkspaces =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    |> lib.stringToCharacters
+    |> lib.imap (
+      i: key: {
+        inherit key;
+        idx = i + 9;
+      }
+    );
+
+  workspaceBindings =
+    (numberWorkspaces ++ letterWorkspaces)
+    |> lib.filter ({ key, ... }: !lib.elem key disabledWorkspaces)
+    |> lib.map (
+      { idx, key }:
+      [
+        {
+          key = "$meh, ${key}";
+          action.activateWorkspace = idx;
+        }
+        {
+          key = "$meh SHIFT, ${key}";
+          action.moveToWorkspace = idx;
+        }
+      ]
+    )
+    |> lib.flatten;
+
+in
+with lib;
+{
+  options = {
+    defaultConfigs.hyprland = {
+      enable = mkEnableOption "";
+    };
+  };
+  config = {
+    wayland.windowManager.hyprland = mkIf (config.defaultConfigs.hyprland.enable) {
+      header = ''
+        $meh = SUPER ALT CTRL
+      '';
+      bindings = workspaceBindings ++ [
+        {
+          key = "$meh SHIFT, W";
+          action.text = "killactive";
+        }
+        {
+          key = "$meh SHIFT, Q";
+          action.text = "exit";
+        }
+        {
+          key = "$meh, left";
+          action.moveFocus = "left";
+        }
+        {
+          key = "$meh, right";
+          action.moveFocus = "right";
+        }
+        {
+          key = "$meh, up";
+          action.moveFocus = "up";
+        }
+        {
+          key = "$meh, down";
+          action.moveFocus = "down";
+        }
+        {
+          key = "$meh, return";
+          action.layoutMsg = "swapwithmaster";
+        }
+        {
+          key = "$meh, minus";
+          action.layoutMsg = "mfact -0.01";
+        }
+        {
+          key = "$meh, equal";
+          action.layoutMsg = "mfact +0.01";
+        }
+        {
+          key = "$meh SHIFT, F";
+          action.toggleFloating = true;
+        }
+        {
+          key = "$meh, grave";
+          action.text = "togglespecialworkspace, magic";
+        }
+        {
+          key = "$meh SHIFT, grave";
+          action.moveToWorkspace = "special:magic";
+        }
+        {
+          key = "SUPER, space";
+          action.exec = "${pkgs.wofi}/bin/wofi --show drun";
+        }
+        {
+          key = "$meh, period";
+          action.text = "movecurrentworkspacetomonitor, d";
+        }
+        {
+          key = "$meh, comma";
+          action.text = "movecurrentworkspacetomonitor, u";
+        }
+      ];
+    };
+  };
+}

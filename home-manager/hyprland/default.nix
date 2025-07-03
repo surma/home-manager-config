@@ -87,6 +87,10 @@ let
   };
 in
 {
+  imports = [
+    ./default-config.nix
+  ];
+
   options = {
     wayland.windowManager.hyprland = {
       bindings = mkOption {
@@ -139,7 +143,7 @@ in
         extraConfig = ''
           ${hyprland.header}
           ${bindings}
-          ${lib.readFile ../configs/hyprland.conf}
+          ${lib.readFile ./hyprland.conf}
         '';
       };
     };
