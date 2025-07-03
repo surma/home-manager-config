@@ -53,7 +53,8 @@
     keyd
     hyprlock
     tailscale
-
+    pavucontrol
+    hyprsunset
   ];
 
   services.tailscale.enable = true;
@@ -102,6 +103,7 @@
         ../home-manager/opencode-defaults.nix
 
         ../home-manager/hyprland
+        ../home-manager/hyprsunset
         ../home-manager/syncthing
         ../home-manager/waybar
         ../home-manager/spotify.nix
@@ -152,10 +154,10 @@
         programs.wezterm.enable = true;
         programs.wezterm.frontend = "OpenGL";
         programs.wezterm.theme = "dark";
+        programs.wezterm.fontSize = 10;
         programs.wezterm.window-decorations = null;
         defaultConfigs.wezterm.enable = true;
 
-        programs.waybar.enable = true;
         programs.zellij.wl-clipboard.enable = true;
 
         services.syncthing.enable = true;
@@ -163,6 +165,9 @@
 
         wayland.windowManager.hyprland.enable = true;
         defaultConfigs.hyprland.enable = true;
+        programs.waybar.enable = true;
+        defaultConfigs.waybar.enable = true;
+        programs.hyprsunset.enable = true;
 
         services.blueman-applet.enable = true;
         services.dunst.enable = true;

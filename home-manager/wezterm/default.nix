@@ -23,6 +23,10 @@ with lib;
           ];
         default = "WebGpu";
       };
+      fontSize = mkOption {
+        type = types.int;
+        default = 12;
+      };
       window-decorations = mkOption {
         type =
           with types;

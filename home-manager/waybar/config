@@ -25,6 +25,10 @@
     "format": "{usage}% ",
     "tooltip": false
   },
+  "custom/sunset": {
+    "format": "🟧",
+    "on-click": "toggle-sunset"
+  },
   "custom/power": {
     "format": "⏻ ",
     "menu": "on-click",
@@ -98,6 +102,7 @@
   ],
   "modules-right": [
     "idle_inhibitor",
+    "custom/sunset",
     "pulseaudio",
     "power-profiles-daemon",
     "battery",

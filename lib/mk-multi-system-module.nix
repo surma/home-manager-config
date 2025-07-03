@@ -18,6 +18,4 @@ let
       imports = [ activeModule ];
     };
 in
-{
-  inherit mkMultiSystemModule;
-}
+mkMultiSystemModule

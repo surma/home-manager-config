@@ -5,8 +5,7 @@
   ...
 }:
 let
-  extraLib = import ../../lib/default.nix;
-  inherit (extraLib) mkMultiSystemModule;
+  mkMultiSystemModule = import ../../lib/mk-multi-system-module.nix;
 
   name = "signal";
   caskName = "signal";

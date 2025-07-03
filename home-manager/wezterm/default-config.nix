@@ -58,7 +58,7 @@ with lib;
           }
           config.color_scheme = dark_scheme
           config.font = wezterm.font 'Fira Code'
-          config.font_size = 12.0
+          config.font_size = ${toString wezterm.fontSize}
           config.window_decorations = '${
             if wezterm.window-decorations == null then
               "NONE"
