@@ -238,8 +238,16 @@
               action.moveToWorkspace = "special:magic";
             }
             {
-              key = "SUPER, Space";
+              key = "SUPER, space";
               action.exec = "${pkgs.wofi}/bin/wofi --show drun";
+            }
+            {
+              key = "$meh, period";
+              action.text = "movecurrentworkspacetomonitor, r";
+            }
+            {
+              key = "$meh, comma";
+              action.text = "movecurrentworkspacetomonitor, l";
             }
           ];
         };
