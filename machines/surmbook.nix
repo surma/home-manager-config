@@ -29,6 +29,7 @@ in
     {
       imports = [
         ../common/spotify
+        ../common/telegram
 
         ../home-manager/opencode.nix
 
@@ -68,7 +69,9 @@ in
           (callPackage (import ../extra-pkgs/qbittorrent) { })
           (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
         ];
+
+      programs.spotify.enable = true;
+      programs.telegram.enable = true;
     };
 
-  programs.spotify.enable = true;
 }

@@ -7,7 +7,7 @@
 { machine, system }:
 let
   extraModule =
-    { config, lib, ... }:
+    { config, ... }:
     {
       config = {
         users.users.${config.system.primaryUser} = {
@@ -17,7 +17,10 @@ let
 
         home-manager = {
           backupFileExtension = "bak";
-          extraSpecialArgs = inputs;
+          extraSpecialArgs = {
+            inherit inputs;
+            systemManager = "home-manager";
+          };
         };
       };
     };

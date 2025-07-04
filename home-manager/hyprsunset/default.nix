@@ -20,9 +20,10 @@ with lib;
     systemd.user.services.hyprsunset = {
       Unit = {
         Description = "Starts hyprsunset to control tint and gamma";
+        PartOf = [ "graphical-session.target" ];
       };
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = [ "hyprland-session.target" ];
       };
       Service = {
         ExecStart = "${hyprsunset.package}/bin/hyprsunset";

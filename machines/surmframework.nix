@@ -16,6 +16,7 @@
 
     ../common/signal
     ../common/obs
+    ../common/keyd-as-internal
 
     ../nixos/obs-virtual-camera-fix.nix
     ../nixos/framework-suspend-fix.nix
@@ -31,8 +32,11 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  services.libinput.touchpad.disableWhileTyping = true;
+
   services.keyd = {
     enable = true;
+    treat-as-internal-keyboard = true;
     keyboards.default = {
       settings = {
         main = {
@@ -42,13 +46,6 @@
       };
     };
   };
-  services.libinput.touchpad.disableWhileTyping = true;
-  environment.etc."libinput/local-overrides.quirks".text = ''
-    [Virtual Keyboard]
-    MatchUdevType=keyboard
-    MatchName=keyd virtual keyboard
-    AttrKeyboardIntegration=internal
-  '';
 
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
@@ -100,6 +97,8 @@
     {
       imports = [
         ../common/spotify
+        ../common/discord
+        ../common/telegram
 
         ../home-manager/base.nix
         ../home-manager/dev.nix
@@ -123,6 +122,7 @@
 
       config = {
         allowedUnfreeApps = [
+          "spotify"
           "slack"
           "discord"
         ];
@@ -130,8 +130,6 @@
         home.packages = (
           with pkgs;
           [
-            discord
-            telegram-desktop
             slack
             nodejs_24
             chromium
@@ -154,6 +152,9 @@
 
         programs.spotify.enable = true;
         programs.spotify.platform = "wayland";
+        programs.discord.enable = true;
+        programs.discord.platform = "wayland";
+        programs.telegram.enable = true;
         programs.whatsapp.enable = true;
         programs.squoosh.enable = true;
         programs.geforce-now.enable = true;

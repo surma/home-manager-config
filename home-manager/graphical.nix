@@ -19,7 +19,6 @@
     home.packages = (
       with pkgs;
       [
-        telegram-desktop
         fira-code
         roboto
         font-awesome
