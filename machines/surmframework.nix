@@ -178,6 +178,20 @@
 
         wayland.windowManager.hyprland.enable = true;
         defaultConfigs.hyprland.enable = true;
+        wayland.windowManager.hyprland.bindings = [
+          {
+            key = "SHIFT,XF86MonBrightnessUp";
+            action.exec = "brightnessctl -d framework_laptop::kbd_backlight set 5%+";
+            flags.e = true;
+            flags.l = true;
+          }
+          {
+            key = "SHIFT,XF86MonBrightnessDown";
+            action.exec = "brightnessctl -d framework_laptop::kbd_backlight set 5%-";
+            flags.e = true;
+            flags.l = true;
+          }
+        ];
         programs.waybar.enable = true;
         defaultConfigs.waybar.enable = true;
         programs.hyprsunset.enable = true;
