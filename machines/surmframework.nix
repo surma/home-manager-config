@@ -100,6 +100,8 @@
         ../common/discord
         ../common/telegram
 
+        ../home-manager/opencode
+
         ../home-manager/base.nix
         ../home-manager/dev.nix
         ../home-manager/gamedev.nix
@@ -108,7 +110,6 @@
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
         ../home-manager/experiments.nix
-        ../home-manager/opencode-defaults.nix
 
         ../home-manager/hyprland
         ../home-manager/hyprsunset
@@ -171,6 +172,9 @@
 
         services.syncthing.enable = true;
         defaultConfigs.syncthing.enable = true;
+
+        programs.opencode.enable = true;
+        defaultConfigs.opencode.enable = true;
 
         wayland.windowManager.hyprland.enable = true;
         defaultConfigs.hyprland.enable = true;

@@ -6,12 +6,16 @@
 }:
 with lib;
 {
+  imports = [
+    ./default-config.nix
+  ];
+
   options = {
     programs.opencode = {
       enable = mkEnableOption "";
       package = mkOption {
         type = types.package;
-        default = pkgs.callPackage (import ../extra-pkgs/opencode) { };
+        default = pkgs.callPackage (import ../../extra-pkgs/opencode) { };
       };
       extraConfig = mkOption {
         type = types.attrs;
