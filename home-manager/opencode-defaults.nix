@@ -22,6 +22,7 @@
         litellm = {
           models = {
             "shopify:anthropic:claude-sonnet-4" = { };
+            "shopify:google:gemini-2.5-pro-preview-05-06" = { };
           };
           npm = "@ai-sdk/openai-compatible";
           options = {

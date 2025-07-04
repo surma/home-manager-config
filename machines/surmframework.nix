@@ -175,6 +175,7 @@
     };
 
   services.fprintd.enable = true;
+  services.udisks2.enable = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }
