@@ -1,6 +1,5 @@
 {
   buildNpmPackage,
-  lsof,
   lib,
   makeWrapper,
   writeShellScriptBin,

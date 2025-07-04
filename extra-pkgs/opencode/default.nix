@@ -32,6 +32,5 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -r . $out/
-    ln -s $out/opencode $out/bin/opencode
   '';
 }
