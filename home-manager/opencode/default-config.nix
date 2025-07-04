@@ -44,17 +44,14 @@ with lib;
         fetch-mcp = {
           type = "local";
           command = [ "fetch-mcp" ];
-          enabled = true;
         };
         browser-mcp = {
           type = "local";
           command = [ "browser-mcp" ];
-          enabled = true;
         };
         mcp-nixos = {
           type = "local";
           command = [ "mcp-nixos" ];
-          enabled = true;
         };
       };
     };

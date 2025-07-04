@@ -4,6 +4,21 @@
   lib,
   ...
 }:
+let
+  inherit (config.programs) opencode;
+
+  mcpServerType = import ../../lib/module-types/mcp-server.nix lib;
+
+  baseConfig = {
+    "$schema" = "https://opencode.ai/config.json";
+  };
+  fullConfig =
+    baseConfig
+    // {
+      mcp = opencode.mcps;
+    }
+    // opencode.extraConfig;
+in
 with lib;
 {
   imports = [
@@ -22,26 +37,13 @@ with lib;
         default = { };
       };
       mcps = mkOption {
-        type = types.attrsOf types.attrs;
+        type = types.attrsOf mcpServerType;
         default = { };
       };
     };
   };
-  config =
-    let
-      inherit (config.programs) opencode;
-      baseConfig = {
-        "$schema" = "https://opencode.ai/config.json";
-      };
-      fullConfig =
-        baseConfig
-        // {
-          mcp = opencode.mcps;
-        }
-        // opencode.extraConfig;
-    in
-    mkIf opencode.enable {
-      xdg.configFile."opencode/config.json".text = builtins.toJSON fullConfig;
-      home.packages = [ opencode.package ];
-    };
+  config = mkIf opencode.enable {
+    xdg.configFile."opencode/config.json".text = builtins.toJSON fullConfig;
+    home.packages = [ opencode.package ];
+  };
 }
