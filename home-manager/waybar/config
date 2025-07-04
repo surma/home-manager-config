@@ -31,14 +31,7 @@
   },
   "custom/power": {
     "format": "⏻ ",
-    "menu": "on-click",
-    "menu-actions": {
-      "hibernate": "systemctl hibernate",
-      "reboot": "reboot",
-      "shutdown": "shutdown",
-      "suspend": "systemctl suspend"
-    },
-    "menu-file": "$HOME/.config/waybar/power_menu.xml",
+    "on-click": "wlogout",
     "tooltip": false
   },
   "hyprland/workspaces": {
