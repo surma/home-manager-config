@@ -5,6 +5,9 @@ in
 {
   imports = [
     ../darwin/base.nix
+
+    ../common/signal
+    ../common/obs
   ];
 
   system.stateVersion = 5;
@@ -17,6 +20,9 @@ in
   };
 
   ids.gids.nixbld = 30000;
+
+  programs.signal.enable = true;
+  programs.obs.enable = true;
 
   home-manager.users.${config.system.primaryUser} =
     { config, amber-upstream, ... }:
