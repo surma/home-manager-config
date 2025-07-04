@@ -27,7 +27,6 @@ in
       "superwhisper"
       "barrier"
       "nvidia-geforce-now"
-      "spotify"
       "discord"
       "slack"
       "zulip"

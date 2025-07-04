@@ -14,7 +14,6 @@
 
   config = {
     allowedUnfreeApps = [
-      "obsidian"
       "vscode"
     ];
     home.packages = (
@@ -24,7 +23,6 @@
         fira-code
         roboto
         font-awesome
-        obsidian
         vscode
       ]
     );

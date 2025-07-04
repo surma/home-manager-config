@@ -5,6 +5,9 @@ in
 {
   imports = [
     ../darwin/base.nix
+
+    ../common/obs
+    ../common/obsidian
   ];
 
   system.stateVersion = 5;
@@ -13,10 +16,15 @@ in
     !include nix.conf.d/shopify.conf
   '';
 
+  programs.obs.enable = true;
+  programs.obsidian.enable = true;
+
   home-manager.users.${config.system.primaryUser} =
     { config, ... }:
     {
       imports = [
+        ../common/spotify
+
         ../home-manager/base.nix
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
@@ -27,11 +35,16 @@ in
         ../home-manager/javascript.nix
         ../home-manager/dev.nix
         ../home-manager/experiments.nix
+        ../home-manager/unfree-apps.nix
       ];
 
       home.stateVersion = "24.05";
 
       home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#shopisurm";
+
+      allowedUnfreeApps = [
+        "spotify"
+      ];
 
       home.packages =
         (with pkgs; [
@@ -45,6 +58,7 @@ in
           (callPackage (import ../extra-pkgs/ollama) { })
         ];
 
+      programs.spotify.enable = true;
       programs.git.extraConfig = {
         # core = {
         #   untrackedCache = true;

@@ -28,6 +28,8 @@ in
     { config, amber-upstream, ... }:
     {
       imports = [
+        ../common/spotify
+
         ../home-manager/opencode.nix
 
         ../home-manager/unfree-apps.nix
@@ -50,6 +52,10 @@ in
 
       home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmbook";
 
+      allowedUnfreeApps = [
+        "spotify"
+      ];
+
       home.packages =
         (with pkgs; [
           openscad
@@ -63,4 +69,6 @@ in
           (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
         ];
     };
+
+  programs.spotify.enable = true;
 }

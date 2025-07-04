@@ -92,6 +92,8 @@
     }:
     {
       imports = [
+        ../common/spotify
+
         ../home-manager/base.nix
         ../home-manager/dev.nix
         ../home-manager/gamedev.nix
@@ -106,7 +108,6 @@
         ../home-manager/hyprsunset
         ../home-manager/syncthing
         ../home-manager/waybar
-        ../home-manager/spotify.nix
 
         ../home-manager/unfree-apps.nix
         ../home-manager/webapps.nix
@@ -117,7 +118,6 @@
         allowedUnfreeApps = [
           "slack"
           "discord"
-          "spotify"
         ];
 
         home.packages = (
@@ -146,6 +146,7 @@
         home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
 
         programs.spotify.enable = true;
+        programs.spotify.platform = "wayland";
         programs.whatsapp.enable = true;
         programs.squoosh.enable = true;
         programs.geforce-now.enable = true;
