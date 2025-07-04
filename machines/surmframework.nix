@@ -30,6 +30,7 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+
   services.keyd = {
     enable = true;
     keyboards.default = {
@@ -42,6 +43,12 @@
     };
   };
   services.libinput.touchpad.disableWhileTyping = true;
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Virtual Keyboard]
+    MatchUdevType=keyboard
+    MatchName=keyd virtual keyboard
+    AttrKeyboardIntegration=internal
+  '';
 
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
