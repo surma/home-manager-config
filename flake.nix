@@ -107,6 +107,7 @@
       packages = {
         jupyterDeno = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/jupyter { };
         opencode = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/opencode { };
+        claude = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/claude-code { };
         fetch-mcp = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/fetch-mcp { };
         browser-mcp = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/browser-mcp { };
       };

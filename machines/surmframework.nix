@@ -27,6 +27,9 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernel.sysctl = {
+    "kernel.dmesg_restrict" = 0;
+  };
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -59,6 +62,8 @@
     tailscale
     pavucontrol
     hyprsunset
+    pciutils
+    usbutils
   ];
 
   services.tailscale.enable = true;
@@ -101,6 +106,7 @@
         ../common/telegram
 
         ../home-manager/opencode
+        ../home-manager/claude-code
 
         ../home-manager/base.nix
         ../home-manager/dev.nix
@@ -126,6 +132,7 @@
           "spotify"
           "slack"
           "discord"
+          "claude-code"
         ];
 
         home.packages = (
@@ -175,6 +182,7 @@
 
         programs.opencode.enable = true;
         defaultConfigs.opencode.enable = true;
+        programs.claude-code.enable = true;
 
         wayland.windowManager.hyprland.enable = true;
         defaultConfigs.hyprland.enable = true;
