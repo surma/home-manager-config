@@ -100,10 +100,10 @@ let
       moveFocus = mkOption {
         type = types.nullOr (
           types.enum [
-            "left"
-            "right"
-            "up"
-            "down"
+            "l"
+            "r"
+            "u"
+            "d"
           ]
         );
         default = null;

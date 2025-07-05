@@ -68,19 +68,19 @@ with lib;
         }
         {
           key = "$meh, left";
-          action.moveFocus = "left";
+          action.moveFocus = "l";
         }
         {
           key = "$meh, right";
-          action.moveFocus = "right";
+          action.moveFocus = "r";
         }
         {
           key = "$meh, up";
-          action.moveFocus = "up";
+          action.moveFocus = "u";
         }
         {
           key = "$meh, down";
-          action.moveFocus = "down";
+          action.moveFocus = "d";
         }
         {
           key = "$meh, return";
@@ -173,6 +173,16 @@ with lib;
           key = ",XF86AudioPrev";
           action.exec = "playerctl previous";
           flags.l = true;
+        }
+        {
+          key = "$meh, mouse:272";
+          action.text = "movewindow";
+          flags.m = true;
+        }
+        {
+          key = "$meh SHIFT, mouse:272";
+          action.text = "resizewindow";
+          flags.m = true;
         }
       ];
     };
