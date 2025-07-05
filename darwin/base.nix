@@ -27,7 +27,6 @@ in
       "superwhisper"
       "barrier"
       "nvidia-geforce-now"
-      "discord"
       "slack"
       "zulip"
       "android-file-transfer"

@@ -19,7 +19,7 @@ let
       environment.systemPackages = lib.optionals config.programs.${name}.enable [ package ];
     };
     home-manager = {
-      home.systemPackages = lib.optionals config.programs.${name}.enable [ package ];
+      home.packages = lib.optionals config.programs.${name}.enable [ package ];
     };
     system-manager = nixos;
   };

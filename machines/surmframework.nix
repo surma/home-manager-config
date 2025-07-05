@@ -108,6 +108,7 @@
         ../common/spotify
         ../common/discord
         ../common/telegram
+        ../common/obsidian
 
         ../home-manager/opencode
         ../home-manager/claude-code
@@ -137,6 +138,7 @@
           "slack"
           "discord"
           "claude-code"
+          "obsidian"
         ];
 
         home.packages = (
@@ -171,6 +173,7 @@
         programs.squoosh.enable = true;
         programs.geforce-now.enable = true;
         programs.xbox-remote-play.enable = true;
+        programs.obsidian.enable = true;
 
         programs.wezterm.enable = true;
         programs.wezterm.frontend = "OpenGL";
