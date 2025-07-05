@@ -41,9 +41,11 @@
       system-manager,
       nix-system-graphics,
       nixos-hardware,
+      home-manager,
       ...
     }:
     let
+      loadHomeManager = import ./load-home-manager.nix inputs;
       loadLinux = import ./load-linux.nix inputs;
       loadDarwin = import ./load-darwin.nix inputs;
       loadAndroid = import ./load-android.nix inputs;
@@ -61,25 +63,26 @@
         };
       };
 
-      # systemConfigs = {
-      #   surmframework = system-manager.lib.makeSystemConfig {
-      #     modules = [
-      #       nix-system-graphics.systemModules.default
-      #       ./system-manager/base.nix
-      #     ];
-      #   };
-      # };
-
-      homeConfigurations = {
+      systemConfigs = {
         surmpi = loadLinux {
           system = "aarch64-linux";
           machine = ./machines/surmpi.nix;
         };
-        surmserver = loadLinux {
+
+        # surmframework = {
+        #   modules = [
+        #     nix-system-graphics.systemModules.default
+        #     ./system-manager/base.nix
+        #   ];
+        # };
+      };
+
+      homeConfigurations = {
+        surmserver = loadHomeManager {
           system = "aarch64-linux";
           machine = ./machines/surmserver.nix;
         };
-        generic-aarch64-linux = loadLinux {
+        generic-aarch64-linux = loadHomeManager {
           system = "aarch64-linux";
           machine = ./machines/generic-linux.nix;
         };

@@ -1,15 +1,29 @@
-{ nixpkgs, home-manager, ... }@inputs:
-{ system, machine }:
-let
-  pkgs = nixpkgs.legacyPackages.${system};
-in
-home-manager.lib.homeManagerConfiguration {
-  inherit pkgs;
-
-  modules = [ machine ];
-
+{
+  system-manager,
+  nix-system-graphics,
+  ...
+}@inputs:
+{ machine, system }:
+system-manager.lib.makeSystemConfig {
+  modules = [
+    nix-system-graphics.systemModules.default
+    ./system-manager/home-manager.nix
+    machine
+    (
+      { pkgs, ... }:
+      {
+        nixpkgs.hostPlatform = system;
+        environment.systemPackages = [
+          system-manager.packages.${system}.default
+        ];
+        environment.etc."zprofile".text = ''
+          emulate sh -c "source /etc/profile"
+        '';
+      }
+    )
+  ];
   extraSpecialArgs = {
     inherit inputs system;
-    systemManager = "home-manager";
+    systemManager = "system-manager";
   };
 }
