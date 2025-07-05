@@ -25,6 +25,8 @@
         ../home-manager/nixdev.nix
         ../home-manager/javascript.nix
         ../home-manager/dev.nix
+
+        ../home-manager/claude-code
       ];
 
       config = {
@@ -34,6 +36,9 @@
         home.packages = (with pkgs; [ syncthing ]);
 
         home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmpi";
+
+        programs.claude-code.enable = true;
+        defaultConfigs.claude-code.enable = true;
       };
     };
 }
