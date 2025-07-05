@@ -19,7 +19,9 @@
     ../common/keyd-as-internal
 
     ../nixos/obs-virtual-camera-fix.nix
-    ../nixos/framework-suspend-fix.nix
+
+    ../nixos/framework/suspend-fix.nix
+    ../nixos/framework/wifi-fix.nix
 
     ../nixos/shopify-cloudflare-warp.nix
     ../nixos/_1password-wrapper.nix
