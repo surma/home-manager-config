@@ -1,17 +1,34 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../home-manager/base.nix
-    ../home-manager/linux.nix
-    ../home-manager/workstation.nix
-    ../home-manager/nixdev.nix
-    ../home-manager/javascript.nix
-    ../home-manager/dev.nix
+    ../system-manager/base.nix
   ];
 
-  home.stateVersion = "24.05";
+  environment.etc = {
+    "hostname".text = "surmpi";
+  };
 
-  home.packages = (with pkgs; [ syncthing ]);
+  system-manager.allowAnyDistro = true;
 
-  home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmpi";
+  home-manager.users.surma =
+    { config, ... }:
+    {
+      imports = [
+        ../home-manager/base.nix
+        ../home-manager/linux.nix
+        ../home-manager/workstation.nix
+        ../home-manager/nixdev.nix
+        ../home-manager/javascript.nix
+        ../home-manager/dev.nix
+      ];
+
+      config = {
+
+        home.stateVersion = "24.05";
+
+        home.packages = (with pkgs; [ syncthing ]);
+
+        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmpi";
+      };
+    };
 }

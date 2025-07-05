@@ -1,15 +1,53 @@
-{ nixpkgs, home-manager, ... }@inputs:
-{ system, machine }:
+{
+  nixpkgs,
+  nix-darwin,
+  home-manager,
+  system-manager,
+  nix-system-graphics,
+  ...
+}@inputs:
+{ machine, system }:
 let
-  pkgs = nixpkgs.legacyPackages.${system};
+
+  userModule =
+    { lib, ... }:
+    with lib;
+    {
+      options = {
+        # users = mkOption {
+        #   type = types.attrsOf types.unspecified;
+        #   default = null;
+        #   description = "Currently a no-op, but present for home-manager compatibilty";
+        # };
+      };
+      config = {
+        users.users.surma = {
+          name = "surma";
+          home = "/home/surma";
+        };
+      };
+    };
+
+  extraModule = {
+    nixpkgs.hostPlatform = system;
+    # home-manager.extraSpecialArgs = {
+    #     inherit inputs system;
+    #     systemManager = "home-manager";
+    # };
+  };
 in
-home-manager.lib.homeManagerConfiguration {
-  inherit pkgs;
-
-  modules = [ machine ];
-
+system-manager.lib.makeSystemConfig {
+  modules = [
+    nix-system-graphics.systemModules.default
+    # home-manager.nixosModules.home-manager
+    ./system-manager/home-manager.nix
+    # ./system-manager/old-home-manager.nix
+    userModule
+    machine
+    extraModule
+  ];
   extraSpecialArgs = {
     inherit inputs system;
-    systemManager = "home-manager";
+    systemManager = "system-manager";
   };
 }
