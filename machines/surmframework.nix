@@ -44,6 +44,8 @@
       settings = {
         main = {
           capslock = "overload(meh, escape)";
+          leftalt = "leftmeta";
+          leftmeta = "leftalt";
         };
         "meh:C-A-M" = { };
       };
