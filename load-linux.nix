@@ -1,7 +1,4 @@
 {
-  nixpkgs,
-  nix-darwin,
-  home-manager,
   system-manager,
   nix-system-graphics,
   ...
@@ -12,9 +9,18 @@ system-manager.lib.makeSystemConfig {
     nix-system-graphics.systemModules.default
     ./system-manager/home-manager.nix
     machine
-    {
-      nixpkgs.hostPlatform = system;
-    }
+    (
+      { pkgs, ... }:
+      {
+        nixpkgs.hostPlatform = system;
+        environment.systemPackages = [
+          system-manager.packages.${system}.default
+        ];
+        environment.etc."zprofile".text = ''
+          emulate sh -c "source /etc/profile"
+        '';
+      }
+    )
   ];
   extraSpecialArgs = {
     inherit inputs system;
