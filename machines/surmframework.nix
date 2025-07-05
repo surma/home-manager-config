@@ -183,6 +183,7 @@
         programs.opencode.enable = true;
         defaultConfigs.opencode.enable = true;
         programs.claude-code.enable = true;
+        defaultConfigs.claude-code.enable = true;
 
         wayland.windowManager.hyprland.enable = true;
         defaultConfigs.hyprland.enable = true;

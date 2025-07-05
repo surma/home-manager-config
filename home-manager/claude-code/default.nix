@@ -8,6 +8,8 @@ let
   inherit (config.programs) claude-code;
   inherit (pkgs) writeShellScriptBin callPackage;
 
+  orElse = def: v: if v == null then def else v;
+
   package = callPackage (import ../../extra-pkgs/claude-code) { };
 
   mcpServerType = import ../../lib/module-types/mcp-server.nix lib;
@@ -15,28 +17,45 @@ let
   defaultClaudeJson =
     {
       hasCompletedOnboarding = true;
-      # mcps = claude-code.mcps
+      mcps = claude-code.mcps;
     }
     |> builtins.toJSON
     |> builtins.toFile "dot-claude-json";
 
   wrapper = writeShellScriptBin "claude" ''
-    export ANTHROPIC_BASE_URL="https://proxy.shopify.ai/vendors/anthropic-claude-code"
-    # export ANTHROPIC_API_KEY=$(/opt/dev/bin/dev llm-gateway print-token --key)
+    ${lib.optionalString (claude-code.overrides.baseURL != null) ''
+      export ANTHROPIC_BASE_URL="${claude-code.overrides.baseURL}"
+    ''}
+    ${lib.optionalString (claude-code.overrides.apiKey != null) ''
+      export ANTHROPIC_API_KEY=${claude-code.overrides.apiKey}
+    ''}
     ${claude-code.package}/bin/claude "$@"
   '';
 in
 with lib;
 {
+
+  imports = [
+    ./default-config.nix
+  ];
+
   options = {
     programs.claude-code = {
       enable = mkEnableOption "";
+      overrides.baseURL = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
+      overrides.apiKey = mkOption {
+        type = with types; nullOr str;
+        default = null;
+      };
       package = mkOption {
         type = types.package;
         default = package;
       };
       mcps = mkOption {
-        type = types.attrsOf types.attrs;
+        type = types.attrsOf mcpServerType;
         default = { };
       };
     };
