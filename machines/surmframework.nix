@@ -44,8 +44,11 @@
     treat-as-internal-keyboard = true;
     keyboards.default = {
       settings = {
+        global = {
+          overload_tap_timeout = 200;
+        };
         main = {
-          capslock = "overload(meh, escape)";
+          capslock = "timeout(escape, 200, overload(meh, escape))";
           leftalt = "leftmeta";
           leftmeta = "leftalt";
         };
