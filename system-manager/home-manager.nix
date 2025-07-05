@@ -1,5 +1,9 @@
+# This file is pretty much this file[1] from home manager
+# with slight adaptations.
+# [1]: https://github.com/nix-community/home-manager/blob/master/nixos/default.nix
 {
   config,
+  system,
   inputs,
   lib,
   pkgs,
@@ -24,7 +28,12 @@ in
   config = lib.mkMerge [
     {
       home-manager = {
-        extraSpecialArgs.systemManagerConfig = config;
+        extraSpecialArgs = {
+          inherit system inputs;
+          systemManagerConfig = config;
+          systemManager = "home-manager";
+        };
+
         # TODO: Is this needed?
         # extraSpecialArgs.nixosConfig = config;
 

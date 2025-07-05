@@ -10,6 +10,11 @@
 
   system-manager.allowAnyDistro = true;
 
+  users.users.surma = {
+    name = "surma";
+    home = "/home/surma";
+  };
+
   home-manager.users.surma =
     { config, ... }:
     {
