@@ -1,12 +1,9 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../system-manager/base.nix
   ];
 
-  environment.etc = {
-    "hostname".text = "surmpi";
-  };
+  networking.hostName = "surmpi";
 
   system-manager.allowAnyDistro = true;
 
