@@ -95,8 +95,12 @@ with lib;
           action.layoutMsg = "mfact +0.01";
         }
         {
-          key = "$meh SHIFT, F";
+          key = "$meh SHIFT, slash";
           action.toggleFloating = true;
+        }
+        {
+          key = "$meh SHIFT, equal";
+          action.text = "fullscreen";
         }
         {
           key = "$meh, grave";

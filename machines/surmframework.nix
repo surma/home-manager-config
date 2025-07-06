@@ -45,10 +45,10 @@
     keyboards.default = {
       settings = {
         global = {
-          overload_tap_timeout = 200;
+          overload_tap_timeout = 100;
         };
         main = {
-          capslock = "timeout(escape, 200, overload(meh, escape))";
+          capslock = "timeout(escape, 100, overload(meh, escape))";
           leftalt = "leftmeta";
           leftmeta = "leftalt";
         };
@@ -115,6 +115,11 @@
 
         ../home-manager/opencode
         ../home-manager/claude-code
+        ../home-manager/hyprland
+        ../home-manager/hyprsunset
+        ../home-manager/syncthing
+        ../home-manager/waybar
+        ../home-manager/hyprpaper
 
         ../home-manager/base.nix
         ../home-manager/dev.nix
@@ -124,11 +129,6 @@
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
         ../home-manager/experiments.nix
-
-        ../home-manager/hyprland
-        ../home-manager/hyprsunset
-        ../home-manager/syncthing
-        ../home-manager/waybar
 
         ../home-manager/unfree-apps.nix
         ../home-manager/webapps.nix
@@ -152,6 +152,7 @@
             chromium
             kdePackages.dolphin
             vlc
+            qview
           ]
         );
 
@@ -214,6 +215,8 @@
         programs.waybar.enable = true;
         defaultConfigs.waybar.enable = true;
         programs.hyprsunset.enable = true;
+        programs.hyprpaper.enable = true;
+        defaultConfigs.hyprpaper.enable = true;
 
         services.blueman-applet.enable = true;
         services.dunst.enable = true;

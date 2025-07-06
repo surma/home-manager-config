@@ -6,7 +6,7 @@
 
   networking.networkmanager.settings = {
     wifi = {
-      roam-threshold = "-75";
+      roam-threshold = "-60";
       fast-transition = "false";
       scan-rand-mac-address = "false";
     };
