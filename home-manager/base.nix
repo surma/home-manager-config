@@ -10,6 +10,7 @@ in
 {
 
   imports = [
+    ../scripts
     ./zellij.nix
   ];
 
@@ -38,7 +39,6 @@ in
     ]
     ++ [ (callPackage (import ../extra-pkgs/dprint) { }) ]
     ++ [
-      (callPackage (import ../scripts) { })
       (callPackage (import ../secrets) { })
     ];
 
@@ -47,42 +47,29 @@ in
       pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
     '';
   };
-  xdg.configFile = {
-    "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
-  };
 
   home.sessionVariables = {
     EDITOR = "hx";
   };
 
+  customScripts.hms.enable = true;
+  customScripts.denix.enable = true;
+  customScripts.ghclone.enable = true;
+
   programs.home-manager.enable = true;
-
-  programs.bat = {
-    enable = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
+  programs.bat.enable = true;
+  programs.zoxide.enable = true;
+  programs.zoxide.enableZshIntegration = true;
+  programs.fzf.enable = true;
+  programs.fzf.enableZshIntegration = true;
   programs.eza = {
     enable = true;
     icons = "auto";
     git = true;
   };
-
   programs.helix = import ../configs/helix.nix;
-
   programs.ripgrep.enable = true;
-  programs.starship = {
-    enable = true;
-  };
+  programs.starship.enable = true;
   programs.zsh = import ../configs/zsh.nix;
   programs.ssh = {
     enable = true;
@@ -94,5 +81,4 @@ in
       };
     };
   };
-
 }

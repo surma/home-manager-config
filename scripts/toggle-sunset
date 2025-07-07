@@ -1,10 +1,19 @@
 #!/usr/bin/env nu
 
-let temp = (hyprctl hyprsunset temperature | into int)
-if $temp < 6500 {
-  hyprctl hyprsunset temperature 6500
-  hyprctl hyprsunset gamma 100
+let cur_temp = (hyprctl hyprsunset temperature | into int)
+let day = {
+  temp: 6000,
+  gamma: 100
+}
+let night = {
+  temp: 4000,
+  gamma: 70
+}
+let isNight = $cur_temp < $day.temp
+if $isNight {
+  hyprctl hyprsunset temperature $day.temp
+  hyprctl hyprsunset gamma $day.gamma
 } else {
-  hyprctl hyprsunset temperature 4000
+  hyprctl hyprsunset temperature $night.temp
   hyprctl hyprsunset gamma 70
 }

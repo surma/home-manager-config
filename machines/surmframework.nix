@@ -122,6 +122,8 @@
         ../home-manager/waybar
         ../home-manager/hyprpaper
 
+        ../scripts
+
         ../home-manager/base.nix
         ../home-manager/dev.nix
         ../home-manager/gamedev.nix
@@ -144,6 +146,11 @@
           "claude-code"
           "obsidian"
         ];
+
+        customScripts.toggle-sunset.enable = true;
+        customScripts.toggle-sunset.asDesktopItem = true;
+        customScripts.fix-bluetooth.enable = true;
+        customScripts.fix-bluetooth.asDesktopItem = true;
 
         home.packages = (
           with pkgs;
