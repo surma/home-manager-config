@@ -174,7 +174,7 @@
 
         home.stateVersion = "24.05";
 
-        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
+        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/src/github.com/surma/nixenv#surmframework";
 
         programs.spotify.enable = true;
         programs.spotify.platform = "wayland";

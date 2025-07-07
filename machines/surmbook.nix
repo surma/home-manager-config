@@ -51,7 +51,7 @@ in
 
       home.stateVersion = "24.05";
 
-      home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmbook";
+      home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/src/github.com/surma/nixenv#surmbook";
 
       allowedUnfreeApps = [
         "spotify"
@@ -65,7 +65,6 @@ in
         ++ [
           (callPackage (import ../extra-pkgs/ollama) { })
           (callPackage (import ../extra-pkgs/jupyter) { })
-          # (callPackage (import ../extra-pkgs/vfkit) {
           (callPackage (import ../extra-pkgs/qbittorrent) { })
           (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
         ];

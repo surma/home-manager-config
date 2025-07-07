@@ -32,7 +32,7 @@
 
         home.packages = (with pkgs; [ syncthing ]);
 
-        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmpi";
+        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/src/github.com/surma/nixenv#surmpi";
 
         programs.claude-code.enable = true;
         defaultConfigs.claude-code.enable = true;
