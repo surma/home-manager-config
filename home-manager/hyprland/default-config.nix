@@ -124,13 +124,13 @@ with lib;
         }
         {
           key = ",XF86AudioRaiseVolume";
-          action.exec = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
+          action.exec = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+";
           flags.e = true;
           flags.l = true;
         }
         {
           key = ",XF86AudioLowerVolume";
-          action.exec = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          action.exec = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-";
           flags.e = true;
           flags.l = true;
         }
