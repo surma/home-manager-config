@@ -42,7 +42,8 @@
   services.keyd = {
     enable = true;
     treat-as-internal-keyboard = true;
-    keyboards.default = {
+    keyboards."internal" = {
+      ids = [ "0001:0001" ];
       settings = {
         global = {
           overload_tap_timeout = 100;
