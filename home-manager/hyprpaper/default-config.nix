@@ -5,7 +5,10 @@
   ...
 }:
 let
-  defaultWallpaper = ../../wallpapers/manifold0.jpg;
+  src = ../../wallpapers;
+  wallpapers = builtins.readDir src;
+  defaultWallpaper = wallpapers |> lib.attrNames |> (l: lib.elemAt l 0);
+  defaultWallpaperPath = "${src}/${defaultWallpaper}";
 in
 with lib;
 {
@@ -16,8 +19,8 @@ with lib;
   };
   config = mkIf (config.defaultConfigs.hyprpaper.enable) {
     xdg.configFile."hypr/hyprpaper.conf".text = ''
-      preload = ${defaultWallpaper}
-      wallpaper =,${defaultWallpaper}
+      preload = ${defaultWallpaperPath}
+      wallpaper = ,${defaultWallpaperPath}
     '';
   };
 }
