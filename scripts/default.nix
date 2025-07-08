@@ -15,6 +15,10 @@ let
 
   src = ./.;
   scripts = builtins.readDir src |> lib.filterAttrs (name: _v: !lib.strings.hasSuffix ".nix" name);
+
+  makeCrossPlatformDesktopItem =
+    pkgs.callPackage (import ../lib/make-cross-platform-desktop-item.nix)
+      { };
 in
 {
   options = {
@@ -47,7 +51,7 @@ in
               chmod +x $out/bin/*
             '';
           };
-          desktopItem = makeDesktopItem {
+          desktopItem = makeCrossPlatformDesktopItem {
             inherit name;
             desktopName = name;
             exec = "${script}/bin/${name}";
