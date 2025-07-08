@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (pkgs) callPackage;
 in
@@ -25,13 +30,14 @@ in
   programs.obs.enable = true;
 
   home-manager.users.${config.system.primaryUser} =
-    { config, amber-upstream, ... }:
+    { config, inputs, ... }:
     {
       imports = [
         ../common/spotify
         ../common/telegram
 
-        ../home-manager/opencode.nix
+        ../home-manager/opencode
+        ../home-manager/claude-code
 
         ../home-manager/unfree-apps.nix
 
@@ -44,7 +50,6 @@ in
         ../home-manager/experiments.nix
         ../home-manager/cloud.nix
         ../home-manager/nixdev.nix
-        ../home-manager/opencode-defaults.nix
         ../home-manager/javascript.nix
         ../home-manager/dev.nix
       ];
@@ -66,11 +71,15 @@ in
           (callPackage (import ../extra-pkgs/ollama) { })
           (callPackage (import ../extra-pkgs/jupyter) { })
           (callPackage (import ../extra-pkgs/qbittorrent) { })
-          (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
+          (callPackage (import ../extra-pkgs/amber) { amber-upstream = inputs.amber-upstream; })
         ];
 
       programs.spotify.enable = true;
       programs.telegram.enable = true;
+      programs.opencode.enable = true;
+      defaultConfigs.opencode.enable = true;
+      programs.claude-code.enable = true;
+      defaultConfigs.claude-code.enable = true;
 
       xdg.configFile = {
         "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };

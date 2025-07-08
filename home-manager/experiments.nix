@@ -12,8 +12,8 @@ in
 {
   home.packages =
     (with pkgs; [
-      kdePackages.kdenlive
-      ansel
+      # kdePackages.kdenlive
+      # ansel
     ])
     ++ [
     ];
