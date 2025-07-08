@@ -21,8 +21,10 @@ if stdenv.isDarwin then
     text = ''
       #!${bash}/bin/bash
       exec ${exec}
-      ${lib.strings.replicate 28 " "}
-		'';
+      # Weirdly, the file needs to be longer than 28 bytes for MacOS to
+      # respect it. This comment alone makes it longer, but you know...
+      # ${lib.strings.replicate 28 " "}
+    '';
   }
 else
   makeDesktopItem { inherit name desktopName exec; }

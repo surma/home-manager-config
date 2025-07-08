@@ -84,6 +84,8 @@ in
       customScripts.hms.enable = true;
       customScripts.denix.enable = true;
       customScripts.ghclone.enable = true;
+      customScripts.wallpaper-shuffle.enable = true;
+      customScripts.wallpaper-shuffle.asDesktopItem = true;
 
       xdg.configFile = {
         "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };

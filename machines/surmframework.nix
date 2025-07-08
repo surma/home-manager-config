@@ -149,8 +149,8 @@
 
         customScripts.toggle-sunset.enable = true;
         customScripts.toggle-sunset.asDesktopItem = true;
-        customScripts.fix-bluetooth.enable = true;
-        customScripts.fix-bluetooth.asDesktopItem = true;
+        customScripts.bluetooth-fix.enable = true;
+        customScripts.bluetooth-fix.asDesktopItem = true;
 
         home.packages = (
           with pkgs;

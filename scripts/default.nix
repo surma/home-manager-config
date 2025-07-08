@@ -42,6 +42,7 @@ in
           script = stdenv.mkDerivation {
             name = "custom-script-${name}";
             src = "${src}/${name}";
+            nixenvsrc = ../.;
             dontUnpack = true;
             buildInputs = [ nushell ];
             installPhase = ''
@@ -49,6 +50,8 @@ in
               cp $src $out/bin
               patchShebangs $out/bin/*
               chmod +x $out/bin/*
+
+              substituteInPlace $out/bin/* --replace "@NIXENVSRC@" "$nixenvsrc"
             '';
           };
           desktopItem = makeCrossPlatformDesktopItem {
