@@ -42,7 +42,7 @@ writeShellScriptBin "jupyter-start" ''
   source venv/bin/activate
   pip install ipykernel
   mkdir -p venv/conf/kernels/python
-  cat << EOF
+  cat << EOF > venv/conf/kernels/python
   {
    "argv": [
     "python",
@@ -57,7 +57,11 @@ writeShellScriptBin "jupyter-start" ''
     "debugger": true
     }
   }
-  EOF > venv/conf/kernels/python
+  EOF
   export JUPYTER_PATH="$PWD/venv/conf:${kernels}:$JUPYTER_PATH"
+  echo =====
+  echo $PATH
+  echo =====
+  export PATH
   ${python}/bin/jupyter lab --no-browser
 ''
