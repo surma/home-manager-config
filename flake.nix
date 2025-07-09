@@ -41,14 +41,17 @@
       system-manager,
       nix-system-graphics,
       nixos-hardware,
+      home-manager,
       ...
     }:
     let
+      loadHomeManager = import ./load-home-manager.nix inputs;
       loadLinux = import ./load-linux.nix inputs;
       loadDarwin = import ./load-darwin.nix inputs;
       loadAndroid = import ./load-android.nix inputs;
+      loadNixos = import ./load-nixos.nix inputs;
     in
-    rec {
+    {
       darwinConfigurations = {
         surmbook = loadDarwin {
           system = "aarch64-darwin";
@@ -60,25 +63,26 @@
         };
       };
 
-      # systemConfigs = {
-      #   surmframework = system-manager.lib.makeSystemConfig {
-      #     modules = [
-      #       nix-system-graphics.systemModules.default
-      #       ./system-manager/base.nix
-      #     ];
-      #   };
-      # };
-
-      homeConfigurations = {
+      systemConfigs = {
         surmpi = loadLinux {
           system = "aarch64-linux";
           machine = ./machines/surmpi.nix;
         };
-        surmserver = loadLinux {
+
+        # surmframework = {
+        #   modules = [
+        #     nix-system-graphics.systemModules.default
+        #     ./system-manager/base.nix
+        #   ];
+        # };
+      };
+
+      homeConfigurations = {
+        surmserver = loadHomeManager {
           system = "aarch64-linux";
           machine = ./machines/surmserver.nix;
         };
-        generic-aarch64-linux = loadLinux {
+        generic-aarch64-linux = loadHomeManager {
           system = "aarch64-linux";
           machine = ./machines/generic-linux.nix;
         };
@@ -96,12 +100,9 @@
       };
 
       nixosConfigurations = {
-        surmframework = nixpkgs.lib.nixosSystem rec {
+        surmframework = loadNixos {
           system = "x86_64-linux";
-          modules = [
-            ./machines/surmframework.nix
-          ];
-          specialArgs = { inherit inputs system; };
+          machine = ./machines/surmframework.nix;
         };
       };
     }
@@ -109,7 +110,9 @@
       packages = {
         jupyterDeno = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/jupyter { };
         opencode = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/opencode { };
+        claude = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/claude-code { };
         fetch-mcp = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/fetch-mcp { };
+        browser-mcp = nixpkgs.legacyPackages.${system}.callPackage ./extra-pkgs/browser-mcp { };
       };
       apps = {
         jupyterDeno = {

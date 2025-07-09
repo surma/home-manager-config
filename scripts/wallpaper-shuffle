@@ -1,0 +1,9 @@
+#!/usr/bin/env nu
+
+let photo = (ls "@NIXENVSRC@/wallpapers" | shuffle | get 0.name)
+if (sys host | get name) == "Darwin" {
+  osascript -e $"tell application \"System Events\" to set picture of every desktop to \"($photo)\""
+} else {
+  hyprctl hyprpaper preload $photo
+  hyprctl hyprpaper wallpaper $photo
+}

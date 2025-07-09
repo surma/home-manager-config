@@ -12,7 +12,8 @@ in
 {
   home.packages =
     (with pkgs; [
-      (callPackage (import ../extra-pkgs/opencode) { })
+      # kdePackages.kdenlive
+      # ansel
     ])
     ++ [
     ];

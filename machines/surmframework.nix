@@ -13,21 +13,79 @@
     inputs.home-manager.nixosModules.home-manager
     ../nixos/base.nix
     ../nixos/hyprland.nix
+
+    ../common/signal
+    ../common/obs
+    ../common/keyd-as-internal
+
+    ../nixos/obs-virtual-camera-fix.nix
+
+    ../nixos/framework/suspend-fix.nix
+    ../nixos/framework/wifi-fix.nix
+
+    ../nixos/shopify-cloudflare-warp.nix
+    ../nixos/_1password-wrapper.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernel.sysctl = {
+    "kernel.dmesg_restrict" = 0;
+  };
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
+  services.libinput.touchpad.disableWhileTyping = true;
+
+  services.keyd = {
+    enable = true;
+    treat-as-internal-keyboard = true;
+    keyboards."internal" = {
+      ids = [ "0001:0001" ];
+      settings = {
+        global = {
+          overload_tap_timeout = 100;
+        };
+        main = {
+          capslock = "timeout(escape, 100, overload(meh, escape))";
+          leftalt = "leftmeta";
+          leftmeta = "leftalt";
+        };
+        "meh:C-A-M" = { };
+      };
+    };
+  };
 
   networking.hostName = "surmframework"; # Define your hostname.
   allowedUnfreeApps = [
     "1password"
-    "spotify"
+    "1password-cli"
   ];
   environment.systemPackages = with pkgs; [
-    spotify
+    hyprpolkitagent
+    keyd
+    hyprlock
+    tailscale
+    pavucontrol
+    hyprsunset
+    pciutils
+    usbutils
   ];
 
+  services.tailscale.enable = true;
+
+  programs._1password.enable = true;
   programs._1password-gui.enable = true;
+  programs._1password-gui.polkitPolicyOwners = [ "surma" ];
+  programs.obs.enable = true;
+  programs.obs.virtualCameraFix = true;
+  programs.firefox.enable = true;
+  programs.signal.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.services.hyprlock = { };
 
   users.users.surma = {
     isNormalUser = true;
@@ -36,6 +94,8 @@
       "networkmanager"
       "wheel"
       "input"
+      "video"
+      "audio"
     ];
     shell = pkgs.zsh;
   };
@@ -49,6 +109,21 @@
     }:
     {
       imports = [
+        ../common/spotify
+        ../common/discord
+        ../common/telegram
+        ../common/obsidian
+
+        ../home-manager/opencode
+        ../home-manager/claude-code
+        ../home-manager/hyprland
+        ../home-manager/hyprsunset
+        ../home-manager/syncthing
+        ../home-manager/waybar
+        ../home-manager/hyprpaper
+
+        ../scripts
+
         ../home-manager/base.nix
         ../home-manager/dev.nix
         ../home-manager/gamedev.nix
@@ -57,88 +132,107 @@
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
         ../home-manager/experiments.nix
-        ../home-manager/opencode-defaults.nix
-
-        ../home-manager/wezterm.nix
-        ../home-manager/hyprland.nix
-        ../home-manager/waybar.nix
 
         ../home-manager/unfree-apps.nix
+        ../home-manager/webapps.nix
+        ../home-manager/screenshot.nix
       ];
 
       config = {
-        allowedUnfreeApps = [ "slack" ];
+        allowedUnfreeApps = [
+          "spotify"
+          "slack"
+          "discord"
+          "claude-code"
+          "obsidian"
+        ];
+
+        customScripts.toggle-sunset.enable = true;
+        customScripts.toggle-sunset.asDesktopItem = true;
+        customScripts.bluetooth-fix.enable = true;
+        customScripts.bluetooth-fix.asDesktopItem = true;
 
         home.packages = (
           with pkgs;
           [
-            signal-desktop
-            telegram-desktop
             slack
             nodejs_24
             chromium
+            kdePackages.dolphin
+            vlc
+            qview
           ]
         );
 
+        gtk = {
+          enable = true;
+          iconTheme = {
+            name = "Papirus-Dark";
+            package = pkgs.papirus-icon-theme;
+          };
+        };
+
         home.stateVersion = "24.05";
 
-        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmframework";
+        home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/src/github.com/surma/nixenv#surmframework";
 
+        programs.spotify.enable = true;
+        programs.spotify.platform = "wayland";
+        programs.discord.enable = true;
+        programs.discord.platform = "wayland";
+        programs.telegram.enable = true;
+        programs.whatsapp.enable = true;
+        programs.squoosh.enable = true;
+        programs.geforce-now.enable = true;
+        programs.xbox-remote-play.enable = true;
+        programs.obsidian.enable = true;
+
+        programs.wezterm.enable = true;
         programs.wezterm.frontend = "OpenGL";
         programs.wezterm.theme = "dark";
+        programs.wezterm.fontSize = 10;
         programs.wezterm.window-decorations = null;
-        programs.waybar.enable = true;
+        defaultConfigs.wezterm.enable = true;
+
         programs.zellij.wl-clipboard.enable = true;
-        wayland.windowManager.hyprland = {
-          enable = true;
-          commands = [
-            {
-              variable = "terminal";
-              package = pkgs.wezterm;
-            }
-            {
-              variable = "lockScreen";
-              package = pkgs.hyprlock;
-            }
-            rec {
-              variable = "fileManager";
-              package = pkgs.kdePackages.dolphin;
-              bin = "${package}/bin/dolphin";
-            }
-            {
-              variable = "appMenu";
-              package = pkgs.wofi;
-              args = [
-                "--show"
-                "drun"
-              ];
-            }
-          ];
-          execShortcuts = [
-            {
-              key = "T";
-              command = "$terminal";
-            }
-            {
-              key = "L";
-              extraMods = "SHIFT";
-              command = "$lockScreen";
-            }
-            {
-              key = "F";
-              command = "$fileManager";
-            }
-            {
-              key = "Space";
-              command = "$appMenu";
-            }
-          ];
-        };
+
+        services.syncthing.enable = true;
+        defaultConfigs.syncthing.enable = true;
+
+        programs.opencode.enable = true;
+        defaultConfigs.opencode.enable = true;
+        programs.claude-code.enable = true;
+        defaultConfigs.claude-code.enable = true;
+
+        wayland.windowManager.hyprland.enable = true;
+        defaultConfigs.hyprland.enable = true;
+        wayland.windowManager.hyprland.bindings = [
+          {
+            key = "SHIFT,XF86MonBrightnessUp";
+            action.exec = "brightnessctl -d framework_laptop::kbd_backlight set 5%+";
+            flags.e = true;
+            flags.l = true;
+          }
+          {
+            key = "SHIFT,XF86MonBrightnessDown";
+            action.exec = "brightnessctl -d framework_laptop::kbd_backlight set 5%-";
+            flags.e = true;
+            flags.l = true;
+          }
+        ];
+        programs.waybar.enable = true;
+        defaultConfigs.waybar.enable = true;
+        programs.hyprsunset.enable = true;
+        programs.hyprpaper.enable = true;
+        defaultConfigs.hyprpaper.enable = true;
+
+        services.blueman-applet.enable = true;
+        services.dunst.enable = true;
       };
     };
 
-  programs.firefox.enable = true;
   services.fprintd.enable = true;
+  services.udisks2.enable = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }

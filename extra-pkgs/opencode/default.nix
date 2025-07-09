@@ -1,5 +1,6 @@
 {
   system,
+  stdenv,
   ...
 }:
 let
@@ -18,10 +19,18 @@ let
 
   meta = opencodeMeta.${system};
 
-  package = fetchTarball {
+  src = fetchTarball {
     url = "https://registry.npmjs.org/opencode-${meta.platform}/-/opencode-${meta.platform}-${version}.tgz";
     sha256 = meta.hash;
   };
 in
 
-package
+stdenv.mkDerivation {
+  pname = "opencode";
+  inherit version src;
+
+  installPhase = ''
+    mkdir -p $out/bin
+    cp -r . $out/
+  '';
+}

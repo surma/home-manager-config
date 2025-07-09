@@ -3,11 +3,11 @@
   nix-darwin,
   home-manager,
   ...
-}@args:
+}@inputs:
 { machine, system }:
 let
   extraModule =
-    { config, lib, ... }:
+    { config, ... }:
     {
       config = {
         users.users.${config.system.primaryUser} = {
@@ -17,17 +17,23 @@ let
 
         home-manager = {
           backupFileExtension = "bak";
-          extraSpecialArgs = args;
+          extraSpecialArgs = {
+            inherit inputs;
+            systemManager = "home-manager";
+          };
         };
       };
     };
 in
-
 nix-darwin.lib.darwinSystem {
-  system = system;
+  inherit system;
   modules = [
     machine
     home-manager.darwinModules.home-manager
     extraModule
   ];
+  specialArgs = {
+    inherit inputs system;
+    systemManager = "nix-darwin";
+  };
 }

@@ -2,15 +2,14 @@
   nixpkgs,
   nix-on-droid,
   home-manager,
-  # lib,
   ...
-}@args:
+}@inputs:
 {
   system,
   machine,
 }:
 let
-  pkgs = import args.nixpkgs {
+  pkgs = import nixpkgs {
     inherit system;
 
     overlays = [
@@ -39,10 +38,12 @@ nix-on-droid.lib.nixOnDroidConfiguration {
 
             };
           };
-
-        extraSpecialArgs = args;
       };
     }
   ];
   home-manager-path = home-manager.outPath;
+  specialArgs = {
+    inherit inputs system;
+    systemManager = "nix-on-droid";
+  };
 }

@@ -1,10 +1,18 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (pkgs) callPackage;
 in
 {
   imports = [
     ../darwin/base.nix
+
+    ../common/signal
+    ../common/obs
   ];
 
   system.stateVersion = 5;
@@ -18,11 +26,18 @@ in
 
   ids.gids.nixbld = 30000;
 
+  programs.signal.enable = true;
+  programs.obs.enable = true;
+
   home-manager.users.${config.system.primaryUser} =
-    { config, amber-upstream, ... }:
+    { config, inputs, ... }:
     {
       imports = [
-        ../home-manager/opencode.nix
+        ../common/spotify
+        ../common/telegram
+
+        ../home-manager/opencode
+        ../home-manager/claude-code
 
         ../home-manager/unfree-apps.nix
 
@@ -35,14 +50,17 @@ in
         ../home-manager/experiments.nix
         ../home-manager/cloud.nix
         ../home-manager/nixdev.nix
-        ../home-manager/opencode-defaults.nix
         ../home-manager/javascript.nix
         ../home-manager/dev.nix
       ];
 
       home.stateVersion = "24.05";
 
-      home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/.config/home-manager#surmbook";
+      home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/src/github.com/surma/nixenv#surmbook";
+
+      allowedUnfreeApps = [
+        "spotify"
+      ];
 
       home.packages =
         (with pkgs; [
@@ -52,9 +70,27 @@ in
         ++ [
           (callPackage (import ../extra-pkgs/ollama) { })
           (callPackage (import ../extra-pkgs/jupyter) { })
-          # (callPackage (import ../extra-pkgs/vfkit) {
           (callPackage (import ../extra-pkgs/qbittorrent) { })
-          (callPackage (import ../extra-pkgs/amber) { inherit amber-upstream; })
+          (callPackage (import ../extra-pkgs/amber) { amber-upstream = inputs.amber-upstream; })
         ];
+
+      programs.spotify.enable = true;
+      programs.telegram.enable = true;
+      programs.opencode.enable = true;
+      defaultConfigs.opencode.enable = true;
+      programs.claude-code.enable = true;
+      defaultConfigs.claude-code.enable = true;
+
+      customScripts.hms.enable = true;
+      customScripts.denix.enable = true;
+      customScripts.ghclone.enable = true;
+      customScripts.wallpaper-shuffle.enable = true;
+      customScripts.wallpaper-shuffle.asDesktopItem = true;
+
+      xdg.configFile = {
+        "dump/config.json".text = builtins.toJSON { server = "http://10.0.0.2:8081"; };
+      };
+
     };
+
 }
