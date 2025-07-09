@@ -7,12 +7,11 @@
   writeShellScriptBin,
 }:
 let
-  python = python3.withPackages (
-    ps: with ps; [
-      jupyter
-      ipython
-    ]
-  );
+  # NOTE: I tried to install jupyter via `python3.withPackages` previously,
+  # however that led jupyter *prepending* stuff to $PATH, which means it would
+  # only find the `pip` in the nix store (i.e read-only), rather than the one
+  # from the venv. So you couldn’t install packages from within the notebook.
+  python = python3;
 
   denoKernelSpec = {
     argv = [
@@ -25,7 +24,6 @@ let
     display_name = "Deno";
     language = "typescript";
   };
-
   denoKernelSpecFile = writeTextFile {
     name = "deno-kernel";
     destination = "/kernels/deno/kernel.json";
@@ -38,6 +36,9 @@ let
   };
 in
 writeShellScriptBin "jupyter-start" ''
+  ${python}/bin/python -m venv venv
+  source venv/bin/activate
+  pip install jupyter
   export JUPYTER_PATH="${kernels}:$JUPYTER_PATH"
-  ${python}/bin/jupyter lab --no-browser
+  jupyter lab --no-browser
 ''
