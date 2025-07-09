@@ -25,6 +25,9 @@ in
       imports = [
         ../common/spotify
 
+        ../home-manager/opencode
+        ../home-manager/claude-code
+
         ../home-manager/base.nix
         ../home-manager/graphical.nix
         ../home-manager/workstation.nix
@@ -40,7 +43,7 @@ in
 
       home.stateVersion = "24.05";
 
-      home.sessionVariables.FLAKE_CONFIG_URI = "path:${config.home.homeDirectory}/src/github.com/surma/nixenv#shopisurm";
+      home.sessionVariables.FLAKE_CONFIG_URI = "${config.home.homeDirectory}/src/github.com/surma/nixenv#shopisurm";
 
       allowedUnfreeApps = [
         "spotify"
@@ -57,6 +60,20 @@ in
         ++ [
           (callPackage (import ../extra-pkgs/ollama) { })
         ];
+
+      programs.opencode.enable = true;
+      defaultConfigs.opencode.enable = true;
+      programs.claude-code.enable = true;
+      defaultConfigs.claude-code.enable = true;
+
+      customScripts.hms.enable = true;
+      customScripts.denix.enable = true;
+      customScripts.ghclone.enable = true;
+      customScripts.wallpaper-shuffle.enable = true;
+      customScripts.wallpaper-shuffle.asDesktopItem = true;
+      customScripts.get-shopify-key.enable = true;
+      customScripts.update-shopify-key.enable = true;
+      customScripts.update-shopify-key.asDesktopItem = true;
 
       programs.spotify.enable = true;
       programs.git.extraConfig = {
