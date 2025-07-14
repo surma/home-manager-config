@@ -59,6 +59,7 @@ in
         ])
         ++ [
           (callPackage (import ../extra-pkgs/ollama) { })
+          (callPackage (import ../extra-pkgs/jupyter) { })
         ];
 
       programs.opencode.enable = true;

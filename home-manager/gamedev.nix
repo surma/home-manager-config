@@ -5,9 +5,9 @@
   ...
 }:
 {
-  allowedUnfreeApps = [ "aseprite" ];
+  # allowedUnfreeApps = [ "aseprite" ];
   home.packages = with pkgs; [
-    ldtk
+    # ldtk
     # aseprite
   ];
 }
